@@ -33,7 +33,14 @@ public class PlayerMove : MonoBehaviour
                 transform.Translate(Vector3.left * Time.deltaTime * lefRightSpeed * -1);
             }
         }
-        
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        {
+
+            {
+                transform.Translate(Vector3.forward * Time.deltaTime * lefRightSpeed);
+            }
+        }
+
     }
 
 
