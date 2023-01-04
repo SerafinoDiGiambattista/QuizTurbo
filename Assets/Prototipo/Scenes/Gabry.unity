@@ -629,8 +629,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1779595cba51fd1428ff3348186ac928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  internalLeft: -60
-  internalRight: 60
+  internalLeft: -4
+  internalRight: 4
 --- !u!114 &447818045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -997,6 +997,12 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &487444342 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7216874288300898760, guid: 66030baed8e969a45a0d327d35c432c3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1157711467}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &508144637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2323,12 +2329,12 @@ PrefabInstance:
     - target: {fileID: 188030281043199897, guid: 66030baed8e969a45a0d327d35c432c3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.26
+      value: 1.2600003
       objectReference: {fileID: 0}
     - target: {fileID: 188030281043199897, guid: 66030baed8e969a45a0d327d35c432c3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 188030281043199897, guid: 66030baed8e969a45a0d327d35c432c3,
         type: 3}
@@ -2338,7 +2344,7 @@ PrefabInstance:
     - target: {fileID: 188030281043199897, guid: 66030baed8e969a45a0d327d35c432c3,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.99999297
       objectReference: {fileID: 0}
     - target: {fileID: 188030281043199897, guid: 66030baed8e969a45a0d327d35c432c3,
         type: 3}
@@ -2348,7 +2354,7 @@ PrefabInstance:
     - target: {fileID: 188030281043199897, guid: 66030baed8e969a45a0d327d35c432c3,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.003750228
       objectReference: {fileID: 0}
     - target: {fileID: 188030281043199897, guid: 66030baed8e969a45a0d327d35c432c3,
         type: 3}
@@ -2363,7 +2369,7 @@ PrefabInstance:
     - target: {fileID: 188030281043199897, guid: 66030baed8e969a45a0d327d35c432c3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -0.43
       objectReference: {fileID: 0}
     - target: {fileID: 188030281043199897, guid: 66030baed8e969a45a0d327d35c432c3,
         type: 3}
@@ -2431,7 +2437,7 @@ MonoBehaviour:
   canvasDomanda: {fileID: 1045110074}
   textmeshPro: {fileID: 1044355889}
   fileInput: Assets/Prototipo/FileCSV/Quiz_Facili.csv
-  gameObject: {fileID: 1157711468}
+  gameObject: {fileID: 487444342}
 --- !u!65 &1157711471
 BoxCollider:
   m_ObjectHideFlags: 0

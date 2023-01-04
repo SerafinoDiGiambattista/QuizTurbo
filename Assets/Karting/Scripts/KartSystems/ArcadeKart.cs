@@ -57,40 +57,40 @@ namespace KartGame.KartSystems
             {
                 return new Stats
                 {
-                    Acceleration        = a.Acceleration + b.Acceleration,
-                    AccelerationCurve   = a.AccelerationCurve + b.AccelerationCurve,
-                    Braking             = a.Braking + b.Braking,
-                    CoastingDrag        = a.CoastingDrag + b.CoastingDrag,
-                    AddedGravity        = a.AddedGravity + b.AddedGravity,
-                    Grip                = a.Grip + b.Grip,
+                    Acceleration = a.Acceleration + b.Acceleration,
+                    AccelerationCurve = a.AccelerationCurve + b.AccelerationCurve,
+                    Braking = a.Braking + b.Braking,
+                    CoastingDrag = a.CoastingDrag + b.CoastingDrag,
+                    AddedGravity = a.AddedGravity + b.AddedGravity,
+                    Grip = a.Grip + b.Grip,
                     ReverseAcceleration = a.ReverseAcceleration + b.ReverseAcceleration,
-                    ReverseSpeed        = a.ReverseSpeed + b.ReverseSpeed,
-                    TopSpeed            = a.TopSpeed + b.TopSpeed,
-                    Steer               = a.Steer + b.Steer,
+                    ReverseSpeed = a.ReverseSpeed + b.ReverseSpeed,
+                    TopSpeed = a.TopSpeed + b.TopSpeed,
+                    Steer = a.Steer + b.Steer,
                 };
             }
         }
 
         public Rigidbody Rigidbody { get; private set; }
-        public InputData Input     { get; private set; }
-        public float AirPercent    { get; private set; }
+        public InputData Input { get; private set; }
+        public float AirPercent { get; private set; }
         public float GroundPercent { get; private set; }
 
         public ArcadeKart.Stats baseStats = new ArcadeKart.Stats
         {
-            TopSpeed            = 10f,
-            Acceleration        = 5f,
-            AccelerationCurve   = 4f,
-            Braking             = 10f,
+            TopSpeed = 10f,
+            Acceleration = 5f,
+            AccelerationCurve = 4f,
+            Braking = 10f,
             ReverseAcceleration = 5f,
-            ReverseSpeed        = 5f,
-            Steer               = 5f,
-            CoastingDrag        = 4f,
-            Grip                = .95f,
-            AddedGravity        = 1f,
+            ReverseSpeed = 5f,
+            Steer = 5f,
+            CoastingDrag = 4f,
+            Grip = .95f,
+            AddedGravity = 1f,
         };
 
-        [Header("Vehicle Visual")] 
+        [Header("Vehicle Visual")]
         public List<GameObject> m_VisualWheels;
 
         [Header("Vehicle Physics")]
@@ -199,7 +199,7 @@ namespace KartGame.KartSystems
                     if (vfx.sparks.isPlaying)
                         vfx.sparks.Stop(true, ParticleSystemStopBehavior.StopEmitting);
                 }
-                    
+
             }
 
             foreach (var trail in m_DriftTrailInstances)
@@ -306,7 +306,7 @@ namespace KartGame.KartSystems
                 groundedCount++;
 
             // calculate how grounded and airborne we are
-            GroundPercent = (float) groundedCount / 4.0f;
+            GroundPercent = (float)groundedCount / 4.0f;
             AirPercent = 1 - GroundPercent;
 
             // apply vehicle physics
@@ -414,36 +414,46 @@ namespace KartGame.KartSystems
         }
 
         void MoveVehicle(bool accelerate, bool brake, float turnInput)
-        {
+        {   //questa istruzione serve per verificare se accelera o frena
             float accelInput = (accelerate ? 1.0f : 0.0f) - (brake ? 1.0f : 0.0f);
 
             // manual acceleration curve coefficient scalar
             float accelerationCurveCoeff = 5;
+            //dovremmo cambiare questa istruzione poichè la velocità è constante non varia
             Vector3 localVel = transform.InverseTransformVector(Rigidbody.velocity);
 
             bool accelDirectionIsFwd = accelInput >= 0;
+            //questo non serve a motlo visto che la velocità è sempre true
             bool localVelDirectionIsFwd = localVel.z >= 0;
 
             // use the max speed for the direction we are going--forward or reverse.
+            //non serve a niente nel nostro caso perchè non andiamo indietro
             float maxSpeed = localVelDirectionIsFwd ? m_FinalStats.TopSpeed : m_FinalStats.ReverseSpeed;
+            //stessa cosa perchè la velocità è costante 
             float accelPower = accelDirectionIsFwd ? m_FinalStats.Acceleration : m_FinalStats.ReverseAcceleration;
 
+            //utile per capire quanto è veloce la macchina 
             float currentSpeed = Rigidbody.velocity.magnitude;
+            //utile per le rampe se le vogliao mettere 
             float accelRampT = currentSpeed / maxSpeed;
+            //utile per andare a destra e a sinistra 
             float multipliedAccelerationCurve = m_FinalStats.AccelerationCurve * accelerationCurveCoeff;
             float accelRamp = Mathf.Lerp(multipliedAccelerationCurve, 1, accelRampT * accelRampT);
 
+            //serve per frenare  se la velocità è zero l'accelerazione diversa da zero sognifica ceh stai cambiando senso
             bool isBraking = (localVelDirectionIsFwd && brake) || (!localVelDirectionIsFwd && accelerate);
 
             // if we are braking (moving reverse to where we are going)
             // use the braking accleration instead
+            //serve per l'accelerazione della retromarcia quindi non serve 
             float finalAccelPower = isBraking ? m_FinalStats.Braking : accelPower;
 
             float finalAcceleration = finalAccelPower * accelRamp;
 
             // apply inputs to forward/backward
+            //indica che sto curavndo con il booleano
             float turningPower = IsDrifting ? m_DriftTurningPower : turnInput * m_FinalStats.Steer;
-
+            //gira sull'asse y
             Quaternion turnAngle = Quaternion.AngleAxis(turningPower, transform.up);
             Vector3 fwd = turnAngle * transform.forward;
             Vector3 movement = fwd * accelInput * finalAcceleration * ((m_HasCollision || GroundPercent > 0.0f) ? 1.0f : 0.0f);
@@ -452,7 +462,7 @@ namespace KartGame.KartSystems
             bool wasOverMaxSpeed = currentSpeed >= maxSpeed;
 
             // if over max speed, cannot accelerate faster.
-            if (wasOverMaxSpeed && !isBraking) 
+            if (wasOverMaxSpeed && !isBraking)
                 movement *= 0.0f;
 
             Vector3 newVelocity = Rigidbody.velocity + movement * Time.fixedDeltaTime;
@@ -486,7 +496,7 @@ namespace KartGame.KartSystems
                 float angularVelocitySmoothSpeed = 20f;
 
                 // turning is reversed if we're going in reverse and pressing reverse
-                if (!localVelDirectionIsFwd && !accelDirectionIsFwd) 
+                if (!localVelDirectionIsFwd && !accelDirectionIsFwd)
                     angularVelocitySteering *= -1.0f;
 
                 var angularVel = Rigidbody.angularVelocity;
