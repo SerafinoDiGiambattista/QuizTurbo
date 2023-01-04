@@ -16,7 +16,7 @@ public class PlayerMove : MonoBehaviour
     //public GameObject explosion; // drag your explosion prefab here
 
     // Update is called once per frame
-    void FixedUpdate()
+  /*  void FixedUpdate()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed, Space.World);
         if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
@@ -41,11 +41,12 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-    }
+    }*/
 
 
     // TRIGGER: quindi lasciare che il personaggio attraversi gli oggetti oppure deve andare
     // a sbattere per poi riprendere il controllo del veicolo??????????????????????????????????????????????????
+   
     public GameObject gameObject;
     private int numBlink=3;
 

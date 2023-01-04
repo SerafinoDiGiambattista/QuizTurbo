@@ -123,6 +123,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!146 &21679449 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 22484882510148965, guid: 04dcb95f3f6864a489291869704e52cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1630402574}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &28705848
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -750,6 +756,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: 0}
+  m_PointAction: {fileID: 0}
+  m_MoveAction: {fileID: 0}
+  m_SubmitAction: {fileID: 0}
+  m_CancelAction: {fileID: 0}
+  m_LeftClickAction: {fileID: 0}
+  m_MiddleClickAction: {fileID: 0}
+  m_RightClickAction: {fileID: 0}
+  m_ScrollWheelAction: {fileID: 0}
+  m_TrackedDevicePositionAction: {fileID: 0}
+  m_TrackedDeviceOrientationAction: {fileID: 0}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
 --- !u!114 &234042207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1308,6 +1330,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ce0ea2030a24458eb9e3ec8fbae0a88, type: 3}
+--- !u!1 &433970708 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2619003167653249873, guid: 04dcb95f3f6864a489291869704e52cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1630402574}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &447818041
 GameObject:
   m_ObjectHideFlags: 0
@@ -3341,6 +3369,12 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!4 &907131956 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 22484882318982467, guid: 04dcb95f3f6864a489291869704e52cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1630402574}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &956532387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4004,6 +4038,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1053992447}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1068062281 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2619003167653249875, guid: 04dcb95f3f6864a489291869704e52cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1630402574}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1068725132
 GameObject:
   m_ObjectHideFlags: 0
@@ -4099,6 +4139,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068725132}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!146 &1084445671 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 22484882947969616, guid: 04dcb95f3f6864a489291869704e52cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1630402574}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1103371975
 GameObject:
   m_ObjectHideFlags: 0
@@ -4770,6 +4816,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1522788811}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!146 &1538246921 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 22484883595840675, guid: 04dcb95f3f6864a489291869704e52cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1630402574}
+  m_PrefabAsset: {fileID: 0}
+--- !u!146 &1568923081 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 22484882484623582, guid: 04dcb95f3f6864a489291869704e52cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1630402574}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1584910102
 GameObject:
   m_ObjectHideFlags: 0
@@ -4934,6 +4992,58 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e687b0964c1445b4d9ff1a06b1a9a80b, type: 3}
+--- !u!1 &1609902912 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 22484882881171996, guid: 04dcb95f3f6864a489291869704e52cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1630402574}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1609902913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609902912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c0e2a1b72a10514cad5645ced1c02c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerAnimator: {fileID: 1630402577}
+  Kart: {fileID: 1609902921}
+  SteeringParam: Steering
+  GroundedParam: Grounded
+--- !u!114 &1609902921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609902912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9188c08c1c6434b9063061ac3274e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stat:
+    Speed: 5
+    Steer: 5
+    AddedGravity: 1
+  m_VisualWheels:
+  - {fileID: 2043061068}
+  - {fileID: 1068062281}
+  - {fileID: 433970708}
+  - {fileID: 2098540328}
+  CenterOfMass: {fileID: 907131956}
+  AirborneReorientationCoefficient: 3
+  FrontLeftWheel: {fileID: 21679449}
+  FrontRightWheel: {fileID: 1084445671}
+  RearLeftWheel: {fileID: 1538246921}
+  RearRightWheel: {fileID: 1568923081}
+  GroundLayers:
+    serializedVersion: 2
+    m_Bits: 4294967291
 --- !u!1001 &1630402574
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4953,6 +5063,11 @@ PrefabInstance:
       propertyPath: canvasDomanda
       value: 
       objectReference: {fileID: 1045110074}
+    - target: {fileID: 22484882881171974, guid: 04dcb95f3f6864a489291869704e52cc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 22484882881171993, guid: 04dcb95f3f6864a489291869704e52cc,
         type: 3}
       propertyPath: m_Enabled
@@ -4966,7 +5081,7 @@ PrefabInstance:
     - target: {fileID: 22484882881171995, guid: 04dcb95f3f6864a489291869704e52cc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.26
+      value: -0.27
       objectReference: {fileID: 0}
     - target: {fileID: 22484882881171995, guid: 04dcb95f3f6864a489291869704e52cc,
         type: 3}
@@ -4976,7 +5091,7 @@ PrefabInstance:
     - target: {fileID: 22484882881171995, guid: 04dcb95f3f6864a489291869704e52cc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.72
+      value: 2.74
       objectReference: {fileID: 0}
     - target: {fileID: 22484882881171995, guid: 04dcb95f3f6864a489291869704e52cc,
         type: 3}
@@ -5018,6 +5133,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Roadster_Player Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 22484882881171997, guid: 04dcb95f3f6864a489291869704e52cc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04dcb95f3f6864a489291869704e52cc, type: 3}
 --- !u!1 &1630402575 stripped
@@ -5029,6 +5149,12 @@ GameObject:
 --- !u!1 &1630402576 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 870037853, guid: 04dcb95f3f6864a489291869704e52cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1630402574}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1630402577 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5427263882288912606, guid: 04dcb95f3f6864a489291869704e52cc,
     type: 3}
   m_PrefabInstance: {fileID: 1630402574}
   m_PrefabAsset: {fileID: 0}
@@ -6251,6 +6377,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1982569494}
   m_CullTransparentMesh: 1
+--- !u!1 &2043061068 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2619003167653249877, guid: 04dcb95f3f6864a489291869704e52cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1630402574}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2098540328 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2619003167653249887, guid: 04dcb95f3f6864a489291869704e52cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1630402574}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2143815042
 GameObject:
   m_ObjectHideFlags: 0
