@@ -30,6 +30,50 @@ Transform:
   m_Father: {fileID: 4176340413376524615}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2771757342413738791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6785104935755212729}
+  - component: {fileID: 2173316616708473943}
+  m_Layer: 0
+  m_Name: checkpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6785104935755212729
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2771757342413738791}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4176340413376524615}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2173316616708473943
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2771757342413738791}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 15, y: 8, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4176340413376524614
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,6 +107,7 @@ Transform:
   - {fileID: 9061653158121456924}
   - {fileID: 3425556840970855039}
   - {fileID: 4297736289912477708}
+  - {fileID: 6785104935755212729}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -97,10 +142,6 @@ MonoBehaviour:
   panelTrue: {fileID: 3052507393607752265, guid: a88b9c25d8424a24582f50374b97ed17,
     type: 3}
   panelFalse: {fileID: 7020447173743861039, guid: 91c89c145cd846a44bc66693e09c9e32,
-    type: 3}
-  canvasDomanda: {fileID: 5897707391743846387, guid: 2fb304f0db876d948bb233259ddee3a6,
-    type: 3}
-  textmeshPro: {fileID: 1512134375772307863, guid: 987ddc87c9230cb46a0d18605cb68e89,
     type: 3}
   fileInput: Assets/Prototipo/FileCSV/Quiz_Facili.csv
 --- !u!1 &6612085978436736573
