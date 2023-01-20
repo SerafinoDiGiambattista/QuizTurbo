@@ -9,6 +9,9 @@ TagManager:
   - CheckPoint
   - Ostacolo
   - focus
+  - Cube
+  - Ciccio
+  - SpawnTag
   layers:
   - Default
   - TransparentFX

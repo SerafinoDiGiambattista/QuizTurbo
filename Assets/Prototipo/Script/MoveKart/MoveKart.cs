@@ -16,11 +16,7 @@ using UnityEngine;
             [Min(0.001f), Tooltip("Top speed attainable when moving forward.")]
             public float Speed;
 
-            [Tooltip("How tightly the kart can turn left or right.")]
-            public float Steer;
-
-            [Tooltip("Additional gravity for when the kart is in the air.")]
-            public float AddedGravity;
+      
 
 
         }
@@ -28,15 +24,13 @@ using UnityEngine;
         public Rigidbody Rigidbody { get; private set; }
         public float AirPercent { get; private set; }
 
-        public float GroundPercent { get; private set; }
+
 
         public MoveKart.Stats stat = new MoveKart.Stats
         {
             Speed = 10f,
 
-            Steer = 5f,
-
-            AddedGravity = 1f,
+         
         };
 
 
@@ -61,11 +55,9 @@ using UnityEngine;
         [Tooltip("Which layers the wheels will detect.")]
         public LayerMask GroundLayers = Physics.DefaultRaycastLayers;
 
-        readonly List<(GameObject trailRoot, WheelCollider wheel, TrailRenderer trail)> m_DriftTrailInstances = new List<(GameObject, WheelCollider, TrailRenderer)>();
-        readonly List<(WheelCollider wheel, float horizontalOffset, float rotation, ParticleSystem sparks)> m_DriftSparkInstances = new List<(WheelCollider, float, float, ParticleSystem)>();
+      
+      
 
-        float m_PreviousGroundPercent = 1.0f;
-        MoveKart.Stats MoveStat;
 
         void Awake()
         {
@@ -77,46 +69,23 @@ using UnityEngine;
         {
             Rigidbody.centerOfMass = transform.InverseTransformPoint(CenterOfMass.position);
 
-            int groundedCount = 0;
-            if (FrontLeftWheel.isGrounded && FrontLeftWheel.GetGroundHit(out WheelHit hit))
-                groundedCount++;
-            if (FrontRightWheel.isGrounded && FrontRightWheel.GetGroundHit(out hit))
-                groundedCount++;
-            if (RearLeftWheel.isGrounded && RearLeftWheel.GetGroundHit(out hit))
-                groundedCount++;
-            if (RearRightWheel.isGrounded && RearRightWheel.GetGroundHit(out hit))
-                groundedCount++;
-
-            // calculate how grounded and airborne we are
-            GroundPercent = (float)groundedCount / 4.0f;
-            AirPercent = 1 - GroundPercent;
 
 
             MoveVehicle();
 
-            GroundAirbourne();
 
-            m_PreviousGroundPercent = GroundPercent;
+      
         }
 
         private void MoveVehicle()
         {
+       Vector3 constantVelocity = new Vector3(0f, 0f , stat.Speed);
+        //Rigidbody.velocity = stat.Speed * (Rigidbody.velocity.normalized); 
+        transform.position += constantVelocity * Time.deltaTime;
 
-            Rigidbody.velocity = stat.Speed * (Rigidbody.velocity.normalized); 
+    }
 
-
-
-
-        }
-
-        void GroundAirbourne()
-        {
-            // while in the air, fall faster
-            if (AirPercent >= 1)
-            {
-                Rigidbody.velocity += Physics.gravity * Time.fixedDeltaTime * MoveStat.AddedGravity;
-            }
-        }
+    
 
     }
 
