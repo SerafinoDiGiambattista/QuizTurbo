@@ -6,10 +6,10 @@ namespace GeneratorLevel
 {
     public class Feature
     {
+        protected string type;
         protected float base_value = 0;
         protected float current_value = 0;
-        protected string type;
-
+        
         public float BaseValue
         {
             get { return base_value; }

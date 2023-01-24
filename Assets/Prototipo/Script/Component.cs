@@ -22,8 +22,6 @@ namespace GeneratorLevel
             ReadFile(p);
         }
 
-  
-
         public void AddModifier(Modifier mod)
         {
             m_mods[mod.GetName] = mod;
@@ -56,5 +54,28 @@ namespace GeneratorLevel
                     AddFeature(f);
                 }
         }
+
+        public Feature GetFeatures(string f)
+        {
+            foreach(KeyValuePair<string, Feature> string_f in m_features)
+            {
+                Feature return_feature =  m_features[KeyValuePair.Key];
+                if(string_f.Type == f)
+                    return return_feature;
+            }
+            return null;
+        }
+
+        public Modifier GetModifiers(string m)
+        {
+            foreach(KeyValuePair<string, Modifier> string_m in m_mods)
+            {
+                Modifier return_modifier =  m_mods[KeyValuePair.Key];
+                if(string_m.Type == m)
+                    return return_modifier;
+            }
+            return null;
+        }
+
     }
 }
