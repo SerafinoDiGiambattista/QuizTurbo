@@ -64,7 +64,7 @@ namespace GeneratorLevel
         {
             foreach(KeyValuePair<string, Feature> string_f in m_features)
             {
-                Feature return_feature =  m_features[KeyValuePair.Key];
+                Feature return_feature =  m_features[string_f.Key];
                 if(return_feature.Type == f)
                     return return_feature;
             }
@@ -75,7 +75,7 @@ namespace GeneratorLevel
         {
             foreach(KeyValuePair<string, Modifier> string_m in m_mods)
             {
-                Modifier return_modifier =  m_mods[KeyValuePair.Key];
+                Modifier return_modifier =  m_mods[string_m.Key];
                 if(return_modifier.Type == m)
                     return return_modifier;
             }
