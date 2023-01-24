@@ -24,14 +24,14 @@ namespace GeneratorLevel
             get { return type; }
         }
 
-        public Feature(float bv, string n)
+        public Feature(string n, float bv)
         {
             current_value = bv;
             base_value = bv;
             type = n;
         }
 
-        public Feature(float bv, float cv, string n)
+        public Feature( string n, float bv, float cv)
         {
             current_value = cv;
             base_value = bv;

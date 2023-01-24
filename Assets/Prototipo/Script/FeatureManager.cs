@@ -62,18 +62,13 @@ namespace GeneratorLevel
                 {
                     string[] items = l.Split(';');
                     string name = items[0].Trim();
-                    float b_value = ParseFloatValue(items[1]);
-                    Feature f = new Feature(b_value, name);
+                    float b_value = float.Parse(items[1]);
+                    Feature f = new Feature(name, b_value);
                     AddFeature(f);
                     AddBaseFeature(f);
                 }
             }
             //loaded = true;
-        }
-
-        protected float ParseFloatValue(string val)
-        {
-            return float.Parse(val); // Inserire i numeri float con ',' e non '.': 0,54 è ok
         }
 
         public float FeatureValue(string feature)
@@ -103,7 +98,7 @@ namespace GeneratorLevel
 
         public void AddFeature(string name, float val)
         {
-            AddFeature(new Feature(val, name));
+            AddFeature(new Feature(name, val));
         }
 
         public void RemoveFeature(Feature f)

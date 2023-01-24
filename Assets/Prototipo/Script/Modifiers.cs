@@ -16,7 +16,7 @@ namespace GeneratorLevel
             get { return featureType; }
         }
 
-        public string Name
+        public string GetName
         {
             get { return name;}
         }
