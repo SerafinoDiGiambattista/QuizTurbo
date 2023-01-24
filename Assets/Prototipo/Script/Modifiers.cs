@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace GeneratorLevel
 {
+    //modificatore deve essere modificato 
     public class Modifier
     {
         protected string name;

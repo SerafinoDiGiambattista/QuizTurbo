@@ -36,7 +36,9 @@ namespace GeneratorLevel
             featureManager = GetComponent<FeatureManager>();
         }
 
-         protected void ResetModifiers()
+
+        // serve a resettare i modificaotri dopo che lìhai utilizzati
+        protected void ResetModifiers()
         {
             foreach(Feature f in objFeatures.Values)
             {
@@ -44,7 +46,7 @@ namespace GeneratorLevel
                 featureAddMod[f.Type] = 0.0f;
             }
         }
-
+        //valore della feature
         public float FeatureValue(string f)
         {
             float val = 0;
@@ -52,7 +54,7 @@ namespace GeneratorLevel
             return val;
         }
 
-        
+        //calcolo modificatore 
         public void ComputeModifiers()
         {
             foreach (KeyValuePair<string, Component> kv in components)
@@ -65,7 +67,7 @@ namespace GeneratorLevel
                 }
             }
         }
-        
+        //calcolo valore totale della feature con i modificatori 
         public void ComputeFeatures()
         {
             foreach(Feature f in objFeatures.Values)

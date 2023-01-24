@@ -9,7 +9,7 @@ namespace GeneratorLevel
     {
         protected Dictionary<string, Modifier> m_mods = new Dictionary<string, Modifier>();
         protected Dictionary<string, Feature> m_features = new Dictionary<string, Feature>();
-        protected string name;
+        protected new string name;
         protected string path;
         protected ComponentManager cm;
 
@@ -22,27 +22,28 @@ namespace GeneratorLevel
             ReadFile(p);
         }
 
+        //aggiungi un modificatore
         public void AddModifier(Modifier mod)
         {
             m_mods[mod.GetName] = mod;
         }
-
+        //aggiungi una feature
         public void AddFeature(Feature f)
         {
             m_features[f.Type] = f;
         }
-
+        //ritorna tutti i modifcatori di una componente
         public Dictionary<string, Modifier> MyModifiers
         {
             get { return m_mods; }
         }
-
+        //ritorna le feature di una componente
         public Dictionary<string, Feature> ComponentFeatures
         {
             get{return m_features; }
             set{m_features = value; }
         }
-
+        //read file -> legge il file delle componenti modificare questo tipo di lettura
         public void ReadFile(string path)
         {
             string[] lines = File.ReadAllLines(path);

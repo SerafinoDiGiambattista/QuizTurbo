@@ -14,7 +14,7 @@ namespace GeneratorLevel
         //protected bool loaded = false;
         protected Dictionary<string, Feature> features = new Dictionary<string, Feature>();
         protected Dictionary<string, Feature> baseFeatures = new Dictionary<string, Feature>();
-        //protected ComponentManager componentManager;
+        protected ComponentManager componentManager;
 
         /*public bool Loaded
         {
@@ -42,9 +42,9 @@ namespace GeneratorLevel
         private void Awake()
         {
             featuresDirectory = Path.Combine(Application.streamingAssetsPath, featuresDirectory);
-            //componentManager = GetComponent<ComponentManager>();
+            componentManager = GetComponent<ComponentManager>();
             LoadFeatures();
-            //componentManager.ObjectFeatures = features;
+            componentManager.GetObjFeatures = features;
         }
 
         protected void LoadFeatures()
