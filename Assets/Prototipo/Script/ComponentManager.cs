@@ -17,7 +17,7 @@ namespace GeneratorLevel
         {
             ResetModifiers();
             ComputeModifiers();
-            ComponentFeatures();
+            ComputeFeatures();
         }
         
         public Dictionary<string, Feature> GetObjFeatures
@@ -47,7 +47,7 @@ namespace GeneratorLevel
 
         public float FeatureValue(string f)
         {
-            float val = false;
+            float val = 0;
             val = objFeatures[f].CurrentValue;
             return val;
         }
@@ -57,7 +57,7 @@ namespace GeneratorLevel
         {
             foreach (KeyValuePair<string, Component> kv in components)
             {
-                Dictionary<string, Modifier> mod = components[kv.Key].GetModifiers;
+                Dictionary<string, Modifier> mod = components[kv.Key].MyModifiers;
                 foreach (Modifier m in mod.Values)
                 {
                     featureMulMod[m.Type] *= m.MultFactor;
