@@ -28,7 +28,7 @@ public class SlideRoad : MonoBehaviour
             if (other.gameObject.CompareTag("Ciccio"))
             {   
                 roadSpawner.SpawnSegment();
-                roadSpawner.SpwanQuestion(false);
+                //roadSpawner.SpwanQuestion(false);
                 Destroy(gameObject, 1);
                 
                    // ReadCSV();
