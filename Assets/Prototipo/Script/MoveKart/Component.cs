@@ -98,4 +98,9 @@ using System.IO;
         {
             return isActive;
         }
+
+         public bool CheckFeature(string f)
+        {
+            return m_features.ContainsKey(f);
+        }
     }
