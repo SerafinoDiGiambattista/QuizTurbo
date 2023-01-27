@@ -47,6 +47,17 @@ public class PlayerManager : MonoBehaviour
         //scoreManager = GetComponent<ScoreManager>();
     }
 
+    public FeatureManager PlayerFeatures
+    {
+        get { return featureManager; }
+    }
+
+    public float FeatureValue(string f)
+    {
+        return PlayerFeatures.FeatureValue(f);
+    }
+
+
     /*void Start()
     {
         ActivateCam();
