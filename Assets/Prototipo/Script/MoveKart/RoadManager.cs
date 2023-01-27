@@ -9,6 +9,7 @@ public class RoadManager : MonoBehaviour
     /// Il compito princiaple è decidere cosa fa spwanare sulla strada: strada vuota, ostacoli e power up oppure domande 
     /// </summary>
     // Start is called before the first frame update
+
     void Start()
     {
         
