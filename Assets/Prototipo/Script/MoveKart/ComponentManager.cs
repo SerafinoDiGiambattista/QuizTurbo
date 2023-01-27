@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GeneratorLevel
-{
     public class ComponentManager : MonoBehaviour
     {
         protected Dictionary<string, Component> components = new Dictionary<string, Component>();
@@ -37,7 +35,7 @@ namespace GeneratorLevel
         }
 
 
-        // serve a resettare i modificaotri dopo che lìhai utilizzati
+        // serve a resettare i modificaotri dopo che lï¿½hai utilizzati
         protected void ResetModifiers()
         {
             foreach(Feature f in objFeatures.Values)
@@ -78,5 +76,5 @@ namespace GeneratorLevel
         }
 
     }
-}
+
 

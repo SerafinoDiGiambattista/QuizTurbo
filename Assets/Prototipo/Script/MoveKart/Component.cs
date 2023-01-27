@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-namespace GeneratorLevel
-{
     public class Component : MonoBehaviour
     {
         protected Dictionary<string, Modifier> m_mods = new Dictionary<string, Modifier>();
@@ -84,4 +82,3 @@ namespace GeneratorLevel
         }
 
     }
-}

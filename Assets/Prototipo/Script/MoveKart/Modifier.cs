@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GeneratorLevel
-{
-    //modificatore deve essere modificato 
+
     public class Modifier
     {
         protected string name;
@@ -47,4 +45,3 @@ namespace GeneratorLevel
             add_factor = a_factor;
         }
     }
-}

@@ -6,8 +6,6 @@ using System.IO;
 using UnityEngine;
 using Unity.IO;
 
-namespace GeneratorLevel
-{
     public class FeatureManager : MonoBehaviour
     {
         [SerializeField] protected string featuresDirectory;
@@ -112,4 +110,3 @@ namespace GeneratorLevel
         }
 
     }
-}

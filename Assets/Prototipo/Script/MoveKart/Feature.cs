@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GeneratorLevel
-{
     public class Feature
     {
         protected string type;
@@ -43,5 +41,5 @@ namespace GeneratorLevel
             type = n;
         }
     }
-}
+
 
