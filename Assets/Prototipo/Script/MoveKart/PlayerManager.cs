@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
     protected ComponentManager componentManager;
     //protected PlayerHealthManager playerHealthManager;
     protected CharacterStatus characterStatus;
-    protected MoveKart mk;  ////????????????????? DA RIVEDERE !!!!!!!!!!!
+    protected MoveKart mk;
     //protected ScoreManager scoreManager;
     
     public string playerName = "Gabriella";
