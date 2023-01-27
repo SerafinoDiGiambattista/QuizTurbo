@@ -9,7 +9,13 @@ using UnityEngine;
         protected FeatureManager featureManager;
         protected Dictionary<string, float> featureMulMod = new Dictionary<string, float>();
         protected Dictionary<string, float> featureAddMod = new Dictionary<string, float>();
-        
+        protected CountDownManager countDownManager;
+
+        // Classe utilizzata per dare un limite di tempo a tutti gli eventi che hanno una certa durata
+        public CountDownManager TheCountDownManager
+        {
+            get { return countDownManager; }
+        }
 
         private void FixedUpdate()
         {

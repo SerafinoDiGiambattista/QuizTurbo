@@ -10,7 +10,8 @@ using System.IO;
         protected new string name;
         protected string path;
         protected ComponentManager cm;
-
+        protected bool isActive = true;
+        
         // COSTRUTTORE
         public Component(string n, string p, ComponentManager c)
         {
@@ -81,4 +82,15 @@ using System.IO;
             return null;
         }
 
+          public void ReduceComponent(string type, float n)
+        {
+            if (m_features[type].CurrentValue < 0) return;
+            m_features[type].CurrentValue -= n;
+            if (m_features[type].CurrentValue < 0) isActive = false;
+        }
+
+        public bool CheckIsActive()
+        {
+            return isActive;
+        }
     }
