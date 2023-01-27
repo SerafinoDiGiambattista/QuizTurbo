@@ -48,16 +48,21 @@ using System.IO;
             string[] lines = File.ReadAllLines(path);
                 foreach (string l in lines)
                 {
-                    string[] items = l.Split(';');
+                    string[] items = l.Split(',');
                     string f_name = items[0].Trim();
                     string feature = items[1].Trim();
-                    float mul = float.Parse(items[2]);
-                    float add = float.Parse(items[3]);
+                    float mul = ParseFloat(items[2]);
+                    float add = ParseFloat(items[3]);
                     Modifier modifier = new Modifier(f_name, feature, mul, add);
                     AddModifier(modifier);
                     Feature f = new Feature(feature, add);
                     AddFeature(f);
                 }
+        }
+
+        protected float ParseFloat(string val)
+        {
+            return float.Parse(val, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
         }
 
         public Feature GetFeatures(string f)

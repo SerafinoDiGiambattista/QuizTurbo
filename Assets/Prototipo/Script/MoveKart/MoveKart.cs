@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 public class MoveKart : MonoBehaviour
 {
 
@@ -15,7 +14,7 @@ public class MoveKart : MonoBehaviour
     [SerializeField] protected string LR_SPEED = "HORIZONTAL_SPEED";
     protected float currentLRSpeed = 0;
     //protected CharacterController cc;
-    //protected Animation animation;
+    protected Animator animation;
     protected CharacterStatus status;
     protected PlayerManager pm;
 

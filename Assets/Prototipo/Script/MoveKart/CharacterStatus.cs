@@ -52,9 +52,9 @@ public class CharacterStatus : MonoBehaviour
         else if(context.canceled) scorePoint = false;
     }
 
-    public void Move(InputAction.CallbackContext context)
+    public void OnMove(InputAction.CallbackContext context)
     {
-        Vector3 v = context.ReadValue<Vector3>();
+        Vector2 v = context.ReadValue<Vector2>();
         movement.x = v.x * lr_speed;
     }
 

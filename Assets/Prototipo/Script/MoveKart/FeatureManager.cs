@@ -58,15 +58,20 @@ using Unity.IO;
                 string[] lines = File.ReadAllLines(fileName);
                 foreach (string l in lines)
                 {
-                    string[] items = l.Split(';');
+                    string[] items = l.Split(',');
                     string name = items[0].Trim();
-                    float b_value = float.Parse(items[1]);
+                    float b_value = ParseFloat(items[1]);
                     Feature f = new Feature(name, b_value);
                     AddFeature(f);
                     AddBaseFeature(f);
                 }
             }
             //loaded = true;
+        }
+
+        protected float ParseFloat(string val)
+        {
+            return float.Parse(val, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
         }
 
         public float FeatureValue(string feature)

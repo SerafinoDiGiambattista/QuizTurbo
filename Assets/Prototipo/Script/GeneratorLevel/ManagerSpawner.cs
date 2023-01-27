@@ -27,10 +27,7 @@ public class ManagerSpawner : MonoBehaviour
         GameObject temp = Instantiate(road, nextSpawnPoint, Quaternion.identity);
         if (count == 3)
         {
-            
-            temp.GetComponent<SlideRoad>().SpawnObstacle(false);
-         
-           
+            temp.GetComponent<SlideRoad>().SpawnObstacle(false);       
 
         }
         else if (count == 4)
