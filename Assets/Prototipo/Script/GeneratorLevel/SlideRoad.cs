@@ -23,7 +23,7 @@ public class SlideRoad : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        //chiedere a caturano perchè succede ??
+        //chiedere a caturano perchï¿½ succede ??
 
             if (other.gameObject.CompareTag("Ciccio"))
             {   
@@ -34,11 +34,7 @@ public class SlideRoad : MonoBehaviour
                    // ReadCSV();
                 
             }
-        
-       
     }
-    
-
 
     public void SpawnObstacle(Boolean spawOb)
     {
