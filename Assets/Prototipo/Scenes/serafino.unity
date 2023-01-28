@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -130,6 +130,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1103827400963569418, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+        type: 3}
+      propertyPath: m_TagString
+      value: PlayerBody
+      objectReference: {fileID: 0}
+    - target: {fileID: 1735285955831917181, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 2335717938948326472, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
         type: 3}
       propertyPath: m_RootOrder
@@ -193,7 +203,7 @@ PrefabInstance:
     - target: {fileID: 5879061967642866210, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: PlayerBody
       objectReference: {fileID: 0}
     - target: {fileID: 5879061969345750806, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
         type: 3}
@@ -557,6 +567,16 @@ PrefabInstance:
         type: 3}
       propertyPath: ROADFEATURESPATH
       value: RoadFeature/Road.csv
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323431545713136563, guid: 1007394d1380f3c448692712727cf6d9,
+        type: 3}
+      propertyPath: collidersTags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323431545713136563, guid: 1007394d1380f3c448692712727cf6d9,
+        type: 3}
+      propertyPath: collidersTags.Array.data[0]
+      value: PlayerBody
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1007394d1380f3c448692712727cf6d9, type: 3}

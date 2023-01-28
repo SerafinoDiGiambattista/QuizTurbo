@@ -14,14 +14,14 @@ public class RoadManager : MonoBehaviour
     // Start is called before the first frame update
     protected FeatureManager featureManager;
     protected ComponentManager componentManager;
-    [SerializeField] protected List<string> collidersTags;
+  
     protected ObstaclesPowerUp obstaclesPowerUp;
     [SerializeField] GameObject track_road;
     [SerializeField] protected string VERTICAL_SPEED = "VERTICAL_SPEED";
     protected float initialSpeed;
     [SerializeField] protected string ROADFEATURESPATH;
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
-    public List<GameObject> instantiatedTracks = new List<GameObject>();
+    private List<GameObject> instantiatedTracks = new List<GameObject>();
  
     //[SyncVar] protected bool isDead = false;
     //protected QuestionManager questionManager;
@@ -50,6 +50,7 @@ public class RoadManager : MonoBehaviour
             for (int i =0; i<10; i++)
             {
                 instantiatedTracks.Add(Instantiate(track_road, new Vector3(0,0,count), Quaternion.identity)) ;
+                
                 count += lenghtz;
             }
         }
@@ -59,8 +60,12 @@ public class RoadManager : MonoBehaviour
     void FixedUpdate()
     {
         LoadFeatures();
-        foreach(GameObject g in instantiatedTracks)
+        foreach (GameObject g in instantiatedTracks)
+        {
             g.transform.position += new Vector3(0, 0, -VerticalSpeed * Time.fixedDeltaTime);
+            OnTriggerExit(g.GetComponent<Collider>());
+        }
+            
     }
 
     public float VerticalSpeed{
@@ -73,6 +78,19 @@ public class RoadManager : MonoBehaviour
         initialSpeed = featureManager.FeatureValue(VERTICAL_SPEED);
         //Debug.Log("VERTICAL_SPEED: "+ initialSpeed);
     }
+
+    void OnTriggerExit(Collider other)
+    {
+       
+        if (other.gameObject.CompareTag("PlayerBody"))
+        {
+            Debug.Log("Collissione avvenuta ");
+        }
+
+
+    }
+
+ 
 
     /*protected void LoadParameters<T1, T2>(string path, Dictionary<T1, T2> p)
     {
