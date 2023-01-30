@@ -1,5 +1,9 @@
 using System.Collections;
+using System;
+using Unity.IO;
+using System.IO;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
     public class ComponentManager : MonoBehaviour
@@ -81,6 +85,24 @@ using UnityEngine;
                 f.CurrentValue = midVal + featureAddMod[f.Type];
             }
         }
+
+        public Dictionary<string, Component> ComponentsByFeature(string feature)
+        {
+            return components.Where(x => x.Value.HasFeature(feature)).ToDictionary(x => x.Key, x=> x.Value);
+        }
+
+        public void RemoveComponent(string c)
+        {
+            components.Remove(c);
+        }
+
+        public void AddComponent(Component c)
+        {
+            if (components.ContainsKey(c.NameC)) RemoveComponent(c.NameC);
+            components.Add(c.NameC, c);
+        }
+
+
 
     }
 

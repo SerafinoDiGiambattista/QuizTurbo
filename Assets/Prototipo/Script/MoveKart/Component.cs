@@ -7,11 +7,11 @@ using System.IO;
     {
         protected Dictionary<string, Modifier> m_mods = new Dictionary<string, Modifier>();
         protected Dictionary<string, Feature> m_features = new Dictionary<string, Feature>();
-        protected new string name;
+        protected string name;  // component ID;
         protected string path;
         protected ComponentManager cm;
         protected bool isActive = true;
-        
+
         // COSTRUTTORE
         public Component(string n, string p, ComponentManager c)
         {
@@ -19,6 +19,11 @@ using System.IO;
             path = p;
             cm = c;
             ReadFile(p);
+        }
+
+        public string NameC
+        {
+            get{return name;}
         }
 
         //aggiungi un modificatore
@@ -59,6 +64,7 @@ using System.IO;
                     AddFeature(f);
                 }
         }
+
 
         protected float ParseFloat(string val)
         {
@@ -102,5 +108,11 @@ using System.IO;
          public bool CheckFeature(string f)
         {
             return m_features.ContainsKey(f);
+        }
+
+        public bool HasFeature(string feature)
+        {
+            foreach (string s in m_features.Keys) if (s == feature) return true;
+            return false;
         }
     }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class RoadController : MonoBehaviour
 {
     RoadManager roadManager;
@@ -13,18 +14,14 @@ public class RoadController : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-
         if (other.gameObject.CompareTag("PlayerBody"))
         {
-
+            //executeWait(3);
             SetRoad(false);
             roadManager.SpawnSegment(getTrackRoad);
-
             //qui dentro segnaliamo la necessita di attiavre un pezzo 
             //deve invocare quindi un metodo di roadmanager??
         }
-
-
     }
 
     public void SetRoad(bool check)
@@ -36,5 +33,15 @@ public class RoadController : MonoBehaviour
     {
         get { return gameObject; }
     }
+    
+    /*void executeWait(float aux)
+    {
+        StartCoroutine(Wait(aux));
+    }
+
+    IEnumerator Wait(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+    }*/
 
 }
