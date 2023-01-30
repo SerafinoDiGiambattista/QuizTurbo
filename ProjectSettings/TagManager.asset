@@ -10,8 +10,7 @@ TagManager:
   - Ostacolo
   - focus
   - Cube
-  - Ciccio
-  - SpawnTag
+  - PlayerBody
   layers:
   - Default
   - TransparentFX
