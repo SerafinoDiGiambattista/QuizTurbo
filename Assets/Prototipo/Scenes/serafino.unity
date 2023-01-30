@@ -480,7 +480,7 @@ PrefabInstance:
     - target: {fileID: 632338694669405860, guid: c9d4fa8c80ad2654bb05ce68691cac99,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.6242653
+      value: -3.422
       objectReference: {fileID: 0}
     - target: {fileID: 632338694669405860, guid: c9d4fa8c80ad2654bb05ce68691cac99,
         type: 3}
@@ -527,6 +527,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 632338694669405861, guid: c9d4fa8c80ad2654bb05ce68691cac99,
+        type: 3}
+      propertyPath: trackroad
+      value: 
+      objectReference: {fileID: 4685419864426939861, guid: e02a6a90c62c028499fcc96cfe092027,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9d4fa8c80ad2654bb05ce68691cac99, type: 3}
 --- !u!1001 &8422952446856354834

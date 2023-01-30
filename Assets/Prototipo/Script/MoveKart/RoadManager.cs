@@ -14,9 +14,10 @@ public class RoadManager : MonoBehaviour
     // Start is called before the first frame update
     protected FeatureManager featureManager;
     protected ComponentManager componentManager;
-
+    private float count= 0;
     protected ObstaclesPowerUp obstaclesPowerUp;
-    [SerializeField] GameObject track_road;
+    [SerializeField] GameObject trackroad;
+    protected RoadController roadController;
     private string VERTICAL_SPEED = "VERTICAL_SPEED";
     protected float initialSpeed;
    // [SerializeField] protected string ROADFEATURESPATH;
@@ -31,7 +32,8 @@ public class RoadManager : MonoBehaviour
         featureManager = GetComponent<FeatureManager>();
         componentManager = GetComponent<ComponentManager>();
         obstaclesPowerUp = GetComponent<ObstaclesPowerUp>();
-    
+        roadController = trackroad.GetComponent<RoadController>();
+
         //ROADFEATURESPATH = Path.Combine(Application.streamingAssetsPath, ROADFEATURESPATH);
         //LoadParameters(ROADFEATURESPATH, roadFeatures);
     }
@@ -42,15 +44,15 @@ public class RoadManager : MonoBehaviour
 
     private  void IstatiateRoad()
     {
-        Renderer renderer= track_road.GetComponent<Renderer>();
+        Renderer renderer= roadController.getTrackRoad.GetComponent<Renderer>();
         if (renderer != null)
         {   //lunghezza z dell'oggetto
             float lenghtz = renderer.bounds.size.z;
            
-            float count = 0;
+            count = 0;
             for (int i =0; i<10; i++)
             {
-                instantiatedTracks.Add(Instantiate(track_road, new Vector3(0,0,count), Quaternion.identity)) ;
+                instantiatedTracks.Add(Instantiate(roadController.getTrackRoad, new Vector3(0,0,count), Quaternion.identity)) ;
                
                 count += lenghtz;
             }
@@ -85,9 +87,13 @@ public class RoadManager : MonoBehaviour
 
 
 
-    public void SpawnSegment()
+    public void SpawnSegment(GameObject temp)
     {
-        Debug.Log("Gabry è cattiva :-(");
+        
+            temp.transform.position += new Vector3(0,0,count);
+            temp.GetComponent<RoadController>().SetRoad(true);
+        
+
     }
 
     /*protected void LoadParameters<T1, T2>(string path, Dictionary<T1, T2> p)

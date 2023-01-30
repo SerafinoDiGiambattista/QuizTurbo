@@ -16,7 +16,10 @@ public class RoadController : MonoBehaviour
 
         if (other.gameObject.CompareTag("PlayerBody"))
         {
-            roadManager.SpawnSegment();
+
+            SetRoad(false);
+            roadManager.SpawnSegment(getTrackRoad);
+
             //qui dentro segnaliamo la necessita di attiavre un pezzo 
             //deve invocare quindi un metodo di roadmanager??
         }
@@ -24,6 +27,14 @@ public class RoadController : MonoBehaviour
 
     }
 
+    public void SetRoad(bool check)
+    {
+        gameObject.SetActive(check);
+    }
 
+    public GameObject getTrackRoad
+    {
+        get { return gameObject; }
+    }
 
 }
