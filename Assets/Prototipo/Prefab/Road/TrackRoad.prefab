@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3065112795247290138}
   - component: {fileID: 5679115332053762272}
   - component: {fileID: 3173560009690246849}
+  - component: {fileID: 2975157611466222391}
   m_Layer: 0
   m_Name: TrackRoad
   m_TagString: Untagged
@@ -127,6 +128,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 15.000001, y: 10, z: 30}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2975157611466222391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4685419864426939861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08d0dfc3ca8a62b4b9774908ab94cfc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &319927578190630040
 PrefabInstance:
   m_ObjectHideFlags: 0

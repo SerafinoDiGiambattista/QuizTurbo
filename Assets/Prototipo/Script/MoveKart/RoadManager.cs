@@ -14,15 +14,15 @@ public class RoadManager : MonoBehaviour
     // Start is called before the first frame update
     protected FeatureManager featureManager;
     protected ComponentManager componentManager;
-  
+
     protected ObstaclesPowerUp obstaclesPowerUp;
     [SerializeField] GameObject track_road;
-    [SerializeField] protected string VERTICAL_SPEED = "VERTICAL_SPEED";
+    private string VERTICAL_SPEED = "VERTICAL_SPEED";
     protected float initialSpeed;
-    [SerializeField] protected string ROADFEATURESPATH;
+   // [SerializeField] protected string ROADFEATURESPATH;
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
     private List<GameObject> instantiatedTracks = new List<GameObject>();
- 
+
     //[SyncVar] protected bool isDead = false;
     //protected QuestionManager questionManager;
 
@@ -31,6 +31,7 @@ public class RoadManager : MonoBehaviour
         featureManager = GetComponent<FeatureManager>();
         componentManager = GetComponent<ComponentManager>();
         obstaclesPowerUp = GetComponent<ObstaclesPowerUp>();
+    
         //ROADFEATURESPATH = Path.Combine(Application.streamingAssetsPath, ROADFEATURESPATH);
         //LoadParameters(ROADFEATURESPATH, roadFeatures);
     }
@@ -50,7 +51,7 @@ public class RoadManager : MonoBehaviour
             for (int i =0; i<10; i++)
             {
                 instantiatedTracks.Add(Instantiate(track_road, new Vector3(0,0,count), Quaternion.identity)) ;
-                
+               
                 count += lenghtz;
             }
         }
@@ -63,7 +64,7 @@ public class RoadManager : MonoBehaviour
         foreach (GameObject g in instantiatedTracks)
         {
             g.transform.position += new Vector3(0, 0, -VerticalSpeed * Time.fixedDeltaTime);
-            OnTriggerExit(g.GetComponent<Collider>());
+          
         }
             
     }
@@ -79,18 +80,15 @@ public class RoadManager : MonoBehaviour
         //Debug.Log("VERTICAL_SPEED: "+ initialSpeed);
     }
 
-    void OnTriggerExit(Collider other)
+
+
+
+
+
+    public void SpawnSegment()
     {
-       
-        if (other.gameObject.CompareTag("PlayerBody"))
-        {
-            Debug.Log("Collissione avvenuta ");
-        }
-
-
+        Debug.Log("Gabry è cattiva :-(");
     }
-
- 
 
     /*protected void LoadParameters<T1, T2>(string path, Dictionary<T1, T2> p)
     {
@@ -109,4 +107,5 @@ public class RoadManager : MonoBehaviour
     {
         return float.Parse(val, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
     }
+
 }
