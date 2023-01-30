@@ -20,7 +20,7 @@ public class RoadManager : MonoBehaviour
     protected RoadController roadController;
     private string VERTICAL_SPEED = "VERTICAL_SPEED";
     protected float initialSpeed;
-    [SerializeField] protected string ROADFEATURESPATH;
+    //[SerializeField] protected string ROADFEATURESPATH;
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
     private List<GameObject> instantiatedTracks = new List<GameObject>();
 
@@ -34,13 +34,13 @@ public class RoadManager : MonoBehaviour
         obstaclesPowerUp = GetComponent<ObstaclesPowerUp>();
         roadController = trackroad.GetComponent<RoadController>();
 
-        ROADFEATURESPATH = Path.Combine(Application.streamingAssetsPath, ROADFEATURESPATH);
+        //ROADFEATURESPATH = Path.Combine(Application.streamingAssetsPath, ROADFEATURESPATH);
        // LoadParameters(ROADFEATURESPATH, roadFeatures);
     }
     void Start()
     {
         IstatiateRoad();
-        //ComputeFeatures();
+       
     }
 
     private  void IstatiateRoad()
@@ -77,6 +77,7 @@ public class RoadManager : MonoBehaviour
     protected void LoadFeatures()
     {
         initialSpeed = featureManager.FeatureValue(VERTICAL_SPEED);
+    
         //Debug.Log("VERTICAL_SPEED: "+ initialSpeed);
     }
 

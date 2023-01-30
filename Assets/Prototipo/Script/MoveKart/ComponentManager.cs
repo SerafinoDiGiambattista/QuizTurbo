@@ -7,7 +7,7 @@ using System.Linq;
 using UnityEngine;
 
     public class ComponentManager : MonoBehaviour
-    {
+    {   [SerializeField] protected string componentDirectory;
         protected Dictionary<string, Component> components = new Dictionary<string, Component>();
         protected Dictionary<string, Feature> objFeatures = new Dictionary<string, Feature>();
         protected FeatureManager featureManager;
@@ -20,7 +20,12 @@ using UnityEngine;
         {
             get { return countDownManager; }
         }
-
+        private void Awake()
+        {
+        componentDirectory = Path.Combine(Application.streamingAssetsPath, componentDirectory);
+        featureManager = GetComponent<FeatureManager>();
+        LoadComponentGroup(componentDirectory);
+        }
         private void FixedUpdate()
         {
             ResetModifiers();
@@ -39,14 +44,46 @@ using UnityEngine;
             get{ return components;}
         }
 
-        private void Awake()
+
+    protected void LoadComponentGroup(string path)
+    {
+        if (!CheckDirectory(path)) return;
+        string[] fileEntries = Directory.GetFiles(path, "*.csv");
+        foreach (string fileName in fileEntries)
         {
-            featureManager = GetComponent<FeatureManager>();
+            LoadSingleComponent(fileName);
         }
+    }
+    protected void LoadSingleComponent(string path)
+    {
+        if (!CheckFile(path)) return;
+        string[] n = path.Split('.');
+        Component c = new Component(Path.GetFileName(n[0].Trim()), path, this);
+        AddComponent(c);
+    }
+
+    protected bool CheckFile(string path)
+    {
+        if (!File.Exists(path))
+        {
+            Debug.LogError("File Not Found");
+            return false;
+        }
+        return true;
+    }
+    protected bool CheckDirectory(string path)
+    {
+        if (!Directory.Exists(path))
+        {
+            Debug.LogError("Directory Not Found");
+            return false;
+        }
+        return true;
+    }
 
 
-        // serve a resettare i modificaotri dopo che l�hai utilizzati
-        protected void ResetModifiers()
+    // serve a resettare i modificaotri dopo che l�hai utilizzati
+    protected void ResetModifiers()
         {
             foreach(Feature f in objFeatures.Values)
             {
