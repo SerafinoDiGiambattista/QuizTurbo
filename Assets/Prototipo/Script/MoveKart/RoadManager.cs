@@ -19,7 +19,9 @@ public class RoadManager : MonoBehaviour
     [SerializeField] GameObject trackroad;
     protected RoadController roadController;
     private string VERTICAL_SPEED = "VERTICAL_SPEED";
+    private string ACCELERATION = "ACCELERATION";
     protected float initialSpeed;
+    protected float acceleration;
     //[SerializeField] protected string ROADFEATURESPATH;
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
     private List<GameObject> instantiatedTracks = new List<GameObject>();
@@ -40,7 +42,9 @@ public class RoadManager : MonoBehaviour
     void Start()
     {
         IstatiateRoad();
-       
+        LoadFeatures();
+        Debug.Log("START SPEED: "+initialSpeed);
+
     }
 
     private  void IstatiateRoad()
@@ -61,11 +65,12 @@ public class RoadManager : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {
-        LoadFeatures();
+    {        
         foreach (GameObject g in instantiatedTracks)
         {
-            g.transform.position += new Vector3(0, 0, -VerticalSpeed * Time.fixedDeltaTime);
+            Debug.Log("SPEED: "+initialSpeed);
+            initialSpeed += Time.deltaTime * acceleration;
+            g.transform.position += new Vector3(0, 0, -initialSpeed);
         }
     }
 
@@ -77,7 +82,7 @@ public class RoadManager : MonoBehaviour
     protected void LoadFeatures()
     {
         initialSpeed = featureManager.FeatureValue(VERTICAL_SPEED);
-    
+        acceleration = featureManager.FeatureValue(ACCELERATION);
         //Debug.Log("VERTICAL_SPEED: "+ initialSpeed);
     }
 
@@ -116,15 +121,5 @@ public class RoadManager : MonoBehaviour
         }
     }*/
 
-    public void IncreaseSpeed(float incr)
-    {
-        float incr_speed = ComputeSpeedIncrease(incr);
-    }
 
-    protected float ComputeSpeedIncrease(float incr)
-    {
-        float increase = componentManager.FeatureValue(VERTICAL_SPEED);
-        float speedIncrease = incr * increase;
-        return speedIncrease;
-    }
 }
