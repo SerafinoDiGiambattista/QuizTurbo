@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4343775217224692109}
   m_Layer: 0
   m_Name: Birillo2
-  m_TagString: Untagged
+  m_TagString: Ostacolo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
