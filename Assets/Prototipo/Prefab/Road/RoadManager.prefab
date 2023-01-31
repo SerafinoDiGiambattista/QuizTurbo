@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 632338694669405860}
   - component: {fileID: 632338694669405861}
   - component: {fileID: 632338694669405862}
-  - component: {fileID: 632338694669405863}
   m_Layer: 0
   m_Name: RoadManager
   m_TagString: Untagged
@@ -45,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4475d06dec55aeb43aa63cd205d1a0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  track_road: {fileID: 4685419864426939861, guid: e02a6a90c62c028499fcc96cfe092027,
-    type: 3}
+  trackroad: {fileID: 0}
+  maxSpeed: 20
 --- !u!114 &632338694669405862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,15 +59,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   featuresDirectory: RoadFeature
---- !u!114 &632338694669405863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632338694669405856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bae376fabe1685644a5def2e44637c32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

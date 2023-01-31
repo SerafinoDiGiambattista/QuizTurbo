@@ -22,13 +22,11 @@ public class RoadManager : MonoBehaviour
     private string ACCELERATION = "ACCELERATION";
     protected float initialSpeed;
     protected float acceleration;
-    //[SerializeField] protected string ROADFEATURESPATH;
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
     private List<GameObject> instantiatedTracks = new List<GameObject>();
     public float maxSpeed = 20;
     private float timer = 0f;
-    //[SyncVar] protected bool isDead = false;
-    //protected QuestionManager questionManager;
+  
 
     private void Awake()
     {
