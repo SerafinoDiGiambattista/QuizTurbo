@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 4475d06dec55aeb43aa63cd205d1a0b0
+guid: e61751b8f3f0f464e8e0b8aaabda2984
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - track_road: {fileID: 4685419864426939861, guid: e02a6a90c62c028499fcc96cfe092027,
-      type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

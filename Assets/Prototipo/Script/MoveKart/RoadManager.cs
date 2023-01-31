@@ -21,12 +21,7 @@ public class RoadManager : MonoBehaviour
     private string ACCELERATION = "ACCELERATION";
     protected float initialSpeed;
     protected float acceleration;
-<<<<<<< HEAD
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
-=======
-    //[SerializeField] protected string ROADFEATURESPATH;
-    //protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
->>>>>>> 51240ad2ca61131423d740d6e81f77d77e95c533
     private List<GameObject> instantiatedTracks = new List<GameObject>();
     public float maxSpeed = 20;
     private float timer = 0f;
