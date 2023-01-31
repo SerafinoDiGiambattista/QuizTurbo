@@ -25,7 +25,8 @@ public class RoadManager : MonoBehaviour
     //[SerializeField] protected string ROADFEATURESPATH;
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
     private List<GameObject> instantiatedTracks = new List<GameObject>();
-
+    public float maxSpeed = 20;
+    private float timer = 0f;
     //[SyncVar] protected bool isDead = false;
     //protected QuestionManager questionManager;
 
@@ -43,8 +44,6 @@ public class RoadManager : MonoBehaviour
     {
         IstatiateRoad();
         LoadFeatures();
-        Debug.Log("START SPEED: "+initialSpeed);
-
     }
 
     private  void IstatiateRoad()
@@ -53,7 +52,6 @@ public class RoadManager : MonoBehaviour
         if (renderer != null)
         {   //lunghezza z dell'oggetto
             float lenghtz = renderer.bounds.size.z;
-           
             count = 0;
             for (int i =0; i<10; i++)
             {
@@ -63,15 +61,29 @@ public class RoadManager : MonoBehaviour
         }
     }
 
+    
     // Update is called once per frame
     void FixedUpdate()
-    {        
+    {
         foreach (GameObject g in instantiatedTracks)
         {
             Debug.Log("SPEED: "+initialSpeed);
-            initialSpeed += Time.deltaTime * acceleration;
-            g.transform.position += new Vector3(0, 0, -initialSpeed);
+            g.transform.position += new Vector3(0, 0, -VerticalSpeed * Time.deltaTime);
         }
+        //Ogni 10 secondi la velocità aumenta di un fattore pari ad Accelerazione
+        float s = Seconds();
+        if((s%10) == 0 && VerticalSpeed < MaxSpeed){
+            VerticalSpeed +=Acceleration;
+            Debug.Log("Seconds: "+ s + " speed: "+ VerticalSpeed);
+        }
+    }
+
+    public float Seconds()
+    {
+        timer += Time.deltaTime;
+        float seconds = timer % 60;
+        seconds = Mathf.CeilToInt(seconds);
+        return seconds;
     }
 
     public float VerticalSpeed{
@@ -79,11 +91,24 @@ public class RoadManager : MonoBehaviour
         set{initialSpeed = value;}
     }
 
+    public float Acceleration
+    {
+        get{return acceleration;}
+        set{acceleration = value;}
+    }
+
+    public float MaxSpeed
+    {
+        get{ return maxSpeed;}
+        set{ maxSpeed = value; }
+    }
+
     protected void LoadFeatures()
     {
         initialSpeed = featureManager.FeatureValue(VERTICAL_SPEED);
         acceleration = featureManager.FeatureValue(ACCELERATION);
         //Debug.Log("VERTICAL_SPEED: "+ initialSpeed);
+        //Debug.Log("ACCELERATION: "+ acceleration);
     }
 
     public void SpawnSegment(GameObject temp)
