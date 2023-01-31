@@ -23,9 +23,14 @@ public class RoadManager : MonoBehaviour
     protected float acceleration;
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
     private List<GameObject> instantiatedTracks = new List<GameObject>();
+
+    // Per calcolare i secondi nella velocità
     public float maxSpeed = 20;
     private float timer = 0f;
-  
+    
+    //Variabili per la gestione degli ostacoli
+    public List<GameObject> roadObjects = new List<GameObject>();
+
 
     private void Awake()
     {
@@ -67,19 +72,18 @@ public class RoadManager : MonoBehaviour
             g.transform.position += new Vector3(0, 0, -VerticalSpeed * Time.deltaTime);
         }
         //Ogni 10 secondi la velocità aumenta di un fattore pari ad Accelerazione
-        float s = Seconds();
-        if((s%10) == 0 && VerticalSpeed < MaxSpeed){
-            VerticalSpeed +=Acceleration;
-            //Debug.Log("Seconds: "+ s + " speed: "+ VerticalSpeed);
-        }
+        IncreaseSpeedPerSeconds();
     }
 
-    public float Seconds()
+    public void IncreaseSpeedPerSeconds()
     {
         timer += Time.deltaTime;
         float seconds = timer % 60;
         seconds = Mathf.CeilToInt(seconds);
-        return seconds;
+        if((seconds%10) == 0 && VerticalSpeed < MaxSpeed){
+            VerticalSpeed +=Acceleration;
+            //Debug.Log("Seconds: "+ seconds + " speed: "+ VerticalSpeed);
+        }
     }
 
     public float VerticalSpeed{
@@ -111,6 +115,28 @@ public class RoadManager : MonoBehaviour
     {
         temp.transform.position += new Vector3(0,0,count);
         temp.GetComponent<RoadController>().SetRoad(true);
+         //mi restituisce la posizione che ha nell'array se ad esempio
+         // è poszione 5 inizio ad attivare gli ostacoli e dopo 20 pezzi di strada
+         // disattivo gli ostacoli per 5 pezzi di strada metto le domande=IstatiateRoad[temp]; 
+        int goPosition = instantiatedTracks.IndexOf(temp);
+        if(goPosition == 5)
+        {
+            Debug.Log("Position: "+ goPosition);
+            ActivateObstacle(true, temp);
+        }
+    }
+
+    public void ActivateObstacle(bool check, GameObject go)
+    {
+        int i = 0;
+        foreach (Transform t in go.transform)
+        {
+            Debug.Log(t.tag);
+        }
+        // in maniera random attiva solo 2 ostacoli che non sono 
+        // nella stessa posizione. Gli ostacoli li troviamo tramite il tag
+        // Ostacolo
+
     }
 
 /*

@@ -18,4 +18,5 @@ public class ObstaclesPowerUp : Component
       if (!CheckFeature(TIME)) return;
       cdm.AddCountDown(new CountDown(this, TIME, 1));
    }
+
 }

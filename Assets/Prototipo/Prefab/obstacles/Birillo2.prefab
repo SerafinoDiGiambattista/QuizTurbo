@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2959097889710881824}
   - component: {fileID: 1694711863420321580}
   - component: {fileID: 4343775217224692109}
+  - component: {fileID: 1625844407560028633}
   m_Layer: 0
   m_Name: Birillo2
   m_TagString: Ostacolo
@@ -88,6 +89,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.9
   m_Center: {x: 0, y: 0.7, z: 0}
+--- !u!114 &1625844407560028633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3761431495673512404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 884a8e199ad76734181c3b04723e4b8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: Assets/Prototipo/FileCSV/ObstaclesFeature/Fence.csv
 --- !u!1001 &3976789375989038695
 PrefabInstance:
   m_ObjectHideFlags: 0
