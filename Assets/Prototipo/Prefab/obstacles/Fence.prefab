@@ -137,3 +137,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: Assets/Prototipo/FileCSV/ObstaclesFeature/Fence.csv
+--- !u!114 &-3755580292711113590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5930564529466514170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae376fabe1685644a5def2e44637c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  componentDirectory: 

@@ -8,7 +8,6 @@ using Unity.IO;
 
 public class RoadManager : MonoBehaviour
 {
-
     /// ha la lista di tag 
     /// Il compito princiaple � decidere cosa fa spwanare sulla strada: strada vuota, ostacoli e power up oppure domande 
     // Start is called before the first frame update
@@ -23,7 +22,7 @@ public class RoadManager : MonoBehaviour
     protected float initialSpeed;
     protected float acceleration;
     //[SerializeField] protected string ROADFEATURESPATH;
-    protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
+    //protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
     private List<GameObject> instantiatedTracks = new List<GameObject>();
     public float maxSpeed = 20;
     private float timer = 0f;
@@ -67,14 +66,13 @@ public class RoadManager : MonoBehaviour
     {
         foreach (GameObject g in instantiatedTracks)
         {
-            Debug.Log("SPEED: "+initialSpeed);
             g.transform.position += new Vector3(0, 0, -VerticalSpeed * Time.deltaTime);
         }
         //Ogni 10 secondi la velocità aumenta di un fattore pari ad Accelerazione
         float s = Seconds();
         if((s%10) == 0 && VerticalSpeed < MaxSpeed){
             VerticalSpeed +=Acceleration;
-            Debug.Log("Seconds: "+ s + " speed: "+ VerticalSpeed);
+            //Debug.Log("Seconds: "+ s + " speed: "+ VerticalSpeed);
         }
     }
 
