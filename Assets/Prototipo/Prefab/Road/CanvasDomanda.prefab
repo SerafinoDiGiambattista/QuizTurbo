@@ -348,6 +348,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 2324662559662107850, guid: 2470be5fbc7acc74b9d0c6ee8d744c07,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2324662559662107855, guid: 2470be5fbc7acc74b9d0c6ee8d744c07,
         type: 3}
       propertyPath: m_Color.b
