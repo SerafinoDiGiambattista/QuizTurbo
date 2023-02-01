@@ -341,6 +341,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &854132056 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5879061969345750806, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 360485434}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ce537f559e78940aae33ec1000c14e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,7 +692,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 854132056}
     - target: {fileID: 8637735771754539244, guid: 67fc40b188b637849a3e20a5ea2b8cd9,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -694,7 +706,7 @@ PrefabInstance:
     - target: {fileID: 8637735771754539244, guid: 67fc40b188b637849a3e20a5ea2b8cd9,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: CharacterStatus, Assembly-CSharp
+      value: InputEvent, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8637735771754539244, guid: 67fc40b188b637849a3e20a5ea2b8cd9,
         type: 3}

@@ -5,6 +5,7 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using Unity.IO;
+using UnityEngine.UIElements;
 
 public class RoadManager : MonoBehaviour
 {
@@ -119,25 +120,70 @@ public class RoadManager : MonoBehaviour
          // è poszione 5 inizio ad attivare gli ostacoli e dopo 20 pezzi di strada
          // disattivo gli ostacoli per 5 pezzi di strada metto le domande=IstatiateRoad[temp]; 
         int goPosition = instantiatedTracks.IndexOf(temp);
-        if(goPosition == 5)
+        if(goPosition > 3 && goPosition<=8)
         {
             Debug.Log("Position: "+ goPosition);
             ActivateObstacle(true, temp);
         }
+        if (goPosition==9)
+        {
+            Debug.Log("Position: " + goPosition);
+           
+            ActivateQuestion(true, temp);   
+        }
+   
+
     }
 
     public void ActivateObstacle(bool check, GameObject go)
     {
-        int i = 0;
-        foreach (Transform t in go.transform)
+
+        if (check)
         {
-            Debug.Log(t.tag);
+            int count = 0;
+            List<Transform> listchild = new List<Transform>();
+            foreach (Transform t in go.transform)
+            {
+                if (t.CompareTag("Ostacolo"))
+                {
+                    listchild.Add(t);
+                    
+                }
+            }
+            
+            for (int i=0; i< listchild.Count; i++) 
+            {
+                        
+
+           
+
+
+                
+            }
+            
+            
         }
-        // in maniera random attiva solo 2 ostacoli che non sono 
-        // nella stessa posizione. Gli ostacoli li troviamo tramite il tag
-        // Ostacolo
+
 
     }
+
+    public void ActivateQuestion(bool check, GameObject go)
+    {
+       
+        if (check) { 
+            GameObject child = null;
+            foreach (Transform t in go.transform)
+            {
+                if (t.CompareTag("PlaneFalse") || t.CompareTag("PlaneTrue"))
+                {
+                    child = t.gameObject;
+                    child.SetActive(check);
+                }
+
+            }
+        }
+    }
+
 
 /*
     protected void LoadParameters<T1, T2>(string path, Dictionary<T1, T2> p)
