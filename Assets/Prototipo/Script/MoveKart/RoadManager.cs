@@ -153,12 +153,12 @@ public class RoadManager : MonoBehaviour
             
             for (int i=0; i< listchild.Count; i++) 
             {
-                        
 
-           
+                int randomSpawn = UnityEngine.Random.Range(0, 2);
 
 
-                
+
+
             }
             
             
