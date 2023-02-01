@@ -115,7 +115,7 @@ public class RoadManager : MonoBehaviour
     public void SpawnSegment(GameObject temp)
     {
         temp.transform.position += new Vector3(0,0,count);
-        temp.GetComponent<RoadController>().SetRoad(true);
+        temp.GetComponent<RoadController>().gameObject.SetActive(true);
          //mi restituisce la posizione che ha nell'array se ad esempio
          // è poszione 5 inizio ad attivare gli ostacoli e dopo 20 pezzi di strada
          // disattivo gli ostacoli per 5 pezzi di strada metto le domande=IstatiateRoad[temp]; 
@@ -140,25 +140,31 @@ public class RoadManager : MonoBehaviour
 
         if (check)
         {
-            int count = 0;
-            List<Transform> listchild = new List<Transform>();
+            
+            List<GameObject> listchild = new List<GameObject>();
             foreach (Transform t in go.transform)
             {
                 if (t.CompareTag("Ostacolo"))
                 {
-                    listchild.Add(t);
+                    listchild.Add(t.gameObject);
                     
                 }
             }
-            
-            for (int i=0; i< listchild.Count; i++) 
+            int start = 0;
+            int finish = 3; 
+            for (int i=1; i<= listchild.Count; i++) 
             {
 
-                int randomSpawn = UnityEngine.Random.Range(0, 2);
+                if (i%3!=0) {
+                    int random = UnityEngine.Random.Range(start, finish);
+                    if (!listchild[random].activeSelf) listchild[random].SetActive(check);
 
-
-
-
+                }
+                else
+                {
+                    start = 3;
+                    finish = listchild.Count;
+                }
             }
             
             
@@ -171,13 +177,15 @@ public class RoadManager : MonoBehaviour
     {
        
         if (check) { 
-            GameObject child = null;
+         
             foreach (Transform t in go.transform)
             {
                 if (t.CompareTag("PlaneFalse") || t.CompareTag("PlaneTrue"))
                 {
-                    child = t.gameObject;
-                    child.SetActive(check);
+
+                    t.gameObject.SetActiveRecursively(true);
+
+
                 }
 
             }

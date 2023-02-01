@@ -17,31 +17,32 @@ public class RoadController : MonoBehaviour
         if (other.gameObject.CompareTag("PlayerBody"))
         {
             //executeWait(3);
-            SetRoad(false);
+            SetRoadComplete();
             roadManager.SpawnSegment(getTrackRoad);
             //qui dentro segnaliamo la necessita di attiavre un pezzo 
             //deve invocare quindi un metodo di roadmanager??
         }
     }
 
-    public void SetRoad(bool check)
+  
+    public void SetRoadComplete()
     {
-        gameObject.SetActive(check);
+        
+        Transform[] allChildren = GetComponentsInChildren<Transform>();
+        foreach (Transform child in allChildren)
+        {
+            child.gameObject.SetActive(false);
+        }
     }
-
+    public void SetRoad()
+    {
+        gameObject.SetActive(true);
+    }
     public GameObject getTrackRoad
     {
         get { return gameObject; }
     }
     
-    /*void executeWait(float aux)
-    {
-        StartCoroutine(Wait(aux));
-    }
-
-    IEnumerator Wait(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-    }*/
+  
 
 }
