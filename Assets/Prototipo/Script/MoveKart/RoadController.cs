@@ -34,10 +34,7 @@ public class RoadController : MonoBehaviour
             child.gameObject.SetActive(false);
         }
     }
-    public void SetRoad()
-    {
-        gameObject.SetActive(true);
-    }
+
     public GameObject getTrackRoad
     {
         get { return gameObject; }
