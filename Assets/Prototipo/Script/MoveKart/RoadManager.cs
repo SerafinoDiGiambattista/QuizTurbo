@@ -140,7 +140,6 @@ public class RoadManager : MonoBehaviour
 
         if (check)
         {
-            
             List<GameObject> listchild = new List<GameObject>();
             foreach (Transform t in go.transform)
             {
@@ -154,11 +153,9 @@ public class RoadManager : MonoBehaviour
             int finish = 3; 
             for (int i=1; i<= listchild.Count; i++) 
             {
-
                 if (i%3!=0) {
                     int random = UnityEngine.Random.Range(start, finish);
                     if (!listchild[random].activeSelf) listchild[random].SetActive(check);
-
                 }
                 else
                 {
@@ -166,11 +163,7 @@ public class RoadManager : MonoBehaviour
                     finish = listchild.Count;
                 }
             }
-            
-            
         }
-
-
     }
 
     public void ActivateQuestion(bool check, GameObject go)
@@ -184,8 +177,6 @@ public class RoadManager : MonoBehaviour
                 {
 
                     t.gameObject.SetActiveRecursively(true);
-
-
                 }
 
             }
