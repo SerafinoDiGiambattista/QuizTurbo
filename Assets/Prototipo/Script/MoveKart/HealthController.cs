@@ -35,7 +35,10 @@ public class HealthController : MonoBehaviour
         InstantiateHearts();
     }
 
-
+    private void FixedUpdate()
+    {
+        UpdateHealth();
+    }
 
     public List<GameObject> GetInstantiatedHearts()
     {
@@ -52,6 +55,25 @@ public class HealthController : MonoBehaviour
             GameObject temp = Instantiate(heart);//, spawnPosition, spawnRotation)as GameObject;
             temp.transform.SetParent(gameObject.transform);
             instantiatedHearts.Add(temp);
+        }
+    }
+
+    private void UpdateHealth()
+    {
+        numOfHearts = Mathf.CeilToInt(playerManager.GetHealth());
+        Debug.Log("HEARTCONTROLLER Health: " + numOfHearts);
+
+        if (numOfHearts > 0)
+        {
+            for (int i = initialNumOfHearts - 1; i >= numOfHearts; i--)
+            {
+                if (instantiatedHearts[i].activeSelf == true)
+                    instantiatedHearts[i].SetActive(false);
+            }
+        }
+        else if (numOfHearts == 0)
+        {
+            Debug.Log("DEATH! :)");
         }
     }
 }
