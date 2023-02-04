@@ -8,51 +8,34 @@ public class HealthController : MonoBehaviour
     private int numOfHearts = 0;
     private int initialNumOfHearts;
     public GameObject heart;
+    public GameObject playerObject;
     private List<GameObject> instantiatedHearts = new List<GameObject>();
     private float count = 0;
-    PlayerManager playerManager;
-    private int i;
+    private FeatureManager featuremanager;
+    private PlayerManager playerManager;
+
 
     private void Awake()
     {
-        playerManager= FindObjectOfType<PlayerManager>();
+        featuremanager= playerObject.GetComponent<FeatureManager>();
+        playerManager= playerObject.GetComponent<PlayerManager>();
+
+        
     }
 
     void Start()
     {
-        i = 1;
-       /*initialNumOfHearts = Mathf.CeilToInt(playerManager.GetInitialHealth());   
+        /*
+       initialNumOfHearts = Mathf.CeilToInt(playerManager.GetInitialHealth());   
        Debug.Log("InitialNumOFHearts: "+ initialNumOfHearts);
-       InstantiateHearts();*/
+       InstantiateHearts();
+        */
+        Debug.Log("InitialNumOFHearts: " + featuremanager.FeatureValue(playerManager.GetNameFeature)) ;
+        initialNumOfHearts = Mathf.CeilToInt(featuremanager.FeatureValue(playerManager.GetNameFeature));
+        InstantiateHearts();
     }
 
-    private void FixedUpdate()
-    {
-        
-        if(i==1)
-        {
-            initialNumOfHearts = Mathf.CeilToInt(playerManager.GetInitialHealth());   
-            //Debug.Log("InitialNumOFHearts: "+ initialNumOfHearts);
-            InstantiateHearts();
-            i++;
-        }
-        
-        numOfHearts = Mathf.CeilToInt(playerManager.GetHealth());   
-        Debug.Log("HEARTCONTROLLER Health: "+numOfHearts);
-        
-        if(numOfHearts > 0)
-        {
-            for(int i = initialNumOfHearts-1; i >= numOfHearts; i--)
-            {
-                if(instantiatedHearts[i].activeSelf == true)
-                    instantiatedHearts[i].SetActive(false);
-            }
-        }
-        else if( numOfHearts == 0)
-        {
-            Debug.Log("DEATH! :)");
-        }
-    }
+
 
     public List<GameObject> GetInstantiatedHearts()
     {

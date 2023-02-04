@@ -55,7 +55,7 @@ public class PlayerManager : MonoBehaviour
             {
                 health = ComputeHealth();
                 SetHealth(health);
-                Debug.Log("HEALTH after health_reduction: "+ health);
+                //Debug.Log("HEALTH after health_reduction: "+ health);
             }
             if(health == 0){
                 Debug.Log("YOU ARE DEAD! :(");
@@ -93,4 +93,8 @@ public class PlayerManager : MonoBehaviour
         return initialHealth;
     }
 
+    public string GetNameFeature
+    {
+        get { return HEALTH; }
+    }
 }

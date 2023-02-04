@@ -118,12 +118,12 @@ public class RoadManager : MonoBehaviour
         int goPosition = instantiatedTracks.IndexOf(temp);
         if(goPosition > 3 && goPosition<=8)
         {
-            Debug.Log("Position: "+ goPosition);
+          //  Debug.Log("Position: "+ goPosition);
             ActivateObstacle(true, temp);
         }
         if (goPosition==9)
         {
-            Debug.Log("Position: " + goPosition);
+           // Debug.Log("Position: " + goPosition);
            
             ActivateQuestion(true, temp);   
         }
