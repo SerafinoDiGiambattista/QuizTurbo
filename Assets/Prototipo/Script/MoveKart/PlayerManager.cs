@@ -9,8 +9,6 @@ using Unity.IO;
 public class PlayerManager : MonoBehaviour
 {
     //Leggere feature: health, horizontal speed (che aumenta con la velocità verticale, secondo un certo valore minore di accelerazione)
-
-
     private int score;
     private float initialHealth;
     private float health;
@@ -25,7 +23,6 @@ public class PlayerManager : MonoBehaviour
     {
         featureManager = GetComponent<FeatureManager>();
         componentManager = GetComponent<ComponentManager>();
-
     }
 
     void Start()
@@ -41,6 +38,7 @@ public class PlayerManager : MonoBehaviour
         health = featureManager.FeatureValue(HEALTH);
         //Debug.Log("HEALTH: "+ health);
     }
+
 /*
     public string PlayerName{
         get { return playerName; }
@@ -91,35 +89,8 @@ public class PlayerManager : MonoBehaviour
         health = h;
     }
 
-///////////// DOVE VANNO QUESTI ??????????????????
-    public int GetHighScore(){
-        return highScore;
-    }
-
-    public int GetScore(){
-        return score;
-    }
-
-    public virtual void AddScore(int anAmount){
-        score += anAmount;
-    }
-    
-    public void LostScore(int num)
-    {
-        score -= num;
-    }
-    public void SetScore(int num)
-    {
-        score = num;
-    }
-  
-    public bool GetIsFinished()
-    {
-        return isFinished;
-    }
-    public void SetIsFinished(bool aVal)
-    {
-        isFinished = aVal;
+    public float GetInitialHealth(){
+        return initialHealth;
     }
 
 }

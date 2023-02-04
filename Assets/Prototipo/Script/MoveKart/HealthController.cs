@@ -11,6 +11,7 @@ public class HealthController : MonoBehaviour
     private List<GameObject> instantiatedHearts = new List<GameObject>();
     private float count = 0;
     PlayerManager playerManager;
+    private int i;
 
     private void Awake()
     {
@@ -19,21 +20,31 @@ public class HealthController : MonoBehaviour
 
     void Start()
     {
-       initialNumOfHearts = Mathf.CeilToInt(playerManager.GetHealth());   
-       //Debug.Log("InitialNumOFHearts: "+ initialNumOfHearts);
-       InstantiateHearts();
+        i = 1;
+       /*initialNumOfHearts = Mathf.CeilToInt(playerManager.GetInitialHealth());   
+       Debug.Log("InitialNumOFHearts: "+ initialNumOfHearts);
+       InstantiateHearts();*/
     }
 
     private void FixedUpdate()
     {
+        
+        if(i==1)
+        {
+            initialNumOfHearts = Mathf.CeilToInt(playerManager.GetInitialHealth());   
+            //Debug.Log("InitialNumOFHearts: "+ initialNumOfHearts);
+            InstantiateHearts();
+            i++;
+        }
+        
         numOfHearts = Mathf.CeilToInt(playerManager.GetHealth());   
-        //Debug.Log("HEARTCONTROLLER Health: "+numOfHearts);
+        Debug.Log("HEARTCONTROLLER Health: "+numOfHearts);
         
         if(numOfHearts > 0)
         {
-            for(int i = initialNumOfHearts-1; i > numOfHearts; i--)
+            for(int i = initialNumOfHearts-1; i >= numOfHearts; i--)
             {
-                if(instantiatedHearts[i].activeSelf)
+                if(instantiatedHearts[i].activeSelf == true)
                     instantiatedHearts[i].SetActive(false);
             }
         }
