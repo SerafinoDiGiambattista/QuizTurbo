@@ -20,12 +20,14 @@ using UnityEngine;
         {
             get { return countDownManager; }
         }
+
         private void Awake()
         {
-        componentDirectory = Path.Combine(Application.streamingAssetsPath, componentDirectory);
-        featureManager = GetComponent<FeatureManager>();
-        LoadComponentGroup(componentDirectory);
+            componentDirectory = Path.Combine(Application.streamingAssetsPath, componentDirectory);
+            featureManager = GetComponent<FeatureManager>();
+            LoadComponentGroup(componentDirectory);
         }
+
         private void FixedUpdate()
         {
             ResetModifiers();
@@ -39,11 +41,10 @@ using UnityEngine;
             set{objFeatures = value;}
         }
 
-        public Dictionary<string, Component> GetComponents
+        public Dictionary<string, Component> Components
         {
             get{ return components;}
         }
-
 
     protected void LoadComponentGroup(string path)
     {
@@ -58,6 +59,7 @@ using UnityEngine;
     {
         if (!CheckFile(path)) return;
         string[] n = path.Split('.');
+        //Debug.Log("Path: "+path+ " string n: " +n);
         Component c = new Component(Path.GetFileName(n[0].Trim()), path, this);
         AddComponent(c);
     }
@@ -84,63 +86,61 @@ using UnityEngine;
 
     // serve a resettare i modificaotri dopo che l�hai utilizzati
     protected void ResetModifiers()
+    {
+        foreach(Feature f in objFeatures.Values)
         {
-            foreach(Feature f in objFeatures.Values)
-            {
-                featureMulMod[f.Type] = 1.0f;
-                featureAddMod[f.Type] = 0.0f;
-            }
+            featureMulMod[f.Type] = 1.0f;
+            featureAddMod[f.Type] = 0.0f;
         }
-        //valore della feature
-        public float FeatureValue(string f)
-        {
-            float val = 0;
-            val = objFeatures[f].CurrentValue;
-            return val;
-        }
-
-        //calcolo modificatore 
-        public void ComputeModifiers()
-        {
-            foreach (KeyValuePair<string, Component> kv in components)
-            {
-                Dictionary<string, Modifier> mod = components[kv.Key].MyModifiers;
-                foreach (Modifier m in mod.Values)
-                {
-                    featureMulMod[m.Type] *= m.MultFactor;
-                    featureAddMod[m.Type] += m.AddFactor;                 
-                }
-            }
-        }
-        
-        //calcolo valore totale della feature con i modificatori 
-        public void ComputeFeatures()
-        {
-            foreach(Feature f in objFeatures.Values)
-            {
-                float midVal = f.BaseValue * featureMulMod[f.Type];
-                f.CurrentValue = midVal + featureAddMod[f.Type];
-            }
-        }
-
-        public Dictionary<string, Component> ComponentsByFeature(string feature)
-        {
-            return components.Where(x => x.Value.HasFeature(feature)).ToDictionary(x => x.Key, x=> x.Value);
-        }
-
-        public void RemoveComponent(string c)
-        {
-            components.Remove(c);
-        }
-
-        public void AddComponent(Component c)
-        {
-            if (components.ContainsKey(c.NameC)) RemoveComponent(c.NameC);
-            components.Add(c.NameC, c);
-        }
-
-
-
     }
+    //valore della feature
+    public float FeatureValue(string f)
+    {
+        float val = 0;
+        val = objFeatures[f].CurrentValue;
+        return val;
+    }
+
+    //calcolo modificatore 
+    public void ComputeModifiers()
+    {
+        foreach (KeyValuePair<string, Component> kv in components)
+        {
+            Dictionary<string, Modifier> mod = components[kv.Key].MyModifiers;
+            foreach (Modifier m in mod.Values)
+            {
+                featureMulMod[m.Type] *= m.MultFactor;
+                featureAddMod[m.Type] += m.AddFactor;                 
+            }
+        }
+    }
+    
+    //calcolo valore totale della feature con i modificatori 
+    public void ComputeFeatures()
+    {
+        foreach(Feature f in objFeatures.Values)
+        {
+            float midVal = f.BaseValue * featureMulMod[f.Type];
+            f.CurrentValue = midVal + featureAddMod[f.Type];
+            //Debug.Log("f.CurrentValue: "+f.CurrentValue);
+        }
+    }
+
+    public Dictionary<string, Component> ComponentsByFeature(string feature)
+    {
+        return components.Where(x => x.Value.HasFeature(feature)).ToDictionary(x => x.Key, x=> x.Value);
+    }
+
+    public void RemoveComponent(string c)
+    {
+        components.Remove(c);
+    }
+
+    public void AddComponent(Component c)
+    {
+        if (components.ContainsKey(c.NameC)) RemoveComponent(c.NameC);
+        components.Add(c.NameC, c);
+    }
+}
 
 

@@ -33,7 +33,6 @@ public class DestructionObject : MonoBehaviour
 
     void Start()
     {
-
         //calculate pivot distance
         cubesPivotDistance = cubeSize * cubesInRow / 2;
         //use this value to create pivot vector)
@@ -45,24 +44,12 @@ public class DestructionObject : MonoBehaviour
 
     void OnCollect(Collider other)
     {
-       
-     //   if (CollectVFX)
-       // {
-            
-           // CollectVFX.Play();
-      
             explode();
 
             cubes = GameObject.FindGameObjectsWithTag("Cube");
             foreach (GameObject c in cubes)
                 destroyPiece(c);
-
-      //  }
         if (m_rigid) m_rigid.AddForce(forceUpOnCollide * Vector3.up, ForceMode.Impulse);
-
-      
-
-       
     }
 
     private void OnTriggerEnter(Collider other)
@@ -70,7 +57,6 @@ public class DestructionObject : MonoBehaviour
         //Debug.Log("Collider entra in contatto con iol trigger");
         if (other.gameObject.CompareTag("Ciccio"))
         {
-           
             OnCollect(other);
         }
     }

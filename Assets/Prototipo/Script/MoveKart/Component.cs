@@ -41,6 +41,7 @@ using System.IO;
         {
             get { return m_mods; }
         }
+        
         //ritorna le feature di una componente
         public Dictionary<string, Feature> ComponentFeatures
         {

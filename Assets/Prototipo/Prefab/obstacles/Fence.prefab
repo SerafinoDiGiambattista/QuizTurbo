@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: -1743051733471590768, guid: f5d3c5e0f5f32c141911c08deee9e94d,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1743051733471590768, guid: f5d3c5e0f5f32c141911c08deee9e94d,
         type: 3}
@@ -136,4 +136,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 884a8e199ad76734181c3b04723e4b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: Assets/Prototipo/FileCSV/ObstaclesFeature/Fence.csv
+  path: Assets/StreamingAssets/PlayerFeatures/Component/Fence.csv

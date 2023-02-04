@@ -6,6 +6,7 @@ using UnityEngine;
 public class RoadController : MonoBehaviour
 {
     RoadManager roadManager;
+    private int scoreCount = 0; // incrementa lo score in base alla distanza percorsa, incrementato ogni volta che entra in TriggerExit
     //chiediamo al professore Di Penta se gli va bene 
     private void Awake()
     {
@@ -26,8 +27,7 @@ public class RoadController : MonoBehaviour
 
   
     public void SetRoadComplete()
-    {
-        
+    {   
         Transform[] allChildren = GetComponentsInChildren<Transform>();
         foreach (Transform child in allChildren)
         {

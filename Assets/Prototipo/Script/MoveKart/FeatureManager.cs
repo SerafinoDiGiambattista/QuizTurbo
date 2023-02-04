@@ -64,6 +64,7 @@ using Unity.IO;
                     Feature f = new Feature(name, b_value);
                     AddFeature(f);
                     AddBaseFeature(f);
+                    //Debug.Log("F>> name: "+ name + " b_value: "+ b_value);
                 }
             }
             //loaded = true;

@@ -28,10 +28,6 @@ public class RoadManager : MonoBehaviour
     // Per calcolare i secondi nella velocità
     public float maxSpeed = 20;
     private float timer = 0f;
-    
-    //Variabili per la gestione degli ostacoli
-    public List<GameObject> roadObjects = new List<GameObject>();
-
 
     private void Awake()
     {
@@ -145,8 +141,7 @@ public class RoadManager : MonoBehaviour
             {
                 if (t.CompareTag("Ostacolo"))
                 {
-                    listchild.Add(t.gameObject);
-                    
+                    listchild.Add(t.gameObject);  
                 }
             }
             int start = 0;
