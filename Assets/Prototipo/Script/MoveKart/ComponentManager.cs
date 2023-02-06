@@ -6,45 +6,53 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-    public class ComponentManager : MonoBehaviour
-    {   [SerializeField] protected string componentDirectory;
-        protected Dictionary<string, Component> components = new Dictionary<string, Component>();
-        protected Dictionary<string, Feature> objFeatures = new Dictionary<string, Feature>();
-        protected FeatureManager featureManager;
-        protected Dictionary<string, float> featureMulMod = new Dictionary<string, float>();
-        protected Dictionary<string, float> featureAddMod = new Dictionary<string, float>();
-        protected CountDownManager countDownManager;
+public class ComponentManager : MonoBehaviour
+{   [SerializeField] protected string componentDirectory;
+    protected Dictionary<string, Component> components = new Dictionary<string, Component>();
+    protected Dictionary<string, Feature> objFeatures = new Dictionary<string, Feature>();
+    protected FeatureManager featureManager;
+    protected Dictionary<string, float> featureMulMod = new Dictionary<string, float>();
+    protected Dictionary<string, float> featureAddMod = new Dictionary<string, float>();
+    protected CountDownManager countDownManager;
 
-        // Classe utilizzata per dare un limite di tempo a tutti gli eventi che hanno una certa durata
-        public CountDownManager TheCountDownManager
-        {
-            get { return countDownManager; }
-        }
+    // Classe utilizzata per dare un limite di tempo a tutti gli eventi che hanno una certa durata
+    public CountDownManager TheCountDownManager
+    {
+        get { return countDownManager; }
+    }
 
-        private void Awake()
-        {
-            componentDirectory = Path.Combine(Application.streamingAssetsPath, componentDirectory);
-            featureManager = GetComponent<FeatureManager>();
-            LoadComponentGroup(componentDirectory);
-        }
+    private void Awake()
+    {
+        componentDirectory = Path.Combine(Application.streamingAssetsPath, componentDirectory);
+        featureManager = GetComponent<FeatureManager>();
+        LoadComponentGroup(componentDirectory);
+    }
 
-        private void FixedUpdate()
-        {
-            ResetModifiers();
-            ComputeModifiers();
-            ComputeFeatures();
-        }
+    private void FixedUpdate()
+    {
+        ResetModifiers();
+        ComputeModifiers();
+        ComputeFeatures();
+    }
         
-        public Dictionary<string, Feature> GetObjFeatures
-        {
-            get{ return objFeatures;}
-            set{objFeatures = value;}
-        }
+    /*public void ComponentPickup(string type, string name, string path)
+    {
+        path = Path.Combine(Application.streamingAssetsPath, path);
+        type = type.ToLower();
+        type = char.ToUpper(type[0]) + type.Substring(1);
+        AddComponent((UAComponent)Activator.CreateInstance( name, path, this));
+    }*/
 
-        public Dictionary<string, Component> Components
-        {
-            get{ return components;}
-        }
+    public Dictionary<string, Feature> GetObjFeatures
+    {
+        get{ return objFeatures;}
+        set{objFeatures = value;}
+    }
+
+    public Dictionary<string, Component> Components
+    {
+        get{ return components;}
+    }
 
     protected void LoadComponentGroup(string path)
     {
@@ -114,7 +122,7 @@ using UnityEngine;
             }
         }
     }
-    
+
     //calcolo valore totale della feature con i modificatori 
     public void ComputeFeatures()
     {
@@ -141,6 +149,6 @@ using UnityEngine;
         if (components.ContainsKey(c.NameC)) RemoveComponent(c.NameC);
         components.Add(c.NameC, c);
     }
-}
+    }
 
 
