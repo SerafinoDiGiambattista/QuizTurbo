@@ -26,6 +26,7 @@ public class RoadManager : MonoBehaviour
     protected float acceleration;
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
     private List<GameObject> instantiatedTracks = new List<GameObject>();
+    private float localSpace = 0f;
 
     // Per calcolare i secondi nella velocità
     public float maxSpeed = 0;
@@ -79,11 +80,19 @@ public class RoadManager : MonoBehaviour
         {
             g.transform.position += new Vector3(0, 0, -verticalSpeed * Time.deltaTime);
         }
+        Space += verticalSpeed * Time.deltaTime;
         //Ogni 10 secondi la velocità aumenta di un fattore pari ad Accelerazione
-        IncreaseSpeedPerSeconds();
+       // IncreaseSpeedPerSeconds();
     }
 
-    public void IncreaseSpeedPerSeconds()
+    public float Space
+    {
+        set { localSpace = value; }
+        get { return localSpace; }
+    }
+
+
+    /*public void IncreaseSpeedPerSeconds()
     {
         timer += Time.deltaTime;
         float seconds = timer % 60;
@@ -92,7 +101,7 @@ public class RoadManager : MonoBehaviour
             verticalSpeed += acceleration;
             //Debug.Log("Seconds: "+ seconds + " speed: "+ VerticalSpeed);
         }
-    }
+    }*/
 
     public float VerticalSpeed{
         get{ return verticalSpeed;}

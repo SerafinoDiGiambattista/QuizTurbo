@@ -8,12 +8,8 @@ public class ScoreGUI : MonoBehaviour
 {
     public GameObject objectRoad;
     private RoadManager roadManager;
-    //void Awake()
-    //{
-        
+    private float score = 0f;
 
-    //}
-    // Start is called before the first frame update
     void Start()
     {
         roadManager = objectRoad.GetComponent<RoadManager>();
@@ -22,8 +18,7 @@ public class ScoreGUI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-       // Debug.Log(player.position.z);
-        Debug.Log(roadManager.VerticalSpeed);
-        //gameObject.SetText
+        score = (roadManager.Space);
+        gameObject.GetComponent<Text>().text = Mathf.Abs((Mathf.CeilToInt(score))).ToString();
     }
 }
