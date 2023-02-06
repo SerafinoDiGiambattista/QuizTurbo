@@ -20,13 +20,15 @@ public class RoadManager : MonoBehaviour
     protected RoadController roadController;
     private string VERTICAL_SPEED = "VERTICAL_SPEED";
     private string ACCELERATION = "ACCELERATION";
+    private string MAX_SPEED = "MAX_SPEED";
     protected float initialSpeed;
+    private float verticalSpeed;
     protected float acceleration;
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
     private List<GameObject> instantiatedTracks = new List<GameObject>();
 
     // Per calcolare i secondi nella velocità
-    public float maxSpeed = 20;
+    public float maxSpeed = 0;
     private float timer = 0f;
 
     private void Awake()
@@ -43,6 +45,7 @@ public class RoadManager : MonoBehaviour
     {
         IstatiateRoad();
         LoadFeatures();
+        initialSpeed = verticalSpeed;
     }
 
     private  void IstatiateRoad()
@@ -60,13 +63,21 @@ public class RoadManager : MonoBehaviour
         }
     }
 
+    protected void LoadFeatures()
+    {
+        verticalSpeed = featureManager.FeatureValue(VERTICAL_SPEED);
+        acceleration = featureManager.FeatureValue(ACCELERATION);
+        maxSpeed = featureManager.FeatureValue(MAX_SPEED);
+        //Debug.Log("VERTICAL_SPEED: "+ initialSpeed);
+        //Debug.Log("ACCELERATION: "+ acceleration);
+    }
     
     // Update is called once per frame
     void FixedUpdate()
     {
         foreach (GameObject g in instantiatedTracks)
         {
-            g.transform.position += new Vector3(0, 0, -VerticalSpeed * Time.deltaTime);
+            g.transform.position += new Vector3(0, 0, -verticalSpeed * Time.deltaTime);
         }
         //Ogni 10 secondi la velocità aumenta di un fattore pari ad Accelerazione
         IncreaseSpeedPerSeconds();
@@ -77,15 +88,15 @@ public class RoadManager : MonoBehaviour
         timer += Time.deltaTime;
         float seconds = timer % 60;
         seconds = Mathf.CeilToInt(seconds);
-        if((seconds%10) == 0 && VerticalSpeed < MaxSpeed){
-            VerticalSpeed +=Acceleration;
+        if((seconds%10) == 0 && verticalSpeed < MaxSpeed){
+            verticalSpeed += acceleration;
             //Debug.Log("Seconds: "+ seconds + " speed: "+ VerticalSpeed);
         }
     }
 
     public float VerticalSpeed{
-        get{ return initialSpeed;}
-        set{initialSpeed = value;}
+        get{ return verticalSpeed;}
+        set{verticalSpeed = value;}
     }
 
     public float Acceleration
@@ -98,14 +109,6 @@ public class RoadManager : MonoBehaviour
     {
         get{ return maxSpeed;}
         set{ maxSpeed = value; }
-    }
-
-    protected void LoadFeatures()
-    {
-        initialSpeed = featureManager.FeatureValue(VERTICAL_SPEED);
-        acceleration = featureManager.FeatureValue(ACCELERATION);
-        //Debug.Log("VERTICAL_SPEED: "+ initialSpeed);
-        //Debug.Log("ACCELERATION: "+ acceleration);
     }
 
     public void SpawnSegment(GameObject temp)
@@ -133,7 +136,6 @@ public class RoadManager : MonoBehaviour
 
     public void ActivateObstacle(bool check, GameObject go)
     {
-
         if (check)
         {
             List<GameObject> listchild = new List<GameObject>();
@@ -173,7 +175,6 @@ public class RoadManager : MonoBehaviour
 
                     t.gameObject.SetActiveRecursively(true);
                 }
-
             }
         }
     }

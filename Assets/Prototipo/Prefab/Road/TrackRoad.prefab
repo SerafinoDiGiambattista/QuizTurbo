@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 884a8e199ad76734181c3b04723e4b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: Assets/Prototipo/FileCSV/RoadFeature/Road.csv
+  path: Assets/StreamingAssets/Road/RoadFeatures/Road.csv
 --- !u!65 &3173560009690246849
 BoxCollider:
   m_ObjectHideFlags: 0
