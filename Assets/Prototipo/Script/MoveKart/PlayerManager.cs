@@ -28,14 +28,14 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         LoadFeatures();
-        initialHealth = health;
+        health = initialHealth;
         //Debug.Log("initHealth: "+initialHealth);
         //initialHearts = healthController.GetInstantiatedHearts();
 ;    }
 
     protected void LoadFeatures()
     {
-        health = featureManager.FeatureValue(HEALTH);
+        initialHealth = featureManager.FeatureValue(HEALTH);
         //Debug.Log("HEALTH: "+ health);
     }
 
@@ -66,6 +66,7 @@ public class PlayerManager : MonoBehaviour
     protected float ComputeHealth()
     {
         float health_reduction = componentManager.FeatureValue(HEALTH);
+        Debug.Log("health_reduction: "+health_reduction);
         //float reduction = componentManager.FeatureValue(HEALTH);
         //float health_reduction = health + reduction;
         return health_reduction;

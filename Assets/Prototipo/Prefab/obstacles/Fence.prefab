@@ -136,4 +136,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 884a8e199ad76734181c3b04723e4b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: Assets/StreamingAssets/PlayerFeatures/Component/Fence.csv
+  path: PlayerFeatures/Component/Fence.csv

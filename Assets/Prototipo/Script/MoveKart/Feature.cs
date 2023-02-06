@@ -11,6 +11,7 @@ using UnityEngine;
         public float BaseValue
         {
             get { return base_value; }
+            set {base_value = value; }
         }
         public float CurrentValue
         {

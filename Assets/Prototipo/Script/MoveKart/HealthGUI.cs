@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthController : MonoBehaviour
+public class HealthGUI : MonoBehaviour
 {
     private int numOfHearts = 0;
     private int initialNumOfHearts;
@@ -19,8 +19,6 @@ public class HealthController : MonoBehaviour
     {
         featuremanager= playerObject.GetComponent<FeatureManager>();
         playerManager= playerObject.GetComponent<PlayerManager>();
-
-        
     }
 
     void Start()
@@ -30,8 +28,9 @@ public class HealthController : MonoBehaviour
        Debug.Log("InitialNumOFHearts: "+ initialNumOfHearts);
        InstantiateHearts();
         */
-        Debug.Log("InitialNumOFHearts: " + featuremanager.FeatureValue(playerManager.GetNameFeature)) ;
+        
         initialNumOfHearts = Mathf.CeilToInt(featuremanager.FeatureValue(playerManager.GetNameFeature));
+        Debug.Log("InitialNumOFHearts: " + initialNumOfHearts) ;
         InstantiateHearts();
     }
 
@@ -52,7 +51,7 @@ public class HealthController : MonoBehaviour
         {
             Quaternion spawnRotation = Quaternion.identity; //nessuna rotazione
             Vector2 spawnPosition = new Vector2(count,heart.transform.position.y); //heart.transform.position.y, heart.transform.position.z);
-            GameObject temp = Instantiate(heart);//, spawnPosition, spawnRotation)as GameObject;
+            GameObject temp = Instantiate(heart);
             temp.transform.SetParent(gameObject.transform);
             instantiatedHearts.Add(temp);
         }
@@ -61,7 +60,7 @@ public class HealthController : MonoBehaviour
     private void UpdateHealth()
     {
         numOfHearts = Mathf.CeilToInt(playerManager.GetHealth());
-        Debug.Log("HEARTCONTROLLER Health: " + numOfHearts);
+        //Debug.Log("HEARTCONTROLLER Health: " + numOfHearts);
 
         if (numOfHearts > 0)
         {
