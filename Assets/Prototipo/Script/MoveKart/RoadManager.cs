@@ -21,6 +21,7 @@ public class RoadManager : MonoBehaviour
     private string VERTICAL_SPEED = "VERTICAL_SPEED";
     private string ACCELERATION = "ACCELERATION";
     private string MAX_SPEED = "MAX_SPEED";
+    private string SOT_DURABILITY = "DURABILITY";
     protected float initialSpeed;
     private float verticalSpeed;
     protected float acceleration;
@@ -67,7 +68,7 @@ public class RoadManager : MonoBehaviour
     protected void LoadFeatures()
     {
         verticalSpeed = featureManager.FeatureValue(VERTICAL_SPEED);
-        acceleration = featureManager.FeatureValue(ACCELERATION);
+        //acceleration = featureManager.FeatureValue(ACCELERATION);
         maxSpeed = featureManager.FeatureValue(MAX_SPEED);
         //Debug.Log("VERTICAL_SPEED: "+ initialSpeed);
         //Debug.Log("ACCELERATION: "+ acceleration);
@@ -82,7 +83,8 @@ public class RoadManager : MonoBehaviour
         }
         Space += verticalSpeed * Time.deltaTime;
         //Ogni 10 secondi la velocità aumenta di un fattore pari ad Accelerazione
-       // IncreaseSpeedPerSeconds();
+        SpeedOverTime(verticalSpeed);
+        Debug.Log("Speed: "+verticalSpeed);
     }
 
     public float Space
@@ -90,7 +92,6 @@ public class RoadManager : MonoBehaviour
         set { localSpace = value; }
         get { return localSpace; }
     }
-
 
     /*public void IncreaseSpeedPerSeconds()
     {
@@ -102,6 +103,27 @@ public class RoadManager : MonoBehaviour
             //Debug.Log("Seconds: "+ seconds + " speed: "+ VerticalSpeed);
         }
     }*/
+
+    public void SpeedOverTime(float currentSpeed)
+    {
+        VerticalSpeedOverTime(currentSpeed);
+        //HorizontalSpeedOverTime();
+    }
+    
+    public void VerticalSpeedOverTime(float currentSpeed)
+    {
+        Dictionary<string, Component> comp = componentManager.ComponentsByFeature(VERTICAL_SPEED);
+        foreach(Component c in comp.Values)
+        {
+            try
+            {
+                float reduction = c.MyModifiers[ACCELERATION].AddFactor;
+                c.IncreaseComponent(VERTICAL_SPEED, reduction);
+            }
+            catch (Exception) { }
+        }
+    }
+
 
     public float VerticalSpeed{
         get{ return verticalSpeed;}
@@ -181,42 +203,12 @@ public class RoadManager : MonoBehaviour
             {
                 if (t.CompareTag("PlaneFalse") || t.CompareTag("PlaneTrue"))
                 {
-
                     t.gameObject.SetActiveRecursively(true);
                 }
             }
         }
     }
-
-
-/*
-    protected void LoadParameters<T1, T2>(string path, Dictionary<T1, T2> p)
-    {
-        string[] lines = File.ReadAllLines(path);
-        foreach (string l in lines)
-        {
-            string[] items = l.Split(',');
-            object param1 = items[0].Trim();
-            object param2 = items[1].Trim();
-            if (typeof(T2) == typeof(float)) param2 = ParseFloatValue(items[1]);
-            p.Add((T1)param1, (T2)param2);
-        }
-    }
-
-    protected float ParseFloatValue(string val)
-    {
-        return float.Parse(val, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
-    }
     
-    protected void ComputeFeatures()
-    {
-        for(int i = 0; i < roadFeatures.Count; i++)
-        {
-            string s = roadFeatures.Keys.ElementAt(i);
-            roadFeatures[s] = componentManager.FeatureValue(s);
-            Debug.Log(" \n"+roadFeatures[s] +"\n");
-        }
-    }*/
-
+   
 
 }

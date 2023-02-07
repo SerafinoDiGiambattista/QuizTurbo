@@ -14,25 +14,27 @@ public class ComponentManager : MonoBehaviour
     protected Dictionary<string, float> featureMulMod = new Dictionary<string, float>();
     protected Dictionary<string, float> featureAddMod = new Dictionary<string, float>();
     protected CountDownManager countDownManager;
-
-    // Classe utilizzata per dare un limite di tempo a tutti gli eventi che hanno una certa durata
-    public CountDownManager TheCountDownManager
-    {
-        get { return countDownManager; }
-    }
+    protected Dictionary<string, Modifier> allTicks = new Dictionary<string, Modifier>();
+    protected TickManager tickManager;
 
     private void Awake()
     {
         componentDirectory = Path.Combine(Application.streamingAssetsPath, componentDirectory);
         featureManager = GetComponent<FeatureManager>();
+        countDownManager = GetComponent<CountDownManager>();
+        tickManager = GetComponent<TickManager>();
         LoadComponentGroup(componentDirectory);
     }
 
     private void FixedUpdate()
     {
+        if (objFeatures == null) return;
+        CheckIsActive();
         ResetModifiers();
         ComputeModifiers();
         ComputeFeatures();
+        ComputeAllTicks();
+        //Print();
     }
         
     /*public void ComponentPickup(string type, string name, string path)
@@ -42,6 +44,31 @@ public class ComponentManager : MonoBehaviour
         type = char.ToUpper(type[0]) + type.Substring(1);
         AddComponent((UAComponent)Activator.CreateInstance( name, path, this));
     }*/
+
+    /*public void Print()
+    {
+        foreach(KeyValuePair<string, Component> keyValuePair in components)
+        {
+            Component c = components[keyValuePair.Key];
+            Debug.LogError(c.NameC);
+            string features = "";
+            foreach (KeyValuePair<string, Feature> f in c.MyFeatures) features += c.MyFeatures[f.Key].Type + " BV: " + c.MyFeatures[f.Key].BaseValue + " CV: " + c.MyFeatures[f.Key].CurrentValue;
+            //string modifiers = "";
+            //foreach (KeyValuePair<string, Modifier> m in c.MyModifiers) modifiers += c.MyModifiers[m.Key].Type + " MF: " + c.MyModifiers[m.Key].MultFactor + " AF: " + c.MyModifiers[m.Key].AddFactor;
+            Debug.Log("Features: " + features);
+            //Debug.Log("Modifiers: " + modifiers);
+        }
+    }*/
+
+    public TickManager GetTickManager
+    {
+        get { return tickManager; }
+    }
+
+     public CountDownManager GetCountDownManager
+    {
+        get { return countDownManager; }
+    }
 
     public Dictionary<string, Feature> GetObjFeatures
     {
@@ -149,6 +176,36 @@ public class ComponentManager : MonoBehaviour
         if (components.ContainsKey(c.NameC)) RemoveComponent(c.NameC);
         components.Add(c.NameC, c);
     }
+
+    protected void CheckIsActive()
+    {
+        for(int i = 0; i <= components.Count; i++)
+        {
+            try
+            {
+                string s = components.ElementAt(i).Key;
+                if (!components[s].CheckIsActive()) RemoveComponent(s);
+            }
+            catch (Exception) { }
+        }
     }
+
+    protected void ComputeAllTicks()
+    {
+        foreach (Component c in components.Values)
+        {
+            if (c.CheckTick())
+            {
+                foreach (Modifier m in c.MyModifiers.Values)
+                {
+                    if (allTicks.ContainsKey(m.GetName)) allTicks.Remove(m.GetName);
+                    allTicks.Add(m.GetName, m);
+                }
+                c.ResetTick();
+            }
+        }
+    }
+
+}
 
 

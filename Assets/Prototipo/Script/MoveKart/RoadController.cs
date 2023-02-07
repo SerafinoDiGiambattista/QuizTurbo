@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class RoadController : MonoBehaviour
 {
     RoadManager roadManager;
@@ -21,7 +20,6 @@ public class RoadController : MonoBehaviour
             SetRoadComplete();
             roadManager.SpawnSegment(getTrackRoad);
             //qui dentro segnaliamo la necessita di attiavre un pezzo 
-            //deve invocare quindi un metodo di roadmanager??
         }
     }
 

@@ -61,6 +61,7 @@ public class Component : MonoBehaviour
     {
         m_mods[mod.GetName] = mod;
     }
+
     //aggiungi una feature
     public void AddFeature(Feature f)
     {
@@ -138,5 +139,11 @@ public class Component : MonoBehaviour
     {
         foreach (string s in m_features.Keys) if (s == feature) return true;
         return false;
+    }
+
+    public Dictionary<string, Feature> MyFeatures
+    {
+        get { return m_features; }
+        set { m_features = value; }
     }
 }

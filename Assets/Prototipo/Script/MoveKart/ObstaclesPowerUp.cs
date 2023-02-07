@@ -4,19 +4,31 @@ using UnityEngine;
 
 public class ObstaclesPowerUp : Component
 {
-   // QUESTA CLASSE GESTISCE SIA OSTACOLI CHE POWER UP
-   protected CountDownManager cdm;
+   protected CountDownManager cdmanager;
+   protected TickManager tm;
    protected string TIME = "TIME";
+   protected string TICK = "TICK";
+   protected int valuePerSecond = 1;
 
-   public ObstaclesPowerUp(string name, string path, ComponentManager cm): base(name, path, cm){
-            cdm = cm.TheCountDownManager;
-            AddToCountdownPowerUp();
+   public ObstaclesPowerUp(string name, string path, ComponentManager comm) : base(name, path, comm){
+      cdmanager = cm.GetCountDownManager;
+      tm = cm.GetTickManager;
+      AddToCountdown();
+      AddToTick();
    }
 
-   protected void AddToCountdownPowerUp()
+   protected void AddToTick()
+   {
+      if (!CheckFeature(TICK)) return;
+      Tick t = new Tick(this, TICK, (int)m_features[TICK].CurrentValue);
+      t.DoTick();
+      tm.AddTick(t);
+   }
+
+   protected void AddToCountdown()
    {
       if (!CheckFeature(TIME)) return;
-      cdm.AddCountDown(new CountDown(this, TIME, 1));
-   }
+      cdmanager.AddCountDown(new CountDown(this, TIME, valuePerSecond));
+    }   
 
 }
