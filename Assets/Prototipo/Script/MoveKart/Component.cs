@@ -24,17 +24,15 @@ public class Component : MonoBehaviour
 
     public void ReduceComponent(string type, float n)
     {
+
         if (m_features[type].CurrentValue < 0) return;
         m_features[type].CurrentValue -= n;
+      //  Debug.Log("count : "+ m_features[type].CurrentValue);
         if (m_features[type].CurrentValue < 0) isActive = false;
+
+
     }
 
-    public void IncreaseComponent(string type, float n)
-    {
-        if (m_features[type].CurrentValue < 0) return;
-        m_features[type].CurrentValue += n;
-        if (m_features[type].CurrentValue < 0) isActive = false;
-    }
 
     public void TickFeature()
     {

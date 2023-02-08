@@ -28,7 +28,7 @@ public class RoadManager : MonoBehaviour
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
     private List<GameObject> instantiatedTracks = new List<GameObject>();
     private float localSpace = 0f;
-
+    private string SPEEDUPPATH;
     // Per calcolare i secondi nella velocità
     public float maxSpeed = 0;
     private float timer = 0f;
@@ -39,15 +39,16 @@ public class RoadManager : MonoBehaviour
         componentManager = GetComponent<ComponentManager>();
         obstaclesPowerUp = GetComponent<ObstaclesPowerUp>();
         roadController = trackroad.GetComponent<RoadController>();
-
+        SPEEDUPPATH = trackroad.GetComponent<PathManager>().Path;
         //ROADFEATURESPATH = Path.Combine(Application.streamingAssetsPath, ROADFEATURESPATH);
-       // LoadParameters(ROADFEATURESPATH, roadFeatures);
+        // LoadParameters(ROADFEATURESPATH, roadFeatures);
     }
     void Start()
     {
         IstatiateRoad();
         LoadFeatures();
         initialSpeed = verticalSpeed;
+        SpeedOverTime(verticalSpeed);
     }
 
     private  void IstatiateRoad()
@@ -77,14 +78,15 @@ public class RoadManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+      
         foreach (GameObject g in instantiatedTracks)
         {
             g.transform.position += new Vector3(0, 0, -verticalSpeed * Time.deltaTime);
         }
         Space += verticalSpeed * Time.deltaTime;
         //Ogni 10 secondi la velocità aumenta di un fattore pari ad Accelerazione
-        SpeedOverTime(verticalSpeed);
-        Debug.Log("Speed: "+verticalSpeed);
+       
+        //Debug.Log("Speed: "+verticalSpeed);
     }
 
     public float Space
@@ -106,24 +108,14 @@ public class RoadManager : MonoBehaviour
 
     public void SpeedOverTime(float currentSpeed)
     {
-        VerticalSpeedOverTime(currentSpeed);
+       VerticalSpeedOverTime(currentSpeed);
         //HorizontalSpeedOverTime();
     }
-    
+
     public void VerticalSpeedOverTime(float currentSpeed)
     {
-        Dictionary<string, Component> comp = componentManager.ComponentsByFeature(VERTICAL_SPEED);
-        foreach(Component c in comp.Values)
-        {
-            try
-            {
-                float reduction = c.MyModifiers[ACCELERATION].AddFactor;
-                c.IncreaseComponent(VERTICAL_SPEED, reduction);
-            }
-            catch (Exception) { }
-        }
+        componentManager.SpeedUpPickup("SpeedUp", SPEEDUPPATH);
     }
-
 
     public float VerticalSpeed{
         get{ return verticalSpeed;}

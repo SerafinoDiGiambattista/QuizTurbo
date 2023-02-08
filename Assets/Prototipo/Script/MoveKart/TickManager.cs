@@ -31,8 +31,10 @@ public class TickManager : MonoBehaviour
         foreach(Tick t in ticks)
         {
             t.Timer -= Time.deltaTime;
+           
             if (t.Timer <= 0)
             {
+               
                 t.DoTick();
                 t.Timer = timeIntervalInSecond;
             }

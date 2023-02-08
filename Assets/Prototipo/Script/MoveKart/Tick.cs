@@ -30,8 +30,10 @@ public class Tick : OverTime
         if (valuePerSecond >= 0)
         {
             valuePerSecond -= tickPerSecond;
+            
             if (valuePerSecond < 0) active = false;
         }
+       
         if (active) c.TickFeature();
     }
 

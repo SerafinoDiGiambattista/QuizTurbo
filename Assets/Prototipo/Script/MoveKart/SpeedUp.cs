@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class SpeedUp : Component
@@ -15,6 +16,7 @@ public class SpeedUp : Component
         tm = cm.GetTickManager;
         AddToCountdown();
         AddToTick();
+        Activate();
     }
 
     protected void AddToTick()
@@ -29,5 +31,12 @@ public class SpeedUp : Component
     {
         if (!CheckFeature(TIME)) return;
         cdmanager.AddCountDown(new CountDown(this, TIME, valuePerSecond));
-    }   
+    }
+
+    public void Activate()
+    {
+        
+        cm.AddComponent(this);
+      
+    }
 }

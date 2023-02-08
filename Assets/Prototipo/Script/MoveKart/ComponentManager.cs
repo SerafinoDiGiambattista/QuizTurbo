@@ -94,8 +94,10 @@ public class ComponentManager : MonoBehaviour
     {
         if (!CheckFile(path)) return;
         string[] n = path.Split('.');
-        //Debug.Log("Path: "+path+ " string n: " +n);
+       
         Component c = new Component(Path.GetFileName(n[0].Trim()), path, this);
+        //cosi non va benissimo perchè hard code credo ?
+       
         AddComponent(c);
     }
 
@@ -135,6 +137,8 @@ public class ComponentManager : MonoBehaviour
         val = objFeatures[f].CurrentValue;
         return val;
     }
+
+
 
     //calcolo modificatore 
     public void ComputeModifiers()
@@ -194,16 +198,44 @@ public class ComponentManager : MonoBehaviour
     {
         foreach (Component c in components.Values)
         {
+            //Debug.Log("Valore di check "+c.CheckTick());
             if (c.CheckTick())
-            {
+            {  
                 foreach (Modifier m in c.MyModifiers.Values)
                 {
                     if (allTicks.ContainsKey(m.GetName)) allTicks.Remove(m.GetName);
                     allTicks.Add(m.GetName, m);
+                    Debug.Log("all tick: " + m.GetName + "  featureType: " + m.AddFactor);
                 }
                 c.ResetTick();
             }
         }
+    }
+
+
+    public Dictionary<string, float> GetAllTicks(string type)
+    {
+        Dictionary<string, float> filtered = allTicks.Where(x => x.Value.Type == type).ToDictionary(x => x.Key, x => x.Value.AddFactor);
+        foreach (string k in filtered.Keys)
+        {
+            allTicks.Remove(k);
+        }
+        return filtered;
+    }
+
+    public Dictionary<string, T> FilterByType<T>()
+    {
+        Dictionary<string, T> filtered = new Dictionary<string, T>();
+        foreach (KeyValuePair<string, Component> c in components)
+        {
+            if (c.Value is T t) filtered.Add(c.Key, t);
+        }
+        return filtered;
+    }
+    public void SpeedUpPickup(string name, string path)
+    {
+        path = Path.Combine(Application.streamingAssetsPath, path);
+        AddComponent(new SpeedUp(name, path, this));
     }
 
 }

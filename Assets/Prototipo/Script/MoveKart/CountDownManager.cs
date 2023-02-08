@@ -36,6 +36,7 @@ using UnityEngine;
             if(timer <= 0)
             {
                 timer = countDownTimeInSecond;
+           
                 DoCountDown();
             }
         }
