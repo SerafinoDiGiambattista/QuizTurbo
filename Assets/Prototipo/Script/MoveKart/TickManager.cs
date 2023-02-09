@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TickManager : MonoBehaviour
 {
-    [SerializeField] protected int timeIntervalInSecond = 1;
+    protected int timeIntervalInSecond = 1;
     protected List<Tick> ticks = new List<Tick>();
     protected float timer = 0;
     protected bool tick = true;
@@ -14,7 +14,10 @@ public class TickManager : MonoBehaviour
     {
        // timer = timeIntervalInSecond;
     }
-
+    public void SetTimeIntervalSecond(int timer)
+    {
+        if(timer > 0) timeIntervalInSecond = timer;
+    }
     public void AddTick(Tick t)
     {
         t.Timer = timer;

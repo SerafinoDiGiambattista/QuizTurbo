@@ -9,6 +9,7 @@ public class SpeedUp : SComponent
     protected TickManager tm;
     protected string TIME = "TIME";
     protected string TICK = "TICK";
+    protected string TICKER = "TICKER";
     protected int valuePerSecond = 1;
 
     public SpeedUp(string name, string path, ComponentManager comm) : base(name, path, comm){
@@ -25,6 +26,7 @@ public class SpeedUp : SComponent
         Tick t = new Tick(this, TICK, (int)m_features[TICK].CurrentValue);
         t.DoTick();
         tm.AddTick(t);
+        tm.SetTimeIntervalSecond((int)m_mods["TICKER"].MultFactor);
     }
 
     protected void AddToCountdown()

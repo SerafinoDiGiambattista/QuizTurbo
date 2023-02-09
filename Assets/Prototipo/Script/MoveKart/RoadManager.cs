@@ -221,9 +221,9 @@ public class RoadManager : MonoBehaviour
     public void ComputeByComponent(string type, string func)
     {
         Dictionary<string, float> filtered = GetAllTicks(type);
-        Debug.Log("Filetered : "+filtered.Count);
+        //Debug.Log("Filetered : "+filtered.Count);
         float amount = ComputeFeatureValue(filtered);
-        Debug.Log("Amount : "+amount);
+        //Debug.Log("Amount : "+amount);
         if (amount > 0)
         {
             object[] p = { amount };
@@ -252,6 +252,7 @@ public class RoadManager : MonoBehaviour
     {
        
         verticalSpeed +=  acc ;
+
         
     }
 
