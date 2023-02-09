@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CountDown : OverTime
 {
-    public CountDown(Component component, string param, int val) : base(component) 
+    public CountDown(SComponent component, string param, int val) : base(component) 
     {
         parameter = param;
         valuePerSecond = val;

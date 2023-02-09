@@ -56,8 +56,10 @@ using Unity.IO;
             foreach (string fileName in fileEntries)
             {
                 string[] lines = File.ReadAllLines(fileName);
+            
                 foreach (string l in lines)
                 {
+                Debug.Log(l);
                     string[] items = l.Split(',');
                     string name = items[0].Trim();
                     float b_value = ParseFloat(items[1]);

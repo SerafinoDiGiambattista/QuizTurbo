@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstaclesPowerUp : Component
+public class ObstaclesPowerUp : SComponent
 {
    protected CountDownManager cdmanager;
    protected TickManager tm;

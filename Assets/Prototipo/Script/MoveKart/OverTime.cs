@@ -6,15 +6,15 @@ public class OverTime
 {
     protected float valuePerSecond;
     protected string parameter;
-    protected Component c;
+    protected SComponent c;
 
-    public Component MyComponent
+    public SComponent MyComponent
     {
         get { return c; }
         set { c = value; }
     }
 
-    public OverTime(Component component)
+    public OverTime(SComponent component)
     {
         c = component;
     }

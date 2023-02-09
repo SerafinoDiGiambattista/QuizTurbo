@@ -14,7 +14,7 @@ public class Tick : OverTime
         set { timer = value; }
     }
 
-    public Tick(Component component, string param, int val) : base(component) 
+    public Tick(SComponent component, string param, int val) : base(component) 
     {
         parameter = param;
         valuePerSecond = val;

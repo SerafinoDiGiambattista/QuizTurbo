@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using Unity.IO;
 using UnityEngine.UIElements;
+using System.Reflection;
 
 public class RoadManager : MonoBehaviour
 {
@@ -15,42 +16,53 @@ public class RoadManager : MonoBehaviour
     protected FeatureManager featureManager;
     protected ComponentManager componentManager;
     private float count= 0;
-    protected ObstaclesPowerUp obstaclesPowerUp;
     [SerializeField] GameObject trackroad;
     protected RoadController roadController;
     private string VERTICAL_SPEED = "VERTICAL_SPEED";
-    private string ACCELERATION = "ACCELERATION";
+    
     private string MAX_SPEED = "MAX_SPEED";
-    private string SOT_DURABILITY = "DURABILITY";
+    
     protected float initialSpeed;
     private float verticalSpeed;
     protected float acceleration;
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
     private List<GameObject> instantiatedTracks = new List<GameObject>();
     private float localSpace = 0f;
-    private string SPEEDUPPATH;
+    protected TickManager tickmanager;
     // Per calcolare i secondi nella velocità
     public float maxSpeed = 0;
-    private float timer = 0f;
+    protected Dictionary<string, string> tickables = new Dictionary<string, string>();
+    [SerializeField] protected string TICKSPATH;
 
     private void Awake()
     {
         featureManager = GetComponent<FeatureManager>();
         componentManager = GetComponent<ComponentManager>();
-        obstaclesPowerUp = GetComponent<ObstaclesPowerUp>();
+        tickmanager = GetComponent<TickManager>();
         roadController = trackroad.GetComponent<RoadController>();
-        SPEEDUPPATH = trackroad.GetComponent<PathManager>().Path;
+   
         //ROADFEATURESPATH = Path.Combine(Application.streamingAssetsPath, ROADFEATURESPATH);
-        // LoadParameters(ROADFEATURESPATH, roadFeatures);
+        LoadParameters(TICKSPATH, tickables);
     }
     void Start()
     {
         IstatiateRoad();
         LoadFeatures();
         initialSpeed = verticalSpeed;
-        SpeedOverTime(verticalSpeed);
+       
     }
-
+    protected void LoadParameters<T1, T2>(string path, Dictionary<T1, T2> paramDict)
+    {
+        string[] lines = File.ReadAllLines(path);
+        foreach (string l in lines)
+        {
+            string[] items = l.Split(',');
+            object param1 = items[0].Trim();
+            object param2 = items[1].Trim();
+            if (typeof(T2) == typeof(float)) param2 = ParseFloatValue(items[1]);
+            paramDict.Add((T1)param1, (T2)param2);
+        }
+    }
     private  void IstatiateRoad()
     {
         Renderer renderer= roadController.getTrackRoad.GetComponent<Renderer>();
@@ -85,8 +97,8 @@ public class RoadManager : MonoBehaviour
         }
         Space += verticalSpeed * Time.deltaTime;
         //Ogni 10 secondi la velocità aumenta di un fattore pari ad Accelerazione
-       
-        //Debug.Log("Speed: "+verticalSpeed);
+        DoAllTicks();
+        Debug.Log("Speed: "+verticalSpeed);
     }
 
     public float Space
@@ -106,16 +118,7 @@ public class RoadManager : MonoBehaviour
         }
     }*/
 
-    public void SpeedOverTime(float currentSpeed)
-    {
-       VerticalSpeedOverTime(currentSpeed);
-        //HorizontalSpeedOverTime();
-    }
 
-    public void VerticalSpeedOverTime(float currentSpeed)
-    {
-        componentManager.SpeedUpPickup("SpeedUp", SPEEDUPPATH);
-    }
 
     public float VerticalSpeed{
         get{ return verticalSpeed;}
@@ -200,7 +203,62 @@ public class RoadManager : MonoBehaviour
             }
         }
     }
+
+    protected void DoAllTicks()
+    {
+        foreach (KeyValuePair<string, string> t in tickables)
+        {
+            ComputeByComponent(t.Key, t.Value);
+        }
+    }
+
+    public Dictionary<string, float> GetAllTicks(string type)
+    {   
+        return componentManager.GetAllTicks(type);
+    }
+
+
+    public void ComputeByComponent(string type, string func)
+    {
+        Dictionary<string, float> filtered = GetAllTicks(type);
+        Debug.Log("Filetered : "+filtered.Count);
+        float amount = ComputeFeatureValue(filtered);
+        Debug.Log("Amount : "+amount);
+        if (amount > 0)
+        {
+            object[] p = { amount };
+            Type thisType = this.GetType();
+            MethodInfo theMethod = thisType.GetMethod(func);
+            theMethod.Invoke(this, p);
+        }
+    }
+
+    public float ComputeFeatureValue(Dictionary<string, float> received)
+    {
+        float res = 0;
+        foreach (string s in received.Keys)
+        {
+            try
+            {
+              
+                res += received[s];
+            }
+            catch (Exception) { }
+        }
+        return res;
+    }
+
+    public void SpeedUp(float acc)
+    {
+       
+        verticalSpeed +=  acc ;
+        
+    }
+
     
-   
+    protected float ParseFloatValue(string val)
+    {
+        return float.Parse(val, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
+    }
 
 }

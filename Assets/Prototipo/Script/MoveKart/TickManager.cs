@@ -12,7 +12,7 @@ public class TickManager : MonoBehaviour
 
     void Awake()
     {
-        //timer = timeIntervalInSecond;
+       // timer = timeIntervalInSecond;
     }
 
     public void AddTick(Tick t)

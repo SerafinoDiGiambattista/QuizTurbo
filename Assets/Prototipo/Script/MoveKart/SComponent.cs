@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public class Component : MonoBehaviour
+public class SComponent
+    
 {
     protected Dictionary<string, Modifier> m_mods = new Dictionary<string, Modifier>();
     protected Dictionary<string, Feature> m_features = new Dictionary<string, Feature>();
@@ -14,7 +15,7 @@ public class Component : MonoBehaviour
     protected bool nextTick = false;
 
     // COSTRUTTORE
-    public Component(string n, string p, ComponentManager c)
+    public SComponent(string n, string p, ComponentManager c)
     {
         name = n;
         path = p;

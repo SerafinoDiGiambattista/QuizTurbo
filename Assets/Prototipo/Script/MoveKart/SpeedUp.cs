@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-public class SpeedUp : Component
+public class SpeedUp : SComponent
 {
     protected CountDownManager cdmanager;
     protected TickManager tm;

@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class ComponentManager : MonoBehaviour
 {   [SerializeField] protected string componentDirectory;
-    protected Dictionary<string, Component> components = new Dictionary<string, Component>();
+    protected Dictionary<string, SComponent> components = new Dictionary<string, SComponent>();
     protected Dictionary<string, Feature> objFeatures = new Dictionary<string, Feature>();
     protected FeatureManager featureManager;
     protected Dictionary<string, float> featureMulMod = new Dictionary<string, float>();
@@ -76,7 +76,7 @@ public class ComponentManager : MonoBehaviour
         set{objFeatures = value;}
     }
 
-    public Dictionary<string, Component> Components
+    public Dictionary<string, SComponent> Components
     {
         get{ return components;}
     }
@@ -94,10 +94,11 @@ public class ComponentManager : MonoBehaviour
     {
         if (!CheckFile(path)) return;
         string[] n = path.Split('.');
-       
-        Component c = new Component(Path.GetFileName(n[0].Trim()), path, this);
-        //cosi non va benissimo perchè hard code credo ?
-       
+
+        // SComponent c = new SComponent();
+        SComponent c = new SpeedUp(Path.GetFileName(n[0].Trim()), path, this);
+
+
         AddComponent(c);
     }
 
@@ -143,13 +144,17 @@ public class ComponentManager : MonoBehaviour
     //calcolo modificatore 
     public void ComputeModifiers()
     {
-        foreach (KeyValuePair<string, Component> kv in components)
+        foreach (KeyValuePair<string, SComponent> kv in components)
         {
             Dictionary<string, Modifier> mod = components[kv.Key].MyModifiers;
             foreach (Modifier m in mod.Values)
             {
-                featureMulMod[m.Type] *= m.MultFactor;
-                featureAddMod[m.Type] += m.AddFactor;                 
+                try
+                {
+                    featureMulMod[m.Type] *= m.MultFactor;
+                    featureAddMod[m.Type] += m.AddFactor;
+                }
+                catch (Exception) { }
             }
         }
     }
@@ -165,7 +170,7 @@ public class ComponentManager : MonoBehaviour
         }
     }
 
-    public Dictionary<string, Component> ComponentsByFeature(string feature)
+    public Dictionary<string, SComponent> ComponentsByFeature(string feature)
     {
         return components.Where(x => x.Value.HasFeature(feature)).ToDictionary(x => x.Key, x=> x.Value);
     }
@@ -175,7 +180,7 @@ public class ComponentManager : MonoBehaviour
         components.Remove(c);
     }
 
-    public void AddComponent(Component c)
+    public void AddComponent(SComponent c)
     {
         if (components.ContainsKey(c.NameC)) RemoveComponent(c.NameC);
         components.Add(c.NameC, c);
@@ -196,16 +201,16 @@ public class ComponentManager : MonoBehaviour
 
     protected void ComputeAllTicks()
     {
-        foreach (Component c in components.Values)
+        foreach (SComponent c in components.Values)
         {
-            //Debug.Log("Valore di check "+c.CheckTick());
+           // Debug.Log("Valore di check "+c.CheckTick());
             if (c.CheckTick())
             {  
                 foreach (Modifier m in c.MyModifiers.Values)
                 {
                     if (allTicks.ContainsKey(m.GetName)) allTicks.Remove(m.GetName);
                     allTicks.Add(m.GetName, m);
-                    Debug.Log("all tick: " + m.GetName + "  featureType: " + m.AddFactor);
+                   // Debug.Log("all tick: " + m.GetName + "  featureType: " + m.AddFactor);
                 }
                 c.ResetTick();
             }
@@ -216,17 +221,21 @@ public class ComponentManager : MonoBehaviour
     public Dictionary<string, float> GetAllTicks(string type)
     {
         Dictionary<string, float> filtered = allTicks.Where(x => x.Value.Type == type).ToDictionary(x => x.Key, x => x.Value.AddFactor);
+
         foreach (string k in filtered.Keys)
         {
+          
             allTicks.Remove(k);
         }
+
+
         return filtered;
     }
 
     public Dictionary<string, T> FilterByType<T>()
     {
         Dictionary<string, T> filtered = new Dictionary<string, T>();
-        foreach (KeyValuePair<string, Component> c in components)
+        foreach (KeyValuePair<string, SComponent> c in components)
         {
             if (c.Value is T t) filtered.Add(c.Key, t);
         }

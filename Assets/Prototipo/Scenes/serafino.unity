@@ -929,6 +929,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7974945885258854174, guid: c9d4fa8c80ad2654bb05ce68691cac99,
         type: 3}
+      propertyPath: TICKSPATH
+      value: Assets/StreamingAssets/TrickWrapper/Tick.csv
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974945885258854174, guid: c9d4fa8c80ad2654bb05ce68691cac99,
+        type: 3}
       propertyPath: SPEEDUPPATH
       value: Road/RoadComponents/Speed.csv
       objectReference: {fileID: 0}
@@ -952,20 +957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c0b114d849ac14fac1995c717b2e43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeIntervalInSecond: 1
---- !u!114 &1758192053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1758192051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bb975d9105a2914bac49d4665476612, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  countDownTimeInSecond: 1
+  timeIntervalInSecond: 5
 --- !u!1001 &8422952446856354834
 PrefabInstance:
   m_ObjectHideFlags: 0
