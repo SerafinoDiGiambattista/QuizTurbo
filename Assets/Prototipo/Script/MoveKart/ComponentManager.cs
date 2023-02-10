@@ -37,13 +37,13 @@ public class ComponentManager : MonoBehaviour
         //Print();
     }
         
-    /*public void ComponentPickup(string type, string name, string path)
+    public void ComponentPickup(string path)
     {
-        path = Path.Combine(Application.streamingAssetsPath, path);
-        type = type.ToLower();
-        type = char.ToUpper(type[0]) + type.Substring(1);
-        AddComponent((UAComponent)Activator.CreateInstance( name, path, this));
-    }*/
+         string[] n = path.Split('.');
+        SComponent c = new SpeedUp(Path.GetFileName(n[0].Trim()), path, this);
+        Debug.Log("trim: "+Path.GetFileName(n[0].Trim()));
+        AddComponent(c);
+    }
 
     /*public void Print()
     {
@@ -97,8 +97,6 @@ public class ComponentManager : MonoBehaviour
 
         // SComponent c = new SComponent();
         SComponent c = new SpeedUp(Path.GetFileName(n[0].Trim()), path, this);
-
-
         AddComponent(c);
     }
 
@@ -221,14 +219,10 @@ public class ComponentManager : MonoBehaviour
     public Dictionary<string, float> GetAllTicks(string type)
     {
         Dictionary<string, float> filtered = allTicks.Where(x => x.Value.Type == type).ToDictionary(x => x.Key, x => x.Value.AddFactor);
-
         foreach (string k in filtered.Keys)
         {
-          
             allTicks.Remove(k);
         }
-
-
         return filtered;
     }
 

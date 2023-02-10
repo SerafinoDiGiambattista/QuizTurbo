@@ -31,7 +31,7 @@ public class RoadManager : MonoBehaviour
     protected float localSpace = 0f;
     protected TickManager tickmanager;
     protected Dictionary<string, string> tickables = new Dictionary<string, string>();
-   
+    
     private void Awake()
     {
         featureManager = GetComponent<FeatureManager>();
@@ -40,6 +40,7 @@ public class RoadManager : MonoBehaviour
         roadController = trackroad.GetComponent<RoadController>();
         LoadParameters(TICKSPATH, tickables);
     }
+    
     void Start()
     {
         IstatiateRoad();
@@ -47,6 +48,7 @@ public class RoadManager : MonoBehaviour
         initialVSpeed = verticalSpeed;
         initialHSpeed= horizontalSpeed;
     }
+
     protected void LoadParameters<T1, T2>(string path, Dictionary<T1, T2> paramDict)
     {
         string[] lines = File.ReadAllLines(path);
@@ -59,6 +61,7 @@ public class RoadManager : MonoBehaviour
             paramDict.Add((T1)param1, (T2)param2);
         }
     }
+
     private  void IstatiateRoad()
     {
         Renderer renderer= roadController.getTrackRoad.GetComponent<Renderer>();
@@ -80,24 +83,20 @@ public class RoadManager : MonoBehaviour
         maxSpeed = featureManager.FeatureValue(MAX_SPEED);
         horizontalSpeed = featureManager.FeatureValue(HORIZONTAL_SPEED);
         maxHSpeed = featureManager.FeatureValue(MAX_HORIZONTAL);
-
     }
     
     // Update is called once per frame
     void FixedUpdate()
     {
-      
         foreach (GameObject g in instantiatedTracks)
         {
             g.transform.position += new Vector3(0, 0, -verticalSpeed * Time.deltaTime);
         }
         Space += verticalSpeed * Time.deltaTime;
-      
         DoAllTicks();
         Debug.Log("Speed: "+verticalSpeed);
     }
 
-    
     public void SpawnSegment(GameObject temp)
     {
         temp.transform.position += new Vector3(0,0,count);
@@ -115,8 +114,6 @@ public class RoadManager : MonoBehaviour
            
             ActivateQuestion(true, temp);   
         }
-   
-
     }
 
     public void ActivateObstacle(bool check, GameObject go)
@@ -176,7 +173,6 @@ public class RoadManager : MonoBehaviour
         return componentManager.GetAllTicks(type);
     }
 
-
     public void ComputeByComponent(string type, string func)
     {
         Dictionary<string, float> filtered = GetAllTicks(type);
@@ -185,10 +181,13 @@ public class RoadManager : MonoBehaviour
         //Debug.Log("Amount : "+amount);
         if (amount > 0)
         {
+            try
+            {
             object[] p = { amount };
             Type thisType = this.GetType();
             MethodInfo theMethod = thisType.GetMethod(func);
             theMethod.Invoke(this, p);
+            } catch{}
         }
     }
 
@@ -199,7 +198,6 @@ public class RoadManager : MonoBehaviour
         {
             try
             {
-              
                 res += received[s];
             }
             catch (Exception) { }
@@ -215,7 +213,6 @@ public class RoadManager : MonoBehaviour
          if(horizontalSpeed > maxHSpeed) horizontalSpeed= maxHSpeed;
     }
 
-    
     protected float ParseFloatValue(string val)
     {
         return float.Parse(val, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
@@ -245,5 +242,4 @@ public class RoadManager : MonoBehaviour
         get{ return maxSpeed;}
         set{ maxSpeed = value; }
     }
-
 }

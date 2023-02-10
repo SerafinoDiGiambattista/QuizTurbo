@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -800,13 +800,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 616b93ae8c6161541acec9a133106fab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectRoad: {fileID: 1758192051}
+  objectRoad: {fileID: 1312796768}
 --- !u!1 &1312796768 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1103827400963569418, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
     type: 3}
   m_PrefabInstance: {fileID: 360485434}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1312796769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312796768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5103c2eba52455340af2c914052a9201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HEALTH: HEALTH
+  TICKSPATH: Assets/StreamingAssets/TrickWrapper/Tick.csv
 --- !u!114 &1312796770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,8 +833,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bae376fabe1685644a5def2e44637c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  componentDirectory: PlayerFeatures/Component
+  componentDirectory: Road/RoadComponents
 --- !u!114 &1312796771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312796768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61751b8f3f0f464e8e0b8aaabda2984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TICKSPATH: Assets/StreamingAssets/TrickWrapper/Tick.csv
+  trackroad: {fileID: 4685419864426939861, guid: e02a6a90c62c028499fcc96cfe092027,
+    type: 3}
+  VERTICAL_SPEED: VERTICAL_SPEED
+  MAX_SPEED: MAX_SPEED
+  HORIZONTAL_SPEED: HORIZONTAL_SPEED
+  MAX_HORIZONTAL: MAX_HORIZONTAL
+--- !u!114 &1312796772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -832,8 +865,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8861a3d631e3ee74bb6c8409a5ce6268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  featuresDirectory: PlayerFeatures/Features
---- !u!114 &1312796772
+  featuresDirectory: Road/RoadFeatures
+--- !u!114 &1312796773
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -842,7 +875,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1312796768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5103c2eba52455340af2c914052a9201, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bb975d9105a2914bac49d4665476612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countDownTimeInSecond: 1
+--- !u!114 &1312796774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312796768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2c0b114d849ac14fac1995c717b2e43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1579251758
@@ -856,6 +902,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RoadManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 632338694669405856, guid: c9d4fa8c80ad2654bb05ce68691cac99,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 632338694669405860, guid: c9d4fa8c80ad2654bb05ce68691cac99,
         type: 3}
@@ -957,7 +1008,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c0b114d849ac14fac1995c717b2e43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeIntervalInSecond: 1
 --- !u!1001 &8422952446856354834
 PrefabInstance:
   m_ObjectHideFlags: 0
