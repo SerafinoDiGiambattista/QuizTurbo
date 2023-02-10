@@ -9,47 +9,43 @@ using UnityEngine.UIElements;
 using System.Reflection;
 
 public class RoadManager : MonoBehaviour
-{
-    /// ha la lista di tag 
-    /// Il compito princiaple � decidere cosa fa spwanare sulla strada: strada vuota, ostacoli e power up oppure domande 
-    // Start is called before the first frame update
+{ 
+    [SerializeField] protected string TICKSPATH;
+    [SerializeField] GameObject trackroad;
+    [SerializeField] protected string VERTICAL_SPEED = "VERTICAL_SPEED";
+    [SerializeField] protected string MAX_SPEED = "MAX_SPEED";
+    [SerializeField] protected string HORIZONTAL_SPEED = "HORIZONTAL_SPEED";
+    [SerializeField] protected string MAX_HORIZONTAL = "MAX_HORIZONTAL";
     protected FeatureManager featureManager;
     protected ComponentManager componentManager;
-    private float count= 0;
-    [SerializeField] GameObject trackroad;
+    protected float count= 0;
     protected RoadController roadController;
-    private string VERTICAL_SPEED = "VERTICAL_SPEED";
-    
-    private string MAX_SPEED = "MAX_SPEED";
-    
-    protected float initialSpeed;
-    private float verticalSpeed;
-    protected float acceleration;
+    protected float initialVSpeed;
+    protected float verticalSpeed;
+    protected float initialHSpeed;
+    protected float horizontalSpeed;
+    protected float maxSpeed;
+    protected float maxHSpeed;
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
-    private List<GameObject> instantiatedTracks = new List<GameObject>();
-    private float localSpace = 0f;
+    protected List<GameObject> instantiatedTracks = new List<GameObject>();
+    protected float localSpace = 0f;
     protected TickManager tickmanager;
-    // Per calcolare i secondi nella velocità
-    public float maxSpeed = 0;
     protected Dictionary<string, string> tickables = new Dictionary<string, string>();
-    [SerializeField] protected string TICKSPATH;
-
+   
     private void Awake()
     {
         featureManager = GetComponent<FeatureManager>();
         componentManager = GetComponent<ComponentManager>();
         tickmanager = GetComponent<TickManager>();
         roadController = trackroad.GetComponent<RoadController>();
-   
-        //ROADFEATURESPATH = Path.Combine(Application.streamingAssetsPath, ROADFEATURESPATH);
         LoadParameters(TICKSPATH, tickables);
     }
     void Start()
     {
         IstatiateRoad();
         LoadFeatures();
-        initialSpeed = verticalSpeed;
-       
+        initialVSpeed = verticalSpeed;
+        initialHSpeed= horizontalSpeed;
     }
     protected void LoadParameters<T1, T2>(string path, Dictionary<T1, T2> paramDict)
     {
@@ -81,10 +77,10 @@ public class RoadManager : MonoBehaviour
     protected void LoadFeatures()
     {
         verticalSpeed = featureManager.FeatureValue(VERTICAL_SPEED);
-        //acceleration = featureManager.FeatureValue(ACCELERATION);
         maxSpeed = featureManager.FeatureValue(MAX_SPEED);
-        //Debug.Log("VERTICAL_SPEED: "+ initialSpeed);
-        //Debug.Log("ACCELERATION: "+ acceleration);
+        horizontalSpeed = featureManager.FeatureValue(HORIZONTAL_SPEED);
+        maxHSpeed = featureManager.FeatureValue(MAX_HORIZONTAL);
+
     }
     
     // Update is called once per frame
@@ -96,54 +92,17 @@ public class RoadManager : MonoBehaviour
             g.transform.position += new Vector3(0, 0, -verticalSpeed * Time.deltaTime);
         }
         Space += verticalSpeed * Time.deltaTime;
-        //Ogni 10 secondi la velocità aumenta di un fattore pari ad Accelerazione
+      
         DoAllTicks();
         Debug.Log("Speed: "+verticalSpeed);
     }
 
-    public float Space
-    {
-        set { localSpace = value; }
-        get { return localSpace; }
-    }
-
-    /*public void IncreaseSpeedPerSeconds()
-    {
-        timer += Time.deltaTime;
-        float seconds = timer % 60;
-        seconds = Mathf.CeilToInt(seconds);
-        if((seconds%10) == 0 && verticalSpeed < MaxSpeed){
-            verticalSpeed += acceleration;
-            //Debug.Log("Seconds: "+ seconds + " speed: "+ VerticalSpeed);
-        }
-    }*/
-
-
-
-    public float VerticalSpeed{
-        get{ return verticalSpeed;}
-        set{verticalSpeed = value;}
-    }
-
-    public float Acceleration
-    {
-        get{return acceleration;}
-        set{acceleration = value;}
-    }
-
-    public float MaxSpeed
-    {
-        get{ return maxSpeed;}
-        set{ maxSpeed = value; }
-    }
-
+    
     public void SpawnSegment(GameObject temp)
     {
         temp.transform.position += new Vector3(0,0,count);
         temp.GetComponent<RoadController>().gameObject.SetActive(true);
-         //mi restituisce la posizione che ha nell'array se ad esempio
-         // è poszione 5 inizio ad attivare gli ostacoli e dopo 20 pezzi di strada
-         // disattivo gli ostacoli per 5 pezzi di strada metto le domande=IstatiateRoad[temp]; 
+
         int goPosition = instantiatedTracks.IndexOf(temp);
         if(goPosition > 3 && goPosition<=8)
         {
@@ -250,16 +209,41 @@ public class RoadManager : MonoBehaviour
 
     public void SpeedUp(float acc)
     {
-       
-        verticalSpeed +=  acc ;
-
-        
+         verticalSpeed += acc;
+         horizontalSpeed+= acc/2;
+         if (verticalSpeed > maxSpeed) verticalSpeed= maxSpeed;
+         if(horizontalSpeed > maxHSpeed) horizontalSpeed= maxHSpeed;
     }
 
     
     protected float ParseFloatValue(string val)
     {
         return float.Parse(val, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
+    }
+
+    public float Space
+    {
+            set { localSpace = value; }
+            get { return localSpace; }
+    }
+
+    public float HorizontalSpeed
+    {
+        get { return horizontalSpeed; }
+        set { horizontalSpeed = value; }
+    }
+
+
+    public float VerticalSpeed{
+        get{ return verticalSpeed;}
+        set{verticalSpeed = value;}
+    }
+
+ 
+    public float MaxSpeed
+    {
+        get{ return maxSpeed;}
+        set{ maxSpeed = value; }
     }
 
 }
