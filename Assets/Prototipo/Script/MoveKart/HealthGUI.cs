@@ -12,13 +12,13 @@ public class HealthGUI : MonoBehaviour
     private List<GameObject> instantiatedHearts = new List<GameObject>();
     private float count = 0;
     private FeatureManager featuremanager;
-    private PlayerManager playerManager;
+    private RoadManager roadManager;
 
 
     private void Awake()
     {
         featuremanager= playerObject.GetComponent<FeatureManager>();
-        playerManager= playerObject.GetComponent<PlayerManager>();
+        roadManager= playerObject.GetComponent<RoadManager>();
     }
 
     void Start()
@@ -29,7 +29,7 @@ public class HealthGUI : MonoBehaviour
        InstantiateHearts();
         */
         
-        initialNumOfHearts = Mathf.CeilToInt(featuremanager.FeatureValue(playerManager.GetNameFeature));
+        initialNumOfHearts = Mathf.CeilToInt(roadManager.GetInitialHealth);
         Debug.Log("InitialNumOFHearts: " + initialNumOfHearts) ;
         InstantiateHearts();
     }
@@ -49,8 +49,6 @@ public class HealthGUI : MonoBehaviour
         count = heart.transform.position.x;
         for(int i=0; i<initialNumOfHearts; i++)
         {
-            Quaternion spawnRotation = Quaternion.identity; //nessuna rotazione
-            Vector2 spawnPosition = new Vector2(count,heart.transform.position.y); //heart.transform.position.y, heart.transform.position.z);
             GameObject temp = Instantiate(heart);
             temp.transform.SetParent(gameObject.transform);
             instantiatedHearts.Add(temp);
@@ -59,8 +57,8 @@ public class HealthGUI : MonoBehaviour
 
     private void UpdateHealth()
     {
-        numOfHearts = Mathf.CeilToInt(playerManager.GetHealth());
-        //Debug.Log("HEARTCONTROLLER Health: " + numOfHearts);
+        numOfHearts = Mathf.CeilToInt(roadManager.GetHealth);
+       Debug.Log("HEARTCONTROLLER Health: " + numOfHearts);
 
         if (numOfHearts > 0)
         {
@@ -69,6 +67,13 @@ public class HealthGUI : MonoBehaviour
                 if (instantiatedHearts[i].activeSelf == true)
                     instantiatedHearts[i].SetActive(false);
             }
+
+            for (int i=0; i < numOfHearts; i++)
+            {
+                if (instantiatedHearts[i].activeSelf == false)
+                    instantiatedHearts[i].SetActive(true);
+            }
+
         }
         else if (numOfHearts == 0)
         {

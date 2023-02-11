@@ -61,59 +61,19 @@ public class PlayerManager : TickSuperclass
             string path = other.gameObject.GetComponent<PathManager>().Path;
             string[] n = path.Split('.');
             string name =  Path.GetFileName(n[0]);
-            componentManager.ComponentPickup( path);
+            componentManager.ComponentPickup(name , path);
             //Debug.Log("name: "+name+ " path: "+path);
-            DoAllTicks();
-            Debug.Log("Health: "+health);
+    
+           // Debug.Log("Health: "+health);
         }  
     }
 
 
-    protected void DoAllTicks()
-    {
-        foreach (KeyValuePair<string, string> t in tickables)
-        {
-            ComputeByComponent(t.Key, t.Value);
-        }
-    }
+ 
 
-    public Dictionary<string, float> GetAllTicks(string type)
-    {   
-        return componentManager.GetAllTicks(type);
-    }
 
-    public void ComputeByComponent(string type, string func)
-    {
-        Dictionary<string, float> filtered = GetAllTicks(type);
-        //Debug.Log("Filetered : "+filtered.Count);
-        float amount = ComputeFeatureValue(filtered);
-        //Debug.Log("Func : "+func);
-        if (amount > 0)
-        {
-            try
-            {
-                object[] p = { amount };
-                Type thisType = this.GetType();
-                MethodInfo theMethod = thisType.GetMethod(func);
-                theMethod.Invoke(this, p);
-            } catch{}
-        }
-    }
 
-    public float ComputeFeatureValue(Dictionary<string, float> received)
-    {
-        float res = 0;
-        foreach (string s in received.Keys)
-        {
-            try
-            {
-                Debug.Log("s: "+s+" received: "+received[s]);
-                res += received[s];
-            }
-            catch (Exception) { }
-        }
-        return res;
-    }
+ 
 /*
     public string PlayerName{
         get { return playerName; }

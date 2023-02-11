@@ -36,14 +36,14 @@ public class ComponentManager : MonoBehaviour
         ComputeAllTicks();
         //Print();
     }
-        
-    public void ComponentPickup(string path)
+
+    public void ComponentPickup( string name, string path)
     {
-         string[] n = path.Split('.');
-        SComponent c = new SpeedUp(Path.GetFileName(n[0].Trim()), path, this);
-        Debug.Log("trim: "+Path.GetFileName(n[0].Trim()));
-        AddComponent(c);
+        path = Path.Combine(Application.streamingAssetsPath, path);
+        Type t = Type.GetType("SpeedUp");
+        AddComponent((SpeedUp)Activator.CreateInstance(t, name, path, this));
     }
+
 
     /*public void Print()
     {
@@ -164,7 +164,7 @@ public class ComponentManager : MonoBehaviour
         {
             float midVal = f.BaseValue * featureMulMod[f.Type];
             f.CurrentValue = midVal + featureAddMod[f.Type];
-            //Debug.Log("f.CurrentValue: "+f.CurrentValue);
+           
         }
     }
 

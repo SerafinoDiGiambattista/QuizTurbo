@@ -16,6 +16,7 @@ public class RoadManager : MonoBehaviour
     [SerializeField] protected string MAX_SPEED = "MAX_SPEED";
     [SerializeField] protected string HORIZONTAL_SPEED = "HORIZONTAL_SPEED";
     [SerializeField] protected string MAX_HORIZONTAL = "MAX_HORIZONTAL";
+    [SerializeField] private string HEALTH = "HEALTH";
     protected FeatureManager featureManager;
     protected ComponentManager componentManager;
     protected float count= 0;
@@ -23,6 +24,8 @@ public class RoadManager : MonoBehaviour
     protected float initialVSpeed;
     protected float verticalSpeed;
     protected float initialHSpeed;
+    private float initialHealth;
+    private float health;
     protected float horizontalSpeed;
     protected float maxSpeed;
     protected float maxHSpeed;
@@ -47,6 +50,8 @@ public class RoadManager : MonoBehaviour
         LoadFeatures();
         initialVSpeed = verticalSpeed;
         initialHSpeed= horizontalSpeed;
+        initialHealth= health;
+       
     }
 
     protected void LoadParameters<T1, T2>(string path, Dictionary<T1, T2> paramDict)
@@ -83,6 +88,7 @@ public class RoadManager : MonoBehaviour
         maxSpeed = featureManager.FeatureValue(MAX_SPEED);
         horizontalSpeed = featureManager.FeatureValue(HORIZONTAL_SPEED);
         maxHSpeed = featureManager.FeatureValue(MAX_HORIZONTAL);
+        health = featureManager.FeatureValue(HEALTH);
     }
     
     // Update is called once per frame
@@ -94,7 +100,8 @@ public class RoadManager : MonoBehaviour
         }
         Space += verticalSpeed * Time.deltaTime;
         DoAllTicks();
-        Debug.Log("Speed: "+verticalSpeed);
+        //Debug.Log("Speed: "+verticalSpeed);
+        //Debug.Log("Salute : "+health);
     }
 
     public void SpawnSegment(GameObject temp)
@@ -103,20 +110,10 @@ public class RoadManager : MonoBehaviour
         temp.GetComponent<RoadController>().gameObject.SetActive(true);
 
         int goPosition = instantiatedTracks.IndexOf(temp);
-        if(goPosition > 3 && goPosition<=8)
-        {
-          //  Debug.Log("Position: "+ goPosition);
-            ActivateObstacle(true, temp);
-        }
-        if (goPosition==9)
-        {
-           // Debug.Log("Position: " + goPosition);
-           
-            ActivateQuestion(true, temp);   
-        }
+  
     }
 
-    public void ActivateObstacle(bool check, GameObject go)
+  /*  public void ActivateObstacle(bool check, GameObject go)
     {
         if (check)
         {
@@ -158,8 +155,20 @@ public class RoadManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Ostacolo"))
+        {
+            string path = other.gameObject.GetComponent<PathManager>().Path;
+            string[] n = path.Split('.');
+            string name = Path.GetFileName(n[0]);
+            componentManager.ComponentPickup(name, path);
+            //Debug.Log("name: "+name+ " path: "+path);
 
+            // Debug.Log("Health: "+health);
+        }
+    }
     protected void DoAllTicks()
     {
         foreach (KeyValuePair<string, string> t in tickables)
@@ -178,7 +187,7 @@ public class RoadManager : MonoBehaviour
         Dictionary<string, float> filtered = GetAllTicks(type);
         //Debug.Log("Filetered : "+filtered.Count);
         float amount = ComputeFeatureValue(filtered);
-        //Debug.Log("Amount : "+amount);
+        Debug.Log("Amount : " + amount);
         if (amount > 0)
         {
             try
@@ -198,6 +207,7 @@ public class RoadManager : MonoBehaviour
         {
             try
             {
+                //Debug.Log("s: " + s + " received: " + received[s]);
                 res += received[s];
             }
             catch (Exception) { }
@@ -207,13 +217,26 @@ public class RoadManager : MonoBehaviour
 
     public void SpeedUp(float acc)
     {
+       // Debug.Log("ACC : " + acc);
          verticalSpeed += acc;
          horizontalSpeed+= acc/2;
          if (verticalSpeed > maxSpeed) verticalSpeed= maxSpeed;
          if(horizontalSpeed > maxHSpeed) horizontalSpeed= maxHSpeed;
     }
 
-    protected float ParseFloatValue(string val)
+    public void DamageDone(float dmg)
+    {
+      //  Debug.Log("Damage : "+dmg);
+        if (health > 0) health -= dmg;
+    }
+    
+    public void HealMe(float h)
+    {
+        Debug.Log("salute : "+health);
+        if(health<initialHealth) health += h;
+       // if(health == 0) Debug.Log("YOU ARE DEAD! :(");   
+    }
+protected float ParseFloatValue(string val)
     {
         return float.Parse(val, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
     }
@@ -242,4 +265,16 @@ public class RoadManager : MonoBehaviour
         get{ return maxSpeed;}
         set{ maxSpeed = value; }
     }
+    public float GetInitialHealth
+    {
+        get { return featureManager.FeatureValue(HEALTH); }
+    }
+
+    public float GetHealth
+    {   
+        get { return health; }
+
+        
+    }
+
 }

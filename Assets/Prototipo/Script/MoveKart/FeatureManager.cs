@@ -59,7 +59,7 @@ using Unity.IO;
             
                 foreach (string l in lines)
                 {
-                Debug.Log(l);
+              
                     string[] items = l.Split(',');
                     string name = items[0].Trim();
                     float b_value = ParseFloat(items[1]);
