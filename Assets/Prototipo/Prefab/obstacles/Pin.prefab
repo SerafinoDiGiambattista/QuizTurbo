@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4343775217224692109}
   - component: {fileID: 1625844407560028633}
   m_Layer: 0
-  m_Name: Birillo2
+  m_Name: Pin
   m_TagString: Ostacolo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 884a8e199ad76734181c3b04723e4b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: Assets/Prototipo/FileCSV/ObstaclesFeature/Fence.csv
+  path: ObstaclePowerUp/Birillocsv
 --- !u!1001 &3976789375989038695
 PrefabInstance:
   m_ObjectHideFlags: 0

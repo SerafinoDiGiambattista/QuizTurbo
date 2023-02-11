@@ -32,7 +32,7 @@ public class SpeedUp : SComponent
     protected void AddToCountdown()
     {
         if (!CheckFeature(TIME)) return;
-        Debug.Log("value per seco : "+valuePerSecond);
+        //Debug.Log("value per seco : "+valuePerSecond);
         cdmanager.AddCountDown(new CountDown(this, TIME, valuePerSecond));
     }
 
