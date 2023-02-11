@@ -100,7 +100,7 @@ public class RoadManager : MonoBehaviour
         }
         Space += verticalSpeed * Time.deltaTime;
         DoAllTicks();
-        //Debug.Log("Speed: "+verticalSpeed);
+        Debug.Log("Speed: "+verticalSpeed);
         //Debug.Log("Salute : "+health);
     }
 
@@ -187,7 +187,7 @@ public class RoadManager : MonoBehaviour
         Dictionary<string, float> filtered = GetAllTicks(type);
         //Debug.Log("Filetered : "+filtered.Count);
         float amount = ComputeFeatureValue(filtered);
-        Debug.Log("Amount : " + amount);
+        //Debug.Log("Amount : " + amount);
         if (amount > 0)
         {
             try
@@ -226,13 +226,13 @@ public class RoadManager : MonoBehaviour
 
     public void DamageDone(float dmg)
     {
-      //  Debug.Log("Damage : "+dmg);
+       //Debug.Log("Damage : "+dmg);
         if (health > 0) health -= dmg;
     }
     
     public void HealMe(float h)
     {
-        Debug.Log("salute : "+health);
+       // Debug.Log("Heal me : "+health);
         if(health<initialHealth) health += h;
        // if(health == 0) Debug.Log("YOU ARE DEAD! :(");   
     }

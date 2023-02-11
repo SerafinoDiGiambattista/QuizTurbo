@@ -26,11 +26,12 @@ public class Tick : OverTime
     }
 
     public override void Activate()
-    {
+    {   
         if (valuePerSecond >= 0)
         {
+          
             valuePerSecond -= tickPerSecond;
-            
+          //  Debug.Log("VAlue of tick : " + valuePerSecond);
             if (valuePerSecond < 0) active = false;
         }
        

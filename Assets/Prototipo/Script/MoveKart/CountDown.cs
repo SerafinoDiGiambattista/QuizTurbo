@@ -12,6 +12,7 @@ public class CountDown : OverTime
 
     public override void Activate()
     {
+        //Debug.Log("para : "+parameter+" second: "+valuePerSecond);
         c.ReduceComponent(parameter, valuePerSecond);
     }
 

@@ -23,15 +23,16 @@ public class SpeedUp : SComponent
     protected void AddToTick()
     {
         if (!CheckFeature(TICK)) return;
+        
         Tick t = new Tick(this, TICK, (int)m_features[TICK].CurrentValue);
-        t.DoTick();
-        tm.AddTick(t);
-        tm.SetTimeIntervalSecond((int)m_mods["TICKER"].MultFactor);
+        tm.AddTick(t, (int)m_mods[TICKER].MultFactor);
+       // tm.SetTimeIntervalSecond((int)m_mods[TICKER].MultFactor);
     }
 
     protected void AddToCountdown()
     {
         if (!CheckFeature(TIME)) return;
+        Debug.Log("value per seco : "+valuePerSecond);
         cdmanager.AddCountDown(new CountDown(this, TIME, valuePerSecond));
     }
 

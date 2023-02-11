@@ -39,26 +39,15 @@ public class ComponentManager : MonoBehaviour
 
     public void ComponentPickup( string name, string path)
     {
-        path = Path.Combine(Application.streamingAssetsPath, path);
-        Type t = Type.GetType("SpeedUp");
-        AddComponent((SpeedUp)Activator.CreateInstance(t, name, path, this));
+            path = Path.Combine(Application.streamingAssetsPath, path);
+             /*
+            Type t = Type.GetType("SpeedUp");
+            AddComponent((SpeedUp)Activator.CreateInstance(t, name, path, this));*/
+        AddComponent(new SpeedUp(name, path, this));
     }
 
 
-    /*public void Print()
-    {
-        foreach(KeyValuePair<string, Component> keyValuePair in components)
-        {
-            Component c = components[keyValuePair.Key];
-            Debug.LogError(c.NameC);
-            string features = "";
-            foreach (KeyValuePair<string, Feature> f in c.MyFeatures) features += c.MyFeatures[f.Key].Type + " BV: " + c.MyFeatures[f.Key].BaseValue + " CV: " + c.MyFeatures[f.Key].CurrentValue;
-            //string modifiers = "";
-            //foreach (KeyValuePair<string, Modifier> m in c.MyModifiers) modifiers += c.MyModifiers[m.Key].Type + " MF: " + c.MyModifiers[m.Key].MultFactor + " AF: " + c.MyModifiers[m.Key].AddFactor;
-            Debug.Log("Features: " + features);
-            //Debug.Log("Modifiers: " + modifiers);
-        }
-    }*/
+
 
     public TickManager GetTickManager
     {

@@ -30,7 +30,7 @@ public class HealthGUI : MonoBehaviour
         */
         
         initialNumOfHearts = Mathf.CeilToInt(roadManager.GetInitialHealth);
-        Debug.Log("InitialNumOFHearts: " + initialNumOfHearts) ;
+        //Debug.Log("InitialNumOFHearts: " + initialNumOfHearts) ;
         InstantiateHearts();
     }
 
@@ -58,7 +58,7 @@ public class HealthGUI : MonoBehaviour
     private void UpdateHealth()
     {
         numOfHearts = Mathf.CeilToInt(roadManager.GetHealth);
-       Debug.Log("HEARTCONTROLLER Health: " + numOfHearts);
+      // Debug.Log("HEARTCONTROLLER Health: " + numOfHearts);
 
         if (numOfHearts > 0)
         {
@@ -77,6 +77,7 @@ public class HealthGUI : MonoBehaviour
         }
         else if (numOfHearts == 0)
         {
+            instantiatedHearts[0].SetActive(false);
             Debug.Log("DEATH! :)");
         }
     }

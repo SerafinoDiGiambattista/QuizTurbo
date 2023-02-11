@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
 public class TickManager : MonoBehaviour
 {
-    protected int timeIntervalInSecond = 1;
-    protected List<Tick> ticks = new List<Tick>();
+   // protected int timeIntervalInSecond = 1;
+    protected Dictionary<Tick, int> ticks = new Dictionary<Tick, int>();
     protected float timer = 0;
     protected bool tick = true;
 
@@ -14,32 +15,32 @@ public class TickManager : MonoBehaviour
     {
        // timer = timeIntervalInSecond;
     }
-    public void SetTimeIntervalSecond(int timer)
-    {
-        if(timer > 0) timeIntervalInSecond = timer;
-    }
-    public void AddTick(Tick t)
+  
+    public void AddTick(Tick t, int intervall)
     {
         t.Timer = timer;
-        ticks.Add(t);
+        ticks.Add(t, intervall);
     }
 
     public void CheckIsActive()
     {
-        ticks.RemoveAll(item => item.MyComponent.CheckIsActive() == false);
+       // tick.RemoveAll(item => item.MyComponent.CheckIsActive() == false);
+        ticks=ticks.Where(item => item.Key.MyComponent.CheckIsActive() == true).ToDictionary(pair => pair.Key,pair => pair.Value);
     }
 
     public void CheckTimer()
     {
-        foreach(Tick t in ticks)
+        foreach(Tick t in ticks.Keys)
         {
             t.Timer -= Time.deltaTime;
            
             if (t.Timer <= 0)
-            {
+            {   
                
                 t.DoTick();
-                t.Timer = timeIntervalInSecond;
+             
+                t.Timer = ticks[t];  
+               // Debug.Log("TICKER timer : "+t.Timer);
             }
         }
     }
