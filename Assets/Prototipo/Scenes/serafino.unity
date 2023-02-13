@@ -642,6 +642,105 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1018623902
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1018623907}
+  - component: {fileID: 1018623905}
+  - component: {fileID: 1018623904}
+  - component: {fileID: 1018623906}
+  - component: {fileID: 1018623908}
+  - component: {fileID: 1018623903}
+  m_Layer: 0
+  m_Name: SpawnObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1018623903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018623902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb975d9105a2914bac49d4665476612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countDownTimeInSecond: 1
+--- !u!114 &1018623904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018623902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8861a3d631e3ee74bb6c8409a5ce6268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  featuresDirectory: Weight/WeightFeatures
+--- !u!114 &1018623905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018623902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae376fabe1685644a5def2e44637c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  componentDirectory: Weight/WeightComponents
+--- !u!114 &1018623906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018623902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd1f263d4abf514bb8d66c1cb955b9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TICKSPATH: Assets/StreamingAssets/TrickWrapper/TickWeight.csv
+--- !u!4 &1018623907
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018623902}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.9830355, z: -3.7845242}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1018623908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018623902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2c0b114d849ac14fac1995c717b2e43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1089709022
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,18 +919,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TICKSPATH: Assets/StreamingAssets/TrickWrapper/Tick.csv
-  SPAWN_PROBABILITY: Assets/StreamingAssets/Spawning/Spawning_Prob.csv
   trackroad: {fileID: 4685419864426939861, guid: e02a6a90c62c028499fcc96cfe092027,
     type: 3}
+  weightedObject: {fileID: 1018623902}
   VERTICAL_SPEED: VERTICAL_SPEED
   MAX_SPEED: MAX_SPEED
   HORIZONTAL_SPEED: HORIZONTAL_SPEED
   MAX_HORIZONTAL: MAX_HORIZONTAL
   HEALTH: HEALTH
   BINARY_EASY: Assets/StreamingAssets/Binary/Binary_Easy.csv
+  BINARY_MEDIUM: Assets/StreamingAssets/Binary/Binary_Medium.csv
   BINARY_HARD: Assets/StreamingAssets/Binary/Binary_Hard.csv
   NUM_OBSTACLE_TRACK: NUM_OBSTACLE_TRACK
   NUM_QUESTION_TRACK: NUM_QUESTION_TRACK
+  EASY_OBS_DIFFICULTY: EASY_OBS_DIFFICULTY
+  HARD_OBS_DIFFICULTY: HARD_OBS_DIFFICULTY
+  MEDIUM_OBS_DIFFICULTY: MEDIUM_OBS_DIFFICULTY
 --- !u!114 &1312796770
 MonoBehaviour:
   m_ObjectHideFlags: 0

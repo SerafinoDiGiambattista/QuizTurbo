@@ -11,20 +11,25 @@ using System.Reflection;
 public class RoadManager : MonoBehaviour
 { 
     [SerializeField] protected string TICKSPATH;
-    [SerializeField] protected string SPAWN_PROBABILITY;
     [SerializeField] GameObject trackroad;
+    [SerializeField] GameObject weightedObject;
     [SerializeField] protected string VERTICAL_SPEED = "VERTICAL_SPEED";
     [SerializeField] protected string MAX_SPEED = "MAX_SPEED";
     [SerializeField] protected string HORIZONTAL_SPEED = "HORIZONTAL_SPEED";
     [SerializeField] protected string MAX_HORIZONTAL = "MAX_HORIZONTAL";
     [SerializeField] private string HEALTH = "HEALTH";
     [SerializeField] protected string BINARY_EASY;
+    [SerializeField] protected string BINARY_MEDIUM;
     [SerializeField] protected string BINARY_HARD;
     [SerializeField] protected string NUM_OBSTACLE_TRACK = "NUM_OBSTACLE_TRACK";
     [SerializeField] protected string NUM_QUESTION_TRACK = "NUM_QUESTION_TRACK";
+    [SerializeField] protected string EASY_OBS_DIFFICULTY = "EASY_OBS_DIFFICULTY";
+    [SerializeField] protected string HARD_OBS_DIFFICULTY = "HARD_OBS_DIFFICULTY";
+    [SerializeField] protected string MEDIUM_OBS_DIFFICULTY = "MEDIUM_OBS_DIFFICULTY";
+    [SerializeField] protected List <GameObject> objectsToSpawn; 
     protected FeatureManager featureManager;
     protected ComponentManager componentManager;
-    protected float count= 0;
+    protected WeightRandomManager weightRandomManager;
     protected RoadController roadController;
     protected float initialVSpeed;
     protected float verticalSpeed;
@@ -34,15 +39,23 @@ public class RoadManager : MonoBehaviour
     protected float horizontalSpeed;
     protected float maxSpeed;
     protected float maxHSpeed;
+    protected float count = 0;
     protected float numObstacleTrack = 0;
     protected float numQuestionTrack = 0;
-    protected Dictionary<string, int> spawningProb = new Dictionary<string, int>();
+    protected float easyObsDifficulty = 0;
+    protected float hardObsDifficulty = 0;
+    protected float mediumObsDifficulty = 0;
+    protected bool easy = true;
+    protected bool medium = false;
+    protected bool hard = false;
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
     protected List<GameObject> instantiatedObstaclesTracks = new List<GameObject>();
     protected float localSpace = 0f;
     protected TickManager tickmanager;
     protected Dictionary<string, string> tickables = new Dictionary<string, string>();
     protected Dictionary<int, List<int> > binaryEasyDict = new Dictionary<int, List<int> >();
+    protected Dictionary<int, List<int>> binaryMediumDict = new Dictionary<int, List<int>>();
+    protected Dictionary<int, List<int>> binaryHardDict = new Dictionary<int, List<int>>();
 
 
     private void Awake()
@@ -51,9 +64,11 @@ public class RoadManager : MonoBehaviour
         componentManager = GetComponent<ComponentManager>();
         tickmanager = GetComponent<TickManager>();
         roadController = trackroad.GetComponent<RoadController>();
+        weightRandomManager = weightedObject.GetComponent<WeightRandomManager>();
         LoadParameters(TICKSPATH, tickables);
         ReadBinary(BINARY_EASY, binaryEasyDict);
-        ReadSpawningProb(SPAWN_PROBABILITY, spawningProb);
+        ReadBinary(BINARY_MEDIUM, binaryEasyDict);
+        ReadBinary(BINARY_HARD, binaryEasyDict);
     }
     
     void Start()
@@ -66,7 +81,6 @@ public class RoadManager : MonoBehaviour
         initialHealth= health;
         IstatiateRoad();
 
-        Debug.Log("1: "+ spawningProb["FENCE"]);
     }
 
     protected void LoadParameters<T1, T2>(string path, Dictionary<T1, T2> paramDict)
@@ -101,18 +115,6 @@ public class RoadManager : MonoBehaviour
         }
     }
 
-    protected void ReadSpawningProb(string path, Dictionary<string, int> valuesDict)
-    {
-        string[] lines = File.ReadAllLines(path);
-        foreach (string l in lines)
-        {
-            string[] items = l.Split(',');
-            string param1 = items[0].Trim();
-            int param2 = int.Parse(items[1].Trim());
-            valuesDict.Add(param1, param2);
-        }
-    }
-
     private  void IstatiateRoad()
     {
         Renderer renderer= roadController.getTrackRoad.GetComponent<Renderer>();
@@ -137,6 +139,9 @@ public class RoadManager : MonoBehaviour
         health = featureManager.FeatureValue(HEALTH);
         numObstacleTrack = featureManager.FeatureValue(NUM_OBSTACLE_TRACK);
         numQuestionTrack = featureManager.FeatureValue(NUM_QUESTION_TRACK);
+        easyObsDifficulty = featureManager.FeatureValue(EASY_OBS_DIFFICULTY);
+        mediumObsDifficulty = featureManager.FeatureValue(MEDIUM_OBS_DIFFICULTY);
+        hardObsDifficulty = featureManager.FeatureValue(HARD_OBS_DIFFICULTY);
     }
     
     // Update is called once per frame
@@ -147,6 +152,8 @@ public class RoadManager : MonoBehaviour
             g.transform.position += new Vector3(0, 0, -verticalSpeed * Time.deltaTime);
         }
         Space += verticalSpeed * Time.deltaTime;
+        if (Space > mediumObsDifficulty && Space < hardObsDifficulty) { easy = false; medium = true; }
+        if(Space >= hardObsDifficulty) { medium = false; hard = true; }
         DoAllTicks();
         //Debug.Log("Speed: "+verticalSpeed);
         //Debug.Log("Salute : "+health);
@@ -162,10 +169,7 @@ public class RoadManager : MonoBehaviour
 
     public void ActivateObstacle(GameObject go)
     {
-        List<GameObject> listchild = new List<GameObject>();
-        int randomObs0;
-        int randomObs1;
-        int randomObs2;
+        List<GameObject> listchild = new List<GameObject>();                
         foreach (Transform t in go.transform)
         {
             if (t.CompareTag("Ostacolo"))
@@ -173,46 +177,39 @@ public class RoadManager : MonoBehaviour
                 listchild.Add(t.gameObject);  
             }
         }
- 
-        int randomRow = UnityEngine.Random.Range(0,  binaryEasyDict.Count);
+
+        if (easy) SpawnEasyObstacles(listchild);
+        //if(medium) SpawnMediumObstacles(listchild);
+        //if(hard) SpawnHardObstacles(listchild);
+
+
+
+            /*if(!listchild[randomObs0].activeSelf && binaryRow[0] != 0) CheckProbability();
+            if(!listchild[randomObs1].activeSelf && binaryRow[1] != 0) CheckProbability();
+            if(!listchild[randomObs2].activeSelf && binaryRow[2] != 0) CheckProbability();*/
+    }
+
+    protected void SpawnEasyObstacles(List<GameObject> listchild)
+    {
+        int randomRow = UnityEngine.Random.Range(0, binaryEasyDict.Count);
         List<int> binaryRow = binaryEasyDict[randomRow];
         //1) prendo la riga di bit 
         //2) prendo l'ostacolo in base alla probability
         //3) spawnare l'oggetto nel punto 1 della riga di bit (sempre in base ai punti di spawn)
 
-        randomObs0 = UnityEngine.Random.Range(0, listchild.Count);
-        //Debug.Log("count: "+listchild.Count);
-        if(randomObs0+1 == listchild.Count) randomObs1 = 0;
-           else randomObs1 = randomObs0+1;
-        if(randomObs1+1 == listchild.Count) randomObs2 = 0;
-            else randomObs2 = randomObs1+1;
-        
-        /*if(!listchild[randomObs0].activeSelf && binaryRow[0] != 0) CheckProbability();
-        if(!listchild[randomObs1].activeSelf && binaryRow[1] != 0) CheckProbability();
-        if(!listchild[randomObs2].activeSelf && binaryRow[2] != 0) CheckProbability();*/
+        foreach(int i in binaryRow)
+        {
+            if(i != 0)
+            {
+                int randomObs = UnityEngine.Random.Range(0, listchild.Count);
+                string objName = weightRandomManager.ChooseByProbability();
+                //GameObject obj = objectsToSpawn.Find(objName.ToUpper);
+                //listchild[randomObs];
+            }
+        }
+
     }
-
-    /*public void ChooseByProbability()
-    {
-        float total = 0;
-
-        foreach (float elem in probs) {
-            total += elem;
-        }
-
-        float randomPoint = Random.value * total;
-
-        for (int i= 0; i < probs.Length; i++) {
-            if (randomPoint < probs[i]) {
-                return i;
-            }
-            else {
-                randomPoint -= probs[i];
-            }
-        }
-        return probs.Length - 1;
-    }*/
-
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Ostacolo"))
@@ -222,7 +219,6 @@ public class RoadManager : MonoBehaviour
             string name = Path.GetFileName(n[0]);
             componentManager.ComponentPickup(name, path);
             //Debug.Log("name: "+name+ " path: "+path);
-
             // Debug.Log("Health: "+health);
         }
     }
@@ -289,11 +285,11 @@ public class RoadManager : MonoBehaviour
     
     public void HealMe(float h)
     {
-        Debug.Log("salute : "+health);
+        //Debug.Log("salute : "+health);
         if(health<initialHealth) health += h;
        // if(health == 0) Debug.Log("YOU ARE DEAD! :(");   
     }
-protected float ParseFloatValue(string val)
+    protected float ParseFloatValue(string val)
     {
         return float.Parse(val, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
     }
@@ -329,9 +325,7 @@ protected float ParseFloatValue(string val)
 
     public float GetHealth
     {   
-        get { return health; }
-
-        
+        get { return health; }        
     }
 
 }
