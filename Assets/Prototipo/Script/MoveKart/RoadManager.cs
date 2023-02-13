@@ -26,7 +26,6 @@ public class RoadManager : MonoBehaviour
     [SerializeField] protected string EASY_OBS_DIFFICULTY = "EASY_OBS_DIFFICULTY";
     [SerializeField] protected string HARD_OBS_DIFFICULTY = "HARD_OBS_DIFFICULTY";
     [SerializeField] protected string MEDIUM_OBS_DIFFICULTY = "MEDIUM_OBS_DIFFICULTY";
-    [SerializeField] protected List <GameObject> objectsToSpawn; 
     protected FeatureManager featureManager;
     protected ComponentManager componentManager;
     protected WeightRandomManager weightRandomManager;
@@ -67,8 +66,8 @@ public class RoadManager : MonoBehaviour
         weightRandomManager = weightedObject.GetComponent<WeightRandomManager>();
         LoadParameters(TICKSPATH, tickables);
         ReadBinary(BINARY_EASY, binaryEasyDict);
-        ReadBinary(BINARY_MEDIUM, binaryEasyDict);
-        ReadBinary(BINARY_HARD, binaryEasyDict);
+        ReadBinary(BINARY_MEDIUM, binaryMediumDict);
+        ReadBinary(BINARY_HARD, binaryHardDict);
     }
     
     void Start()
@@ -172,7 +171,7 @@ public class RoadManager : MonoBehaviour
         List<GameObject> listchild = new List<GameObject>();                
         foreach (Transform t in go.transform)
         {
-            if (t.CompareTag("Ostacolo"))
+            if (t.CompareTag("Spawn"))
             {
                 listchild.Add(t.gameObject);  
             }
@@ -196,18 +195,27 @@ public class RoadManager : MonoBehaviour
         //1) prendo la riga di bit 
         //2) prendo l'ostacolo in base alla probability
         //3) spawnare l'oggetto nel punto 1 della riga di bit (sempre in base ai punti di spawn)
-
-        foreach(int i in binaryRow)
+        int randomObs = 0;
+        foreach (int i in binaryRow)
         {
-            if(i != 0)
+            if (i != 0)
             {
-                int randomObs = UnityEngine.Random.Range(0, listchild.Count);
-                string objName = weightRandomManager.ChooseByProbability();
-                //GameObject obj = objectsToSpawn.Find(objName.ToUpper);
-                //listchild[randomObs];
+                randomObs = UnityEngine.Random.Range(0, listchild.Count);
+                GameObject go = weightRandomManager.ChooseByProbability();
+                //Debug.Log("GO: " + go.name);
+                Vector3 spawnPosition = listchild[randomObs].transform.position;
+                if (!GameObject.Find(go.name))
+                {
+                    Debug.Log("non instanziato");
+                    Instantiate(go, spawnPosition, go.transform.rotation, transform);
+                }
+                else
+                {
+                    Debug.Log("instanziato");
+                }
+
             }
         }
-
     }
     
     private void OnTriggerEnter(Collider other)

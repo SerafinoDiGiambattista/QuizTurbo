@@ -715,6 +715,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TICKSPATH: Assets/StreamingAssets/TrickWrapper/TickWeight.csv
+  objectsToSpawn:
+  - {fileID: 5930564529466514170, guid: 5e747a0629894a44384bb2d6708ae105, type: 3}
+  - {fileID: 3761431495673512404, guid: 32aa982e63882e1459537e999bee6258, type: 3}
+  - {fileID: 5269431948803081710, guid: dfe5ea095b3b1ed489a1e88fee9990b8, type: 3}
+  - {fileID: 2384421502722410978, guid: 6ac211ffe55828c4bbfe185ae9307e1e, type: 3}
+  - {fileID: 3794058997008588565, guid: 0b721f56055e2a347adcdea0ad734390, type: 3}
+  - {fileID: 5693799559213343091, guid: 6559e3bed8a860940a3331d99e4b0eb5, type: 3}
 --- !u!4 &1018623907
 Transform:
   m_ObjectHideFlags: 0

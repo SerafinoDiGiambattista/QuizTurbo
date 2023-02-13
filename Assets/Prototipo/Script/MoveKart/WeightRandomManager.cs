@@ -12,6 +12,7 @@ using System.Reflection;
 public class WeightRandomManager : MonoBehaviour
 {
     [SerializeField] protected string TICKSPATH;    // Per modificare la probabilità nel temp
+    [SerializeField] protected List<GameObject> objectsToSpawn;
     protected FeatureManager featureManager;
     protected TickManager tickmanager;
     protected ComponentManager componentManager;
@@ -104,10 +105,10 @@ public class WeightRandomManager : MonoBehaviour
         }
     }
 
-    public string ChooseByProbability()
+    public GameObject ChooseByProbability()
     {
         float total = 0;
-
+        GameObject go;
         foreach (float elem in features.Values) {
             total += elem;
         }
@@ -118,7 +119,7 @@ public class WeightRandomManager : MonoBehaviour
         {
             float i = features[s];
             if (randomWeight < i)
-                return s;
+                return go = objectsToSpawn.Where(x => x.name.ToUpper().Equals(s)).SingleOrDefault();
             randomWeight -= i;
         }
         return null;
