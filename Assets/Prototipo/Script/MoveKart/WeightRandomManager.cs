@@ -105,10 +105,10 @@ public class WeightRandomManager : MonoBehaviour
         }
     }
 
-    public GameObject ChooseByProbability()
+    public String ChooseByProbability()
     {
         float total = 0;
-        GameObject go;
+        //GameObject go;
         foreach (float elem in features.Values) {
             total += elem;
         }
@@ -119,7 +119,7 @@ public class WeightRandomManager : MonoBehaviour
         {
             float i = features[s];
             if (randomWeight < i)
-                return go = objectsToSpawn.Where(x => x.name.ToUpper().Equals(s)).SingleOrDefault();
+                return s;
             randomWeight -= i;
         }
         return null;
@@ -128,6 +128,12 @@ public class WeightRandomManager : MonoBehaviour
     protected float ParseFloatValue(string val)
     {
         return float.Parse(val, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
+    }
+
+
+    public List<GameObject> GetObjectSpwan
+    {
+        get { return objectsToSpawn; }
     }
 }
 

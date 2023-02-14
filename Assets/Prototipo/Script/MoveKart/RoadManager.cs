@@ -116,6 +116,7 @@ public class RoadManager : MonoBehaviour
 
     private  void IstatiateRoad()
     {
+        Transform[] position;
         Renderer renderer= roadController.getTrackRoad.GetComponent<Renderer>();
         if (renderer != null)
         {   //lunghezza z dell'oggetto
@@ -124,7 +125,23 @@ public class RoadManager : MonoBehaviour
             for (int i =0; i<numObstacleTrack; i++)
             {
                 instantiatedObstaclesTracks.Add(Instantiate(roadController.getTrackRoad, new Vector3(0,0,count), Quaternion.identity)) ;
+                position = instantiatedObstaclesTracks[i].GetComponentsInChildren<Transform>();
+                position = position.Skip(1).ToArray();
+                InstatiateObject(position);
+
                 count += lenghtz;
+            }
+        }
+    }
+
+    private void InstatiateObject(Transform[] position)
+    {
+        foreach (Transform index in position)
+        {
+            foreach (GameObject g in weightRandomManager.GetObjectSpwan)
+            {
+                g.SetActive(false);
+                Instantiate(g, index.position, g.transform.rotation, index);
             }
         }
     }
@@ -162,33 +179,11 @@ public class RoadManager : MonoBehaviour
     {
         temp.transform.position += new Vector3(0,0,count);
         temp.GetComponent<RoadController>().gameObject.SetActive(true);
-        ActivateObstacle(temp);
+        ActivateObejct(temp);
         int goPosition = instantiatedObstaclesTracks.IndexOf(temp);
     }
 
-    public void ActivateObstacle(GameObject go)
-    {
-        List<GameObject> listchild = new List<GameObject>();                
-        foreach (Transform t in go.transform)
-        {
-            if (t.CompareTag("Spawn"))
-            {
-                listchild.Add(t.gameObject);  
-            }
-        }
-
-        if (easy) SpawnEasyObstacles(listchild);
-        //if(medium) SpawnMediumObstacles(listchild);
-        //if(hard) SpawnHardObstacles(listchild);
-
-
-
-            /*if(!listchild[randomObs0].activeSelf && binaryRow[0] != 0) CheckProbability();
-            if(!listchild[randomObs1].activeSelf && binaryRow[1] != 0) CheckProbability();
-            if(!listchild[randomObs2].activeSelf && binaryRow[2] != 0) CheckProbability();*/
-    }
-
-    protected void SpawnEasyObstacles(List<GameObject> listchild)
+    public void ActivateObejct(GameObject grandfather)
     {
         int randomRow = UnityEngine.Random.Range(0, binaryEasyDict.Count);
         List<int> binaryRow = binaryEasyDict[randomRow];
@@ -196,28 +191,26 @@ public class RoadManager : MonoBehaviour
         //2) prendo l'ostacolo in base alla probability
         //3) spawnare l'oggetto nel punto 1 della riga di bit (sempre in base ai punti di spawn)
         int randomObs = 0;
+        Transform[] father = grandfather.GetComponentsInChildren<Transform>();
+        father = father.Skip(1).ToArray();
+        //Debug.Log("Array lungh : "+father.Length);
         foreach (int i in binaryRow)
         {
             if (i != 0)
             {
-                randomObs = UnityEngine.Random.Range(0, listchild.Count);
-                GameObject go = weightRandomManager.ChooseByProbability();
-                //Debug.Log("GO: " + go.name);
-                Vector3 spawnPosition = listchild[randomObs].transform.position;
-                if (!GameObject.Find(go.name))
-                {
-                    Debug.Log("non instanziato");
-                    Instantiate(go, spawnPosition, go.transform.rotation, transform);
-                }
-                else
-                {
-                    Debug.Log("instanziato");
-                }
-
+                string name = weightRandomManager.ChooseByProbability();
+                randomObs = UnityEngine.Random.Range(0, father.Length);
+                Transform child = father[randomObs].Find("Fence");
+                Debug.Log("nome padre : " + child);
+                //Debug.Log("Nome child : "+child);
+                
+                
             }
         }
     }
-    
+
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Ostacolo"))

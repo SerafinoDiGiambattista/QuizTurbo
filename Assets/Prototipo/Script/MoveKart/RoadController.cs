@@ -26,11 +26,7 @@ public class RoadController : MonoBehaviour
   
     public void SetRoadComplete()
     {   
-        Transform[] allChildren = GetComponentsInChildren<Transform>();
-        foreach (Transform child in allChildren)
-        {
-            child.gameObject.SetActive(false);
-        }
+        gameObject.SetActive(false);
     }
 
     public GameObject getTrackRoad
