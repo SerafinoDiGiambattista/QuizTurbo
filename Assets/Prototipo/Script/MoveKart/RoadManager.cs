@@ -185,50 +185,42 @@ public class RoadManager : MonoBehaviour
     {
         temp.transform.position += new Vector3(0,0,count);
         temp.GetComponent<RoadController>().gameObject.SetActive(true);
-        ActivateObejct(temp);
+        if(easy) ActivateObejct(temp, binaryEasyDict);
+        if(medium) ActivateObejct(temp, binaryMediumDict);
+        if(hard) ActivateObejct(temp, binaryHardDict);
         int goPosition = instantiatedObstaclesTracks.IndexOf(temp);
     }
 
-    public void ActivateObejct(GameObject grandfather)
+    public void ActivateObejct(GameObject grandfather, Dictionary<int, List<int>> binaryFile)
     {
-        int randomRow = UnityEngine.Random.Range(0, binaryEasyDict.Count);
-        List<int> binaryRow = binaryEasyDict[randomRow];
+        int randomRow = UnityEngine.Random.Range(0, binaryFile.Count);
+        List<int> binaryRow = binaryFile[randomRow];
         //1) prendo la riga di bit 
         //2) prendo l'ostacolo in base alla probability
         //3) spawnare l'oggetto nel punto 1 della riga di bit (sempre in base ai punti di spawn)
-        int randomObs ;
+        int index = 0;
         Transform[] father = grandfather.GetComponentsInChildren<Transform>();
         father = father.Skip(1).ToArray();
-        //Debug.Log("Array lungh : "+father.Length);
-        //Debug.Log("indice : "+binaryRow.Count);
         foreach (int i in binaryRow)
         {
-           
             if (i != 0)
             {
                 //Debug.Log("intero : "+i);
                 string name = weightRandomManager.ChooseByProbability();
-                randomObs = UnityEngine.Random.Range(0, father.Length);
-                //father[randomObs].GetChild(2).gameObject.SetActive(true);
-                for (int j = 0; j < father[randomObs].childCount; j++)
+                for (int j = 0; j < father[index].childCount; j++)
                 {   
-                    GameObject child = father[randomObs].GetChild(j).gameObject;
+                    GameObject child = father[index].GetChild(j).gameObject;
                     string namechild = child.name.ToUpper().Replace("(CLONE)","");
-                  //  Debug.Log("nome child : "+namechild);
+                    //  Debug.Log("nome child : "+namechild);
                     if ((!child.activeSelf) && namechild.Equals(name) )
                     {
-                      father[randomObs].GetChild(j).gameObject.SetActive(true);
+                      father[index].GetChild(j).gameObject.SetActive(true);
                     }
-                  
                 }
-              
-
-
             }
+            index++;
         }
     }
-
-
 
     private void OnTriggerEnter(Collider other)
     {   
