@@ -25,8 +25,19 @@ public class RoadController : MonoBehaviour
 
   
     public void SetRoadComplete()
-    {   
+    {
+        Transform[] arr = gameObject.GetComponentsInChildren<Transform>();
+
+        foreach (Transform index in arr)
+        {
+            if (index.CompareTag("Ostacolo"))
+            {
+                //Debug.Log("nome preso: "+index.gameObject.name);
+                index.gameObject.SetActive(false);
+            }
+        }
         gameObject.SetActive(false);
+
     }
 
     public GameObject getTrackRoad

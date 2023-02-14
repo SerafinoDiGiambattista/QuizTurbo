@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8631318099486079517, guid: 5e747a0629894a44384bb2d6708ae105,
+        type: 3}
+      propertyPath: path
+      value: ObjectEffect/Fence.csv
+      objectReference: {fileID: 0}
     - target: {fileID: 1009143015, guid: 5e747a0629894a44384bb2d6708ae105, type: 3}
       propertyPath: m_IsTrigger
       value: 1
@@ -19,7 +24,7 @@ PrefabInstance:
     - target: {fileID: 5930564529466514170, guid: 5e747a0629894a44384bb2d6708ae105,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6414895706126041152, guid: 5e747a0629894a44384bb2d6708ae105,
         type: 3}

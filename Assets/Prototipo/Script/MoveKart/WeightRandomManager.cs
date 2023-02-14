@@ -114,7 +114,7 @@ public class WeightRandomManager : MonoBehaviour
         }
 
         float randomWeight = UnityEngine.Random.Range(0, total);
-
+        Debug.Log("Valore proba tot : "+total);
         foreach(string s in features.Keys)
         {
             float i = features[s];

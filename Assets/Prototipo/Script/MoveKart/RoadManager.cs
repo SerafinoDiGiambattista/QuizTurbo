@@ -7,6 +7,7 @@ using System.Linq;
 using Unity.IO;
 using UnityEngine.UIElements;
 using System.Reflection;
+using System.IO.Abstractions.TestingHelpers;
 
 public class RoadManager : MonoBehaviour
 { 
@@ -17,7 +18,8 @@ public class RoadManager : MonoBehaviour
     [SerializeField] protected string MAX_SPEED = "MAX_SPEED";
     [SerializeField] protected string HORIZONTAL_SPEED = "HORIZONTAL_SPEED";
     [SerializeField] protected string MAX_HORIZONTAL = "MAX_HORIZONTAL";
-    [SerializeField] private string HEALTH = "HEALTH";
+    [SerializeField] protected string HEALTH = "HEALTH";
+    //[SerializeField] protected string MAX_HEALTH = "MAX_HEALTH";
     [SerializeField] protected string BINARY_EASY;
     [SerializeField] protected string BINARY_MEDIUM;
     [SerializeField] protected string BINARY_HARD;
@@ -34,6 +36,7 @@ public class RoadManager : MonoBehaviour
     protected float verticalSpeed;
     protected float initialHSpeed;
     private float initialHealth;
+    //private float maxhealth;
     private float health;
     protected float horizontalSpeed;
     protected float maxSpeed;
@@ -99,17 +102,18 @@ public class RoadManager : MonoBehaviour
     {
         string[] lines = File.ReadAllLines(path);
         int i = 0;
-        List<int> array = new List<int>();
+       
         foreach (string l in lines)
-        {
+        {   List<int> array = new List<int>();
             string[] items = l.Split(',');
             int param1 = int.Parse(items[0].Trim());
             int param2 = int.Parse(items[1].Trim());
             int param3 = int.Parse(items[2].Trim());
             array.Add(param1);
             array.Add(param2);
-            array.Add(param2);
+            array.Add(param3);
             valuesDict.Add(i, array);
+         
             i++;
         }
     }
@@ -126,6 +130,7 @@ public class RoadManager : MonoBehaviour
             {
                 instantiatedObstaclesTracks.Add(Instantiate(roadController.getTrackRoad, new Vector3(0,0,count), Quaternion.identity)) ;
                 position = instantiatedObstaclesTracks[i].GetComponentsInChildren<Transform>();
+                //dobbiamo filtrare per le domande 
                 position = position.Skip(1).ToArray();
                 InstatiateObject(position);
 
@@ -158,6 +163,7 @@ public class RoadManager : MonoBehaviour
         easyObsDifficulty = featureManager.FeatureValue(EASY_OBS_DIFFICULTY);
         mediumObsDifficulty = featureManager.FeatureValue(MEDIUM_OBS_DIFFICULTY);
         hardObsDifficulty = featureManager.FeatureValue(HARD_OBS_DIFFICULTY);
+       // maxhealth = featureManager.FeatureValue(MAX_HEALTH);
     }
     
     // Update is called once per frame
@@ -190,21 +196,34 @@ public class RoadManager : MonoBehaviour
         //1) prendo la riga di bit 
         //2) prendo l'ostacolo in base alla probability
         //3) spawnare l'oggetto nel punto 1 della riga di bit (sempre in base ai punti di spawn)
-        int randomObs = 0;
+        int randomObs ;
         Transform[] father = grandfather.GetComponentsInChildren<Transform>();
         father = father.Skip(1).ToArray();
         //Debug.Log("Array lungh : "+father.Length);
+        //Debug.Log("indice : "+binaryRow.Count);
         foreach (int i in binaryRow)
         {
+           
             if (i != 0)
             {
+                //Debug.Log("intero : "+i);
                 string name = weightRandomManager.ChooseByProbability();
                 randomObs = UnityEngine.Random.Range(0, father.Length);
-                Transform child = father[randomObs].Find("Fence");
-                Debug.Log("nome padre : " + child);
-                //Debug.Log("Nome child : "+child);
-                
-                
+                //father[randomObs].GetChild(2).gameObject.SetActive(true);
+                for (int j = 0; j < father[randomObs].childCount; j++)
+                {   
+                    GameObject child = father[randomObs].GetChild(j).gameObject;
+                    string namechild = child.name.ToUpper().Replace("(CLONE)","");
+                  //  Debug.Log("nome child : "+namechild);
+                    if ((!child.activeSelf) && namechild.Equals(name) )
+                    {
+                      father[randomObs].GetChild(j).gameObject.SetActive(true);
+                    }
+                  
+                }
+              
+
+
             }
         }
     }
@@ -212,7 +231,8 @@ public class RoadManager : MonoBehaviour
 
 
     private void OnTriggerEnter(Collider other)
-    {
+    {   
+        //il nome ostacolo è hard code dobbiamo metterlo nell'ispettore 
         if (other.gameObject.CompareTag("Ostacolo"))
         {
             string path = other.gameObject.GetComponent<PathManager>().Path;

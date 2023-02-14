@@ -10,7 +10,6 @@ using UnityEngine.UIElements;
 public class ManagerSpawner : MonoBehaviour
 {
     [SerializeField] string fileInput;
-
     [SerializeField] GameObject road;
     [SerializeField] GameObject canvasQuestion;
     private TextMeshProUGUI textmeshPro;

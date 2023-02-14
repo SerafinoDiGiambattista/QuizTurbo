@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 1625844407560028633, guid: 32aa982e63882e1459537e999bee6258,
         type: 3}
       propertyPath: path
-      value: ObstaclesPowerUp/Pin1.csv
+      value: ObjectEffect/Pin1.csv
       objectReference: {fileID: 0}
     - target: {fileID: 3761431495673512401, guid: 32aa982e63882e1459537e999bee6258,
         type: 3}
@@ -75,7 +75,7 @@ PrefabInstance:
     - target: {fileID: 3761431495673512404, guid: 32aa982e63882e1459537e999bee6258,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4343775217224692109, guid: 32aa982e63882e1459537e999bee6258,
         type: 3}
