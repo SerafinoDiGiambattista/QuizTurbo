@@ -14,6 +14,7 @@ public class RoadManager : MonoBehaviour
     [SerializeField] protected string TICKSPATH;
     [SerializeField] GameObject trackroad;
     [SerializeField] GameObject weightedObject;
+    [SerializeField] GameObject questionObject;
     [SerializeField] protected string VERTICAL_SPEED = "VERTICAL_SPEED";
     [SerializeField] protected string MAX_SPEED = "MAX_SPEED";
     [SerializeField] protected string HORIZONTAL_SPEED = "HORIZONTAL_SPEED";
@@ -32,6 +33,7 @@ public class RoadManager : MonoBehaviour
     protected ComponentManager componentManager;
     protected WeightRandomManager weightRandomManager;
     protected RoadController roadController;
+    protected QuestionManager questionManager;
     protected float initialVSpeed;
     protected float verticalSpeed;
     protected float initialHSpeed;
@@ -51,7 +53,7 @@ public class RoadManager : MonoBehaviour
     protected bool medium = false;
     protected bool hard = false;
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
-    protected List<GameObject> instantiatedObstaclesTracks = new List<GameObject>();
+    protected List<GameObject> instantiatedTracks = new List<GameObject>();
     protected float localSpace = 0f;
     protected TickManager tickmanager;
     protected Dictionary<string, string> tickables = new Dictionary<string, string>();
@@ -67,6 +69,7 @@ public class RoadManager : MonoBehaviour
         tickmanager = GetComponent<TickManager>();
         roadController = trackroad.GetComponent<RoadController>();
         weightRandomManager = weightedObject.GetComponent<WeightRandomManager>();
+        questionManager = questionObject.GetComponent<QuestionManager>();
         LoadParameters(TICKSPATH, tickables);
         ReadBinary(BINARY_EASY, binaryEasyDict);
         ReadBinary(BINARY_MEDIUM, binaryMediumDict);
@@ -106,14 +109,13 @@ public class RoadManager : MonoBehaviour
         foreach (string l in lines)
         {   List<int> array = new List<int>();
             string[] items = l.Split(',');
-            int param1 = int.Parse(items[0].Trim());
-            int param2 = int.Parse(items[1].Trim());
-            int param3 = int.Parse(items[2].Trim());
-            array.Add(param1);
-            array.Add(param2);
-            array.Add(param3);
+            foreach(string item in items)
+            {
+                int param = int.Parse(item.Trim());
+                array.Add(param);
+                
+            }
             valuesDict.Add(i, array);
-         
             i++;
         }
     }
@@ -126,17 +128,29 @@ public class RoadManager : MonoBehaviour
         {   //lunghezza z dell'oggetto
             float lenghtz = renderer.bounds.size.z;
             count = 0;
-            for (int i =0; i<numObstacleTrack; i++)
+            for (int i = 0; i < numObstacleTrack; i++)
             {
-                instantiatedObstaclesTracks.Add(Instantiate(roadController.getTrackRoad, new Vector3(0,0,count), Quaternion.identity)) ;
-                position = instantiatedObstaclesTracks[i].GetComponentsInChildren<Transform>();
-                //dobbiamo filtrare per le domande 
+                instantiatedTracks.Add(Instantiate(roadController.getTrackRoad, new Vector3(0, 0, count), Quaternion.identity));
+                position = instantiatedTracks[i].GetComponentsInChildren<Transform>();
                 position = position.Skip(1).ToArray();
-                InstatiateObject(position);
+                var positionsObs = position.Where(x => x.gameObject.tag.Equals("Spawn")).ToArray();
+                InstatiateObject(positionsObs);
+
+                Transform positionTrue = position.Where(x => x.gameObject.tag.Equals("spawnTrue")).SingleOrDefault();
+                Transform positionFalse = position.Where(x => x.gameObject.tag.Equals("spawnFalse")).SingleOrDefault();
+                InstantiateTF( positionTrue, positionFalse);
 
                 count += lenghtz;
             }
         }
+    }
+
+    private void InstantiateTF(Transform t, Transform f)
+    {
+        questionManager.GetPanelTrue.SetActive(false);
+        questionManager.GetPanelFalse.SetActive(false);
+        Instantiate(questionManager.GetPanelTrue, t.position, questionManager.GetPanelTrue.transform.rotation, t);
+        Instantiate(questionManager.GetPanelFalse, f.position, questionManager.GetPanelFalse.transform.rotation, f);
     }
 
     private void InstatiateObject(Transform[] position)
@@ -169,7 +183,7 @@ public class RoadManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        foreach (GameObject g in instantiatedObstaclesTracks)
+        foreach (GameObject g in instantiatedTracks)
         {
             g.transform.position += new Vector3(0, 0, -verticalSpeed * Time.deltaTime);
         }
@@ -181,23 +195,51 @@ public class RoadManager : MonoBehaviour
         //Debug.Log("Salute : "+health);
     }
 
+
+    private int numOfSegments = 0;
     public void SpawnSegment(GameObject temp)
     {
+        numOfSegments++;
         temp.transform.position += new Vector3(0,0,count);
         temp.GetComponent<RoadController>().gameObject.SetActive(true);
-        if(easy) ActivateObejct(temp, binaryEasyDict);
-        if(medium) ActivateObejct(temp, binaryMediumDict);
-        if(hard) ActivateObejct(temp, binaryHardDict);
-        int goPosition = instantiatedObstaclesTracks.IndexOf(temp);
+
+        if (numOfSegments <= instantiatedTracks.Count)
+        {
+            if (easy) ActivateObejct(temp, binaryEasyDict);
+            if (medium)
+            {
+                ActivateObejct(temp, binaryMediumDict);
+            }
+            else if(binaryMediumDict==null)
+            {
+                ActivateObejct(temp, binaryEasyDict);
+            }
+            if (hard)
+            {
+                ActivateObejct(temp, binaryHardDict);
+            }
+            else if (binaryHardDict == null)
+            {
+                ActivateObejct(temp, binaryEasyDict);
+            }
+        }
+        else if (numOfSegments <= (instantiatedTracks.Count + numQuestionTrack))
+        {
+            ActivateQuestion(temp);
+        }
+        else numOfSegments = 0;
+        //int goPosition = instantiatedTracks.IndexOf(temp);
+    }
+
+    public void ActivateQuestion(GameObject trackroad)
+    {
+                
     }
 
     public void ActivateObejct(GameObject grandfather, Dictionary<int, List<int>> binaryFile)
     {
         int randomRow = UnityEngine.Random.Range(0, binaryFile.Count);
         List<int> binaryRow = binaryFile[randomRow];
-        //1) prendo la riga di bit 
-        //2) prendo l'ostacolo in base alla probability
-        //3) spawnare l'oggetto nel punto 1 della riga di bit (sempre in base ai punti di spawn)
         int index = 0;
         Transform[] father = grandfather.GetComponentsInChildren<Transform>();
         father = father.Skip(1).ToArray();
@@ -341,4 +383,18 @@ public class RoadManager : MonoBehaviour
         get { return health; }        
     }
 
+    public bool GetEasy
+    {
+        get { return easy; }
+    }
+
+    public bool GetMedium
+    {
+        get { return medium; }
+    }
+
+    public bool GetHard
+    {
+        get { return hard; }
+    }
 }

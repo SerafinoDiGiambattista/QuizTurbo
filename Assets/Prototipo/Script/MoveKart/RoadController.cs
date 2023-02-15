@@ -19,10 +19,8 @@ public class RoadController : MonoBehaviour
             //executeWait(3);
             SetRoadComplete();
             roadManager.SpawnSegment(getTrackRoad);
-            //qui dentro segnaliamo la necessita di attiavre un pezzo 
         }
     }
-
   
     public void SetRoadComplete()
     {
@@ -30,21 +28,19 @@ public class RoadController : MonoBehaviour
 
         foreach (Transform index in arr)
         {
-            if (index.CompareTag("Ostacolo"))
-            {
-                //Debug.Log("nome preso: "+index.gameObject.name);
-                index.gameObject.SetActive(false);
-            }
+            //Debug.Log("index: " + index);
+                if (index.CompareTag("Ostacolo"))
+                {
+                    //Debug.Log("nome preso: " + index.gameObject.name);
+                    index.gameObject.SetActive(false);
+                }
+                 
         }
         gameObject.SetActive(false);
-
     }
 
     public GameObject getTrackRoad
     {
         get { return gameObject; }
     }
-    
-  
-
 }

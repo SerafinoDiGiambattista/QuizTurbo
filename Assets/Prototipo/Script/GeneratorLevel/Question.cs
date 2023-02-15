@@ -7,9 +7,6 @@ using System;
 
 public class Question : MonoBehaviour
 {
-    
- 
-
 public void ReadCSV(TextMeshProUGUI textmeshPro, string fileInput)
     {
         StreamReader strReader = new StreamReader(fileInput);

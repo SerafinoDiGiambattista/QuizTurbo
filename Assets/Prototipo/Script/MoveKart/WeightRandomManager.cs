@@ -8,7 +8,6 @@ using Unity.IO;
 using UnityEngine.UIElements;
 using System.Reflection;
 
-
 public class WeightRandomManager : MonoBehaviour
 {
     [SerializeField] protected string TICKSPATH;    // Per modificare la probabilità nel temp
@@ -114,7 +113,7 @@ public class WeightRandomManager : MonoBehaviour
         }
 
         float randomWeight = UnityEngine.Random.Range(0, total);
-        Debug.Log("Valore proba tot : "+total);
+        //Debug.Log("Valore proba tot : "+total);
         foreach(string s in features.Keys)
         {
             float i = features[s];

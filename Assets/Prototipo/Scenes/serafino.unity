@@ -454,6 +454,73 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 9b5ec48f82cbba64e91fdd4d055f11f3, type: 3}
+--- !u!1 &366004639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 366004640}
+  - component: {fileID: 366004641}
+  - component: {fileID: 366004642}
+  m_Layer: 0
+  m_Name: QuestionObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &366004640
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366004639}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.9830355, z: -3.7845242}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &366004641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366004639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78e687979518caa4bbdaedef1358b3a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelTrue: {fileID: 8342037941451727845, guid: f6ed9bf14b157a748b6e0357565e1339,
+    type: 3}
+  panelFalse: {fileID: 3938818845394351749, guid: 89caa3ecdfb5bd448b355733b403a8f0,
+    type: 3}
+  EASY_QUESTIONS: Assets/StreamingAssets/QuestionFeature/Quiz_Facili.csv
+  MEDIUM_QUESTIONS: Assets/StreamingAssets/QuestionFeature/Quiz_medi.csv
+  HARD_QUESTIONS: Assets/StreamingAssets/QuestionFeature/Quiz_Difficili.csv
+  roadObject: {fileID: 1312796768}
+--- !u!114 &366004642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366004639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a73cdce20724404448ec9f240e0ddf00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panels: []
+  canvasQuestion: {fileID: 4365624885726138870, guid: d34c3dc085d52b2429c9c67dc0410ba2,
+    type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,6 +996,7 @@ MonoBehaviour:
   trackroad: {fileID: 4685419864426939861, guid: e02a6a90c62c028499fcc96cfe092027,
     type: 3}
   weightedObject: {fileID: 1018623902}
+  questionObject: {fileID: 366004639}
   VERTICAL_SPEED: VERTICAL_SPEED
   MAX_SPEED: MAX_SPEED
   HORIZONTAL_SPEED: HORIZONTAL_SPEED
