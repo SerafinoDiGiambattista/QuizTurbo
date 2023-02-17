@@ -21,6 +21,7 @@ public class RoadManager : MonoBehaviour
     [SerializeField] protected string MAX_HORIZONTAL = "MAX_HORIZONTAL";
     [SerializeField] protected string HEALTH = "HEALTH";
     //[SerializeField] protected string MAX_HEALTH = "MAX_HEALTH";
+    //in realtà le feature ce l'ho nella classe featuremanager
     [SerializeField] protected string BINARY_EASY;
     [SerializeField] protected string BINARY_MEDIUM;
     [SerializeField] protected string BINARY_HARD;
@@ -34,10 +35,7 @@ public class RoadManager : MonoBehaviour
     protected WeightRandomManager weightRandomManager;
     protected RoadController roadController;
     protected QuestionManager questionManager;
-    protected float initialVSpeed;
     protected float verticalSpeed;
-    protected float initialHSpeed;
-    private float initialHealth;
     //private float maxhealth;
     private float health;
     protected float horizontalSpeed;
@@ -70,7 +68,6 @@ public class RoadManager : MonoBehaviour
         roadController = trackroad.GetComponent<RoadController>();
         weightRandomManager = weightedObject.GetComponent<WeightRandomManager>();
         questionManager = questionObject.GetComponent<QuestionManager>();
-        LoadParameters(TICKSPATH, tickables);
         ReadBinary(BINARY_EASY, binaryEasyDict);
         ReadBinary(BINARY_MEDIUM, binaryMediumDict);
         ReadBinary(BINARY_HARD, binaryHardDict);
@@ -81,25 +78,11 @@ public class RoadManager : MonoBehaviour
         LoadFeatures();
         numObstacleTrack = Mathf.CeilToInt(numObstacleTrack);
         numQuestionTrack = Mathf.CeilToInt(numQuestionTrack);
-        initialVSpeed = verticalSpeed;
-        initialHSpeed= horizontalSpeed;
-        initialHealth= health;
         IstatiateRoad();
 
     }
 
-    protected void LoadParameters<T1, T2>(string path, Dictionary<T1, T2> paramDict)
-    {
-        string[] lines = File.ReadAllLines(path);
-        foreach (string l in lines)
-        {
-            string[] items = l.Split(',');
-            object param1 = items[0].Trim();
-            object param2 = items[1].Trim();
-            if (typeof(T2) == typeof(float)) param2 = ParseFloatValue(items[1]);
-            paramDict.Add((T1)param1, (T2)param2);
-        }
-    }
+ 
 
     protected void ReadBinary(string path, Dictionary<int, List<int> > valuesDict)
     {
@@ -182,7 +165,7 @@ public class RoadManager : MonoBehaviour
     
     // Update is called once per frame
     void FixedUpdate()
-    {
+    {   verticalSpeed=featureManager.FeatureValue(VERTICAL_SPEED);
         foreach (GameObject g in instantiatedTracks)
         {
             g.transform.position += new Vector3(0, 0, -verticalSpeed * Time.deltaTime);
@@ -190,8 +173,9 @@ public class RoadManager : MonoBehaviour
         Space += verticalSpeed * Time.deltaTime;
         if (Space > mediumObsDifficulty && Space < hardObsDifficulty) { easy = false; medium = true; }
         if(Space >= hardObsDifficulty) { medium = false; hard = true; }
-        DoAllTicks();
-        //Debug.Log("Speed: "+verticalSpeed);
+       // QUESTO doallticks si deve modificare
+      
+        Debug.Log("Speed: "+verticalSpeed);
         //Debug.Log("Salute : "+health);
     }
 
@@ -202,7 +186,7 @@ public class RoadManager : MonoBehaviour
         numOfSegments++;
         temp.transform.position += new Vector3(0,0,count);
         temp.GetComponent<RoadController>().gameObject.SetActive(true);
-
+        //cambiare assolutamente 
         if (numOfSegments <= instantiatedTracks.Count)
         {
             if (easy) ActivateObejct(temp, binaryEasyDict);
@@ -277,77 +261,8 @@ public class RoadManager : MonoBehaviour
             // Debug.Log("Health: "+health);
         }
     }
-    protected void DoAllTicks()
-    {
-        foreach (KeyValuePair<string, string> t in tickables)
-        {
-            ComputeByComponent(t.Key, t.Value);
-        }
-    }
-
-    public Dictionary<string, float> GetAllTicks(string type)
-    {   
-        return componentManager.GetAllTicks(type);
-    }
-
-    public void ComputeByComponent(string type, string func)
-    {
-        Dictionary<string, float> filtered = GetAllTicks(type);
-        //Debug.Log("Filetered : "+filtered.Count);
-        float amount = ComputeFeatureValue(filtered);
-        //Debug.Log("Amount : " + amount);
-        if (amount > 0)
-        {
-            try
-            {
-            object[] p = { amount };
-            Type thisType = this.GetType();
-            MethodInfo theMethod = thisType.GetMethod(func);
-            theMethod.Invoke(this, p);
-            } catch{}
-        }
-    }
-
-    public float ComputeFeatureValue(Dictionary<string, float> received)
-    {
-        float res = 0;
-        foreach (string s in received.Keys)
-        {
-            try
-            {
-                //Debug.Log("s: " + s + " received: " + received[s]);
-                res += received[s];
-            }
-            catch (Exception) { }
-        }
-        return res;
-    }
-
-    public void SpeedUp(float acc)
-    {
-       // Debug.Log("ACC : " + acc);
-         verticalSpeed += acc;
-         horizontalSpeed+= acc/2;
-         if (verticalSpeed > maxSpeed) verticalSpeed= maxSpeed;
-         if(horizontalSpeed > maxHSpeed) horizontalSpeed= maxHSpeed;
-    }
-
-    public void DamageDone(float dmg)
-    {
-      //  Debug.Log("Damage : "+dmg);
-        if (health > 0) health -= dmg;
-    }
     
-    public void HealMe(float h)
-    {
-        //Debug.Log("salute : "+health);
-        if(health<initialHealth) health += h;
-       // if(health == 0) Debug.Log("YOU ARE DEAD! :(");   
-    }
-    protected float ParseFloatValue(string val)
-    {
-        return float.Parse(val, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
-    }
+
 
     public float Space
     {

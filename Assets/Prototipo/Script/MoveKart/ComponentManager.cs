@@ -32,7 +32,7 @@ public class ComponentManager : MonoBehaviour
         CheckIsActive();
         ResetModifiers();
         ComputeModifiers();
-        ComputeFeatures();
+        //ComputeFeatures();
         ComputeAllTicks();
         //Print();
     }
@@ -147,15 +147,16 @@ public class ComponentManager : MonoBehaviour
     }
 
     //calcolo valore totale della feature con i modificatori 
-    public void ComputeFeatures()
+  /*  public void ComputeFeatures()
     {
         foreach(Feature f in objFeatures.Values)
         {
             float midVal = f.BaseValue * featureMulMod[f.Type];
             f.CurrentValue = midVal + featureAddMod[f.Type];
+           //if(f.Type.Equals("VERTICAL_SPEED")) Debug.Log("Feature current : "+f.Type +" "+ midVal);
            
         }
-    }
+    }*/
 
     public Dictionary<string, SComponent> ComponentsByFeature(string feature)
     {
@@ -197,7 +198,14 @@ public class ComponentManager : MonoBehaviour
                 {
                     if (allTicks.ContainsKey(m.GetName)) allTicks.Remove(m.GetName);
                     allTicks.Add(m.GetName, m);
-                   // Debug.Log("all tick: " + m.GetName + "  featureType: " + m.AddFactor);
+                    //Debug.Log("modificer : "+m.Type);
+                    foreach (Feature f in objFeatures.Values)
+                    {
+                        float midVal = f.CurrentValue * featureMulMod[f.Type];
+                        f.CurrentValue = midVal + featureAddMod[f.Type];
+                        if(f.Type.Equals("FENCE")) Debug.Log("Feature current : "+f.CurrentValue +" "+ midVal);
+
+                    }
                 }
                 c.ResetTick();
             }
