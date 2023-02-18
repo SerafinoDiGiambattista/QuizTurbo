@@ -48,19 +48,21 @@ public class WeightRandomManager : MonoBehaviour
         foreach(string s in featuresRead.Keys)
         {
             weightFeatures.Add(s, featuresRead[s].CurrentValue);
-            Debug.Log("KEY "+s+ " value : "+ featuresRead[s].CurrentValue);
+            //Debug.Log("KEY "+s+ " value : "+ featuresRead[s].CurrentValue);
         }
     }
     protected void UpdateFeatures()
-    {   
-       /* foreach (string s in weightFeatures.Keys)
-        {
-            weightFeatures[s] = featureManager.FeatureValue(s);
-        }*/
+    {
+        /* foreach (string s in weightFeatures.Keys)
+         {
+             weightFeatures[s] = featureManager.FeatureValue(s);
+         }*/
+        weightFeatures = weightFeatures.ToDictionary(x => x.Key, x=>featureManager.FeatureValue(x.Key));
     }
 
     public String ChooseByProbability()
     {
+       
         float total = 0;
         //GameObject go;
         foreach (float elem in weightFeatures.Values) {
@@ -68,7 +70,7 @@ public class WeightRandomManager : MonoBehaviour
         }
 
         float randomWeight = UnityEngine.Random.Range(0, total);
-        Debug.Log("Valore proba tot : "+total);
+        //Debug.Log("Valore proba tot : "+total);
         foreach(string s in weightFeatures.Keys)
         {
             float i = weightFeatures[s];

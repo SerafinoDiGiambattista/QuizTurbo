@@ -57,7 +57,7 @@ public class HealthGUI : MonoBehaviour
 
     private void UpdateHealth()
     {
-        numOfHearts = Mathf.CeilToInt(roadManager.GetHealth);
+        numOfHearts = Mathf.CeilToInt(roadManager.GetHealth());
       // Debug.Log("HEARTCONTROLLER Health: " + numOfHearts);
 
         if (numOfHearts > 0)

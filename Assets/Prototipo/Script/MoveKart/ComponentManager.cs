@@ -43,7 +43,7 @@ public class ComponentManager : MonoBehaviour
              /*
             Type t = Type.GetType("SpeedUp");
             AddComponent((SpeedUp)Activator.CreateInstance(t, name, path, this));*/
-        AddComponent(new SpeedUp(name, path, this));
+            AddComponent(new SpeedUp(name, path, this));
     }
 
 
@@ -193,20 +193,30 @@ public class ComponentManager : MonoBehaviour
         {
            // Debug.Log("Valore di check "+c.CheckTick());
             if (c.CheckTick())
-            {  
+            {
+                
                 foreach (Modifier m in c.MyModifiers.Values)
                 {
                     if (allTicks.ContainsKey(m.GetName)) allTicks.Remove(m.GetName);
                     allTicks.Add(m.GetName, m);
-                    //Debug.Log("modificer : "+m.Type);
+
                     foreach (Feature f in objFeatures.Values)
                     {
-                        float midVal = f.CurrentValue * featureMulMod[f.Type];
-                        f.CurrentValue = midVal + featureAddMod[f.Type];
-                        if(f.Type.Equals("FENCE")) Debug.Log("Feature current : "+f.CurrentValue +" "+ midVal);
-
+                        if (f.Type.Equals(m.Type))
+                        {
+                            float midVal = f.CurrentValue * featureMulMod[f.Type];
+                            f.CurrentValue = midVal + featureAddMod[f.Type];
+                            Debug.Log("Feature current : " + f.Type + " " + midVal);
+                        }
                     }
                 }
+               
+              /*  foreach (Feature f in objFeatures.Values)
+                {
+                        float midVal = f.CurrentValue * featureMulMod[f.Type];
+                        f.CurrentValue = midVal + featureAddMod[f.Type];
+                        //if(f.Type.Equals("HEALTH")) Debug.Log("Feature current : "+f.CurrentValue +" "+ midVal);
+                }*/
                 c.ResetTick();
             }
         }

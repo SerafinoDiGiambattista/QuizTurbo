@@ -175,7 +175,7 @@ public class RoadManager : MonoBehaviour
         if(Space >= hardObsDifficulty) { medium = false; hard = true; }
        // QUESTO doallticks si deve modificare
       
-        Debug.Log("Speed: "+verticalSpeed);
+        //Debug.Log("Speed: "+verticalSpeed);
         //Debug.Log("Salute : "+health);
     }
 
@@ -293,9 +293,12 @@ public class RoadManager : MonoBehaviour
         get { return featureManager.FeatureValue(HEALTH); }
     }
 
-    public float GetHealth
-    {   
-        get { return health; }        
+    public float GetHealth()
+    {   float h = featureManager.FeatureValue(HEALTH);
+        float b = featureManager.FeatureValueBase(HEALTH);
+        if (h > b) featureManager.GetFeature(HEALTH).CurrentValue = b;
+        
+        return h;    
     }
 
     public bool GetEasy
