@@ -187,6 +187,8 @@ public class ComponentManager : MonoBehaviour
         }
     }
 
+
+
     protected void ComputeAllTicks()
     {
         foreach (SComponent c in components.Values)
@@ -206,7 +208,7 @@ public class ComponentManager : MonoBehaviour
                         {
                             float midVal = f.CurrentValue * featureMulMod[f.Type];
                             f.CurrentValue = midVal + featureAddMod[f.Type];
-                            Debug.Log("Feature current : " + f.Type + " " + midVal);
+                            //Debug.Log("Feature current : " + f.Type + " " + midVal);
                         }
                     }
                 }
@@ -221,7 +223,6 @@ public class ComponentManager : MonoBehaviour
             }
         }
     }
-
 
     public Dictionary<string, float> GetAllTicks(string type)
     {

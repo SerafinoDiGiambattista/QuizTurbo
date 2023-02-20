@@ -28,13 +28,11 @@ public class RoadController : MonoBehaviour
 
         foreach (Transform index in arr)
         {
-            //Debug.Log("index: " + index);
-                if (index.CompareTag("Ostacolo"))
-                {
-                    //Debug.Log("nome preso: " + index.gameObject.name);
-                    index.gameObject.SetActive(false);
-                }
+            if (index.CompareTag("Ostacolo") || index.CompareTag("PowerUp") || index.CompareTag("PanelTrue") || index.CompareTag("PanelFalse"))
+            {
                  
+                index.gameObject.SetActive(false);
+            }
         }
         gameObject.SetActive(false);
     }

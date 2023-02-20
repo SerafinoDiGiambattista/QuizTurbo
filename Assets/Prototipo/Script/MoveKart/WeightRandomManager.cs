@@ -24,15 +24,7 @@ public class WeightRandomManager : MonoBehaviour
         featureManager = GetComponent<FeatureManager>();
         componentManager = GetComponent<ComponentManager>();
         tickmanager = GetComponent<TickManager>();
-    }
-
-    private void Start()
-    {
         LoadFeatures();
-        //LoadFeatures();
-
-        //string s = ChooseByProbability();
-        //Debug.Log("str: " + s);
     }
 
     private void FixedUpdate()
@@ -53,10 +45,6 @@ public class WeightRandomManager : MonoBehaviour
     }
     protected void UpdateFeatures()
     {
-        /* foreach (string s in weightFeatures.Keys)
-         {
-             weightFeatures[s] = featureManager.FeatureValue(s);
-         }*/
         weightFeatures = weightFeatures.ToDictionary(x => x.Key, x=>featureManager.FeatureValue(x.Key));
     }
 

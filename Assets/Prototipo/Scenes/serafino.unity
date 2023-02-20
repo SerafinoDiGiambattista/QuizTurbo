@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -383,10 +383,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78e687979518caa4bbdaedef1358b3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelTrue: {fileID: 8342037941451727845, guid: f6ed9bf14b157a748b6e0357565e1339,
-    type: 3}
-  panelFalse: {fileID: 3938818845394351749, guid: 89caa3ecdfb5bd448b355733b403a8f0,
-    type: 3}
+  panels:
+  - {fileID: 3938818845394351749, guid: 89caa3ecdfb5bd448b355733b403a8f0, type: 3}
+  - {fileID: 8342037941451727845, guid: f6ed9bf14b157a748b6e0357565e1339, type: 3}
   EASY_QUESTIONS: Assets/StreamingAssets/QuestionFeature/Quiz_Facili.csv
   MEDIUM_QUESTIONS: Assets/StreamingAssets/QuestionFeature/Quiz_medi.csv
   HARD_QUESTIONS: Assets/StreamingAssets/QuestionFeature/Quiz_Difficili.csv
@@ -403,7 +402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a73cdce20724404448ec9f240e0ddf00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panels: []
   canvasQuestion: {fileID: 4365624885726138870, guid: d34c3dc085d52b2429c9c67dc0410ba2,
     type: 3}
 --- !u!1 &705507993

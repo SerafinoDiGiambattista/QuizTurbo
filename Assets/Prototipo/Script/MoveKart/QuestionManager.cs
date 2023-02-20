@@ -7,8 +7,7 @@ using System.Linq;
 
 public class QuestionManager : MonoBehaviour
 {
-    [SerializeField] protected GameObject panelTrue;
-    [SerializeField] protected GameObject panelFalse;
+    [SerializeField] protected GameObject[] panels; //0=False 1=True
     [SerializeField] protected string EASY_QUESTIONS;
     [SerializeField] protected string MEDIUM_QUESTIONS;
     [SerializeField] protected string HARD_QUESTIONS;
@@ -19,6 +18,7 @@ public class QuestionManager : MonoBehaviour
     private bool easy;
     private bool medium;
     private bool hard;
+    private int correctAnswer = 0;
 
     private void Awake()
     {
@@ -36,7 +36,6 @@ public class QuestionManager : MonoBehaviour
         //foreach(string q in easyQuestions.Keys)
         //Debug.Log("  " + q);
 
-        PickQuestion();
     }
 
     public void ReadQuestions(string fileInput, Dictionary<string, int> questions)
@@ -60,19 +59,30 @@ public class QuestionManager : MonoBehaviour
         }
         int rand = UnityEngine.Random.Range(0, easyQuestions.Count);
         var question = easyQuestions.ElementAt(rand);
+        correctAnswer = question.Value;
         questionGUI.SetTextQuestion(question.Key);
         //Debug.Log(" " + question.Key + " " + question.Value);
         easyQuestions.Remove(question.Key);        
-
     }
 
-    public GameObject GetPanelTrue
+    public GameObject[] GetPanels
     {
-        get { return panelTrue;}
+        get { return panels;}
     }
 
-    public GameObject GetPanelFalse
+    public GameObject GetCorrectAnswer
     {
-        get { return panelFalse; }
+        get{ return panels[correctAnswer]; }
+    }
+
+    public void ActivateCanvasQuestion()
+    {
+        PickQuestion();
+        questionGUI.CanvasQuestion.SetActive(true);
+    }
+
+    public void DeactivateCanvasQuestion()
+    {
+        questionGUI.CanvasQuestion.SetActive(false);
     }
 }

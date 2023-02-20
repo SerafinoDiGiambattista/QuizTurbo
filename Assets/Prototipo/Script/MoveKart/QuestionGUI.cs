@@ -5,24 +5,25 @@ using TMPro;
 
 public class QuestionGUI : MonoBehaviour
 {
-    [SerializeField] protected GameObject[] panels;
     [SerializeField] protected GameObject canvasQuestion;
-    protected TextMeshProUGUI textGUI;
     protected QuestionManager questionManager;
-    private TextMeshProUGUI textmeshPro;
+    protected TextMeshProUGUI textmeshPro;
 
     private void Awake()
     {
-        Instantiate(canvasQuestion);
+        //canvasQuestion.SetActive(false);
+        canvasQuestion = Instantiate(canvasQuestion);
+        canvasQuestion.SetActive(false);
+        textmeshPro = canvasQuestion.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     public void SetTextQuestion(string question)
     {
-        textmeshPro = canvasQuestion.GetComponent<TextMeshProUGUI>();
-        //textmeshPro.SetText(question);
+        textmeshPro.SetText(question);
     }
 
-
-
-
+    public GameObject CanvasQuestion
+    {
+        get { return canvasQuestion;  }
+    }
 }

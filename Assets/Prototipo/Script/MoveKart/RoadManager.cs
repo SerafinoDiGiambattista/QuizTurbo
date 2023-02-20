@@ -11,7 +11,6 @@ using System.IO.Abstractions.TestingHelpers;
 
 public class RoadManager : MonoBehaviour
 { 
-    [SerializeField] protected string TICKSPATH;
     [SerializeField] GameObject trackroad;
     [SerializeField] GameObject weightedObject;
     [SerializeField] GameObject questionObject;
@@ -30,6 +29,8 @@ public class RoadManager : MonoBehaviour
     [SerializeField] protected string EASY_OBS_DIFFICULTY = "EASY_OBS_DIFFICULTY";
     [SerializeField] protected string HARD_OBS_DIFFICULTY = "HARD_OBS_DIFFICULTY";
     [SerializeField] protected string MEDIUM_OBS_DIFFICULTY = "MEDIUM_OBS_DIFFICULTY";
+    [SerializeField] protected string INVINCIBILITY = "INVINCIBILITY";
+
     protected FeatureManager featureManager;
     protected ComponentManager componentManager;
     protected WeightRandomManager weightRandomManager;
@@ -37,7 +38,7 @@ public class RoadManager : MonoBehaviour
     protected QuestionManager questionManager;
     protected float verticalSpeed;
     //private float maxhealth;
-    private float health;
+    private int numOfSegments = 0;
     protected float horizontalSpeed;
     protected float maxSpeed;
     protected float maxHSpeed;
@@ -58,7 +59,8 @@ public class RoadManager : MonoBehaviour
     protected Dictionary<int, List<int> > binaryEasyDict = new Dictionary<int, List<int> >();
     protected Dictionary<int, List<int>> binaryMediumDict = new Dictionary<int, List<int>>();
     protected Dictionary<int, List<int>> binaryHardDict = new Dictionary<int, List<int>>();
-
+    protected bool checkObjectActivation = true;
+    protected bool invincible = false;
 
     private void Awake()
     {
@@ -79,10 +81,8 @@ public class RoadManager : MonoBehaviour
         numObstacleTrack = Mathf.CeilToInt(numObstacleTrack);
         numQuestionTrack = Mathf.CeilToInt(numQuestionTrack);
         IstatiateRoad();
-
+        
     }
-
- 
 
     protected void ReadBinary(string path, Dictionary<int, List<int> > valuesDict)
     {
@@ -96,7 +96,6 @@ public class RoadManager : MonoBehaviour
             {
                 int param = int.Parse(item.Trim());
                 array.Add(param);
-                
             }
             valuesDict.Add(i, array);
             i++;
@@ -117,23 +116,32 @@ public class RoadManager : MonoBehaviour
                 position = instantiatedTracks[i].GetComponentsInChildren<Transform>();
                 position = position.Skip(1).ToArray();
                 var positionsObs = position.Where(x => x.gameObject.tag.Equals("Spawn")).ToArray();
-                InstatiateObject(positionsObs);
+                Transform cp = position.Where(x => x.gameObject.tag.Equals("checkPointQuestion")).SingleOrDefault();
+                Collider c = cp.gameObject.GetComponent<Collider>();
+                c.enabled = false;
+                InstatiateObject(positionsObs);              
 
                 Transform positionTrue = position.Where(x => x.gameObject.tag.Equals("spawnTrue")).SingleOrDefault();
                 Transform positionFalse = position.Where(x => x.gameObject.tag.Equals("spawnFalse")).SingleOrDefault();
                 InstantiateTF( positionTrue, positionFalse);
 
                 count += lenghtz;
+
+            }
+
+            foreach(GameObject ro in instantiatedTracks)
+            {
+                ActivateObject(ro, binaryEasyDict);
             }
         }
     }
 
     private void InstantiateTF(Transform t, Transform f)
     {
-        questionManager.GetPanelTrue.SetActive(false);
-        questionManager.GetPanelFalse.SetActive(false);
-        Instantiate(questionManager.GetPanelTrue, t.position, questionManager.GetPanelTrue.transform.rotation, t);
-        Instantiate(questionManager.GetPanelFalse, f.position, questionManager.GetPanelFalse.transform.rotation, f);
+        questionManager.GetPanels[1].SetActive(false);
+        questionManager.GetPanels[0].SetActive(false);
+        Instantiate(questionManager.GetPanels[1], t.position, questionManager.GetPanels[1].transform.rotation, t);
+        Instantiate(questionManager.GetPanels[0], f.position, questionManager.GetPanels[0].transform.rotation, f);
     }
 
     private void InstatiateObject(Transform[] position)
@@ -154,7 +162,7 @@ public class RoadManager : MonoBehaviour
         maxSpeed = featureManager.FeatureValue(MAX_SPEED);
         horizontalSpeed = featureManager.FeatureValue(HORIZONTAL_SPEED);
         maxHSpeed = featureManager.FeatureValue(MAX_HORIZONTAL);
-        health = featureManager.FeatureValue(HEALTH);
+        //health = featureManager.FeatureValue(HEALTH);
         numObstacleTrack = featureManager.FeatureValue(NUM_OBSTACLE_TRACK);
         numQuestionTrack = featureManager.FeatureValue(NUM_QUESTION_TRACK);
         easyObsDifficulty = featureManager.FeatureValue(EASY_OBS_DIFFICULTY);
@@ -166,6 +174,7 @@ public class RoadManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {   verticalSpeed=featureManager.FeatureValue(VERTICAL_SPEED);
+        //Debug.Log("Vert_Speed: " + verticalSpeed);
         foreach (GameObject g in instantiatedTracks)
         {
             g.transform.position += new Vector3(0, 0, -verticalSpeed * Time.deltaTime);
@@ -173,96 +182,136 @@ public class RoadManager : MonoBehaviour
         Space += verticalSpeed * Time.deltaTime;
         if (Space > mediumObsDifficulty && Space < hardObsDifficulty) { easy = false; medium = true; }
         if(Space >= hardObsDifficulty) { medium = false; hard = true; }
-       // QUESTO doallticks si deve modificare
-      
-        //Debug.Log("Speed: "+verticalSpeed);
-        //Debug.Log("Salute : "+health);
+        
     }
 
 
-    private int numOfSegments = 0;
+
     public void SpawnSegment(GameObject temp)
     {
         numOfSegments++;
         temp.transform.position += new Vector3(0,0,count);
         temp.GetComponent<RoadController>().gameObject.SetActive(true);
-        //cambiare assolutamente 
-        if (numOfSegments <= instantiatedTracks.Count)
+        //Debug.Log("numSeg: "+numOfSegments);
+        Transform[] children = temp.GetComponentsInChildren<Transform>();
+        Transform cp = children.Where(x => x.gameObject.tag.Equals("checkPointQuestion")).SingleOrDefault();
+        Collider c = cp.gameObject.GetComponent<Collider>();
+        //c.enabled = false;
+        if (numOfSegments <= 1)
         {
-            if (easy) ActivateObejct(temp, binaryEasyDict);
-            if (medium)
-            {
-                ActivateObejct(temp, binaryMediumDict);
-            }
-            else if(binaryMediumDict==null)
-            {
-                ActivateObejct(temp, binaryEasyDict);
-            }
-            if (hard)
-            {
-                ActivateObejct(temp, binaryHardDict);
-            }
-            else if (binaryHardDict == null)
-            {
-                ActivateObejct(temp, binaryEasyDict);
-            }
+            //numOfSegments = 0;
+            CheckObjActivation = false;
+            c.enabled = true;
+
         }
-        else if (numOfSegments <= (instantiatedTracks.Count + numQuestionTrack))
+        if(numOfSegments == numQuestionTrack - 1)
         {
-            ActivateQuestion(temp);
+            SetActivatePanels(temp);
+           
         }
-        else numOfSegments = 0;
+        if (numOfSegments == numQuestionTrack + 1) CheckObjActivation = true;
+        if(numOfSegments > instantiatedTracks.Count)
+        {
+            numOfSegments = 0;
+        }
+        else
+        {
+            if (easy) ActivateObject(temp, binaryEasyDict);
+            if (medium) ActivateObject(temp, binaryMediumDict);
+            if (hard) ActivateObject(temp, binaryHardDict);
+        }
         //int goPosition = instantiatedTracks.IndexOf(temp);
     }
 
-    public void ActivateQuestion(GameObject trackroad)
+    public void SetActivatePanels(GameObject trackroad)
     {
-                
+        Transform[] children = trackroad.GetComponentsInChildren<Transform>();
+        Transform positionTrue = children.Where(x => x.gameObject.tag.Equals("spawnTrue")).SingleOrDefault();
+        Transform positionFalse = children.Where(x => x.gameObject.tag.Equals("spawnFalse")).SingleOrDefault();
+        SetActiveRecursively(positionTrue, true);
+        SetActiveRecursively(positionFalse, true);
     }
 
-    public void ActivateObejct(GameObject grandfather, Dictionary<int, List<int>> binaryFile)
+    public void SetActiveRecursively(Transform parent, bool active)
     {
-        int randomRow = UnityEngine.Random.Range(0, binaryFile.Count);
-        List<int> binaryRow = binaryFile[randomRow];
-        int index = 0;
-        Transform[] father = grandfather.GetComponentsInChildren<Transform>();
-        father = father.Skip(1).ToArray();
-        foreach (int i in binaryRow)
+        parent.gameObject.SetActive(active);
+        foreach (Transform c in parent)
         {
-            if (i != 0)
-            {
-                //Debug.Log("intero : "+i);
-                string name = weightRandomManager.ChooseByProbability();
-                for (int j = 0; j < father[index].childCount; j++)
-                {   
-                    GameObject child = father[index].GetChild(j).gameObject;
-                    string namechild = child.name.ToUpper().Replace("(CLONE)","");
-                    //  Debug.Log("nome child : "+namechild);
-                    if ((!child.activeSelf) && namechild.Equals(name) )
-                    {
-                      father[index].GetChild(j).gameObject.SetActive(true);
-                    }
-                }
-            }
-            index++;
+            SetActiveRecursively(c, active);
         }
     }
+
+    public void ActivateObject(GameObject grandfather, Dictionary<int, List<int>> binaryFile)
+    {
+        if(CheckObjActivation)
+        {
+            int randomRow = UnityEngine.Random.Range(0, binaryFile.Count);
+            List<int> binaryRow = binaryFile[randomRow];
+            int index = 0;
+            Transform[] father = grandfather.GetComponentsInChildren<Transform>();
+            father = father.Skip(1).ToArray();
+            foreach (int i in binaryRow)
+            {
+                if (i != 0)
+                {
+                    //Debug.Log("intero : "+i);
+                    string name = weightRandomManager.ChooseByProbability();
+                    for (int j = 0; j < father[index].childCount; j++)
+                    {
+                        GameObject child = father[index].GetChild(j).gameObject;
+                        string namechild = child.name.ToUpper().Replace("(CLONE)", "");
+                        //  Debug.Log("nome child : "+namechild);
+                        if ((!child.activeSelf) && namechild.Equals(name))
+                        {
+                            father[index].GetChild(j).gameObject.SetActive(true);
+                        }
+                    }
+                }
+                index++;
+            }
+        }
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {   
         //il nome ostacolo è hard code dobbiamo metterlo nell'ispettore 
-        if (other.gameObject.CompareTag("Ostacolo"))
+        if (other.gameObject.CompareTag("Ostacolo") && !IsInvincible())
         {
             string path = other.gameObject.GetComponent<PathManager>().Path;
             string[] n = path.Split('.');
             string name = Path.GetFileName(n[0]);
             componentManager.ComponentPickup(name, path);
-            //Debug.Log("name: "+name+ " path: "+path);
-            // Debug.Log("Health: "+health);
         }
+        if(other.gameObject.CompareTag("PowerUp"))
+        {
+            string path = other.gameObject.GetComponent<PathManager>().Path;
+            string[] n = path.Split('.');
+            string name = Path.GetFileName(n[0]);
+            componentManager.ComponentPickup(name, path);
+        }
+        if(other.gameObject.CompareTag("PanelTrue") || other.gameObject.CompareTag("PanelFalse"))
+        {
+            questionManager.DeactivateCanvasQuestion();
+            if (other.gameObject.tag.Equals(questionManager.GetCorrectAnswer.tag))
+            {
+                Debug.Log("Risposta corretta");
+                string path = other.gameObject.GetComponent<PathManager>().Path;
+                string[] n = path.Split('.');
+                string name = Path.GetFileName(n[0]);
+                componentManager.ComponentPickup(name, path);
+            }
+        }
+        
+        if (other.gameObject.CompareTag("checkPointQuestion"))
+        {
+  
+            questionManager.ActivateCanvasQuestion();
+            other.gameObject.GetComponent<Collider>().enabled = false;
+        }
+        
     }
     
-
 
     public float Space
     {
@@ -296,7 +345,7 @@ public class RoadManager : MonoBehaviour
     public float GetHealth()
     {   float h = featureManager.FeatureValue(HEALTH);
         float b = featureManager.FeatureValueBase(HEALTH);
-        if (h > b) featureManager.GetFeature(HEALTH).CurrentValue = b;
+        if (h > b) { featureManager.GetFeature(HEALTH).CurrentValue = b; h = b; }
         
         return h;    
     }
@@ -314,5 +363,17 @@ public class RoadManager : MonoBehaviour
     public bool GetHard
     {
         get { return hard; }
+    }
+
+    public bool CheckObjActivation
+    {
+        get { return checkObjectActivation; }
+        set { checkObjectActivation = value; }
+    }
+
+    public bool IsInvincible()
+    {
+        if (featureManager.FeatureValue(INVINCIBILITY) == 0) return false;
+        else return true;
     }
 }

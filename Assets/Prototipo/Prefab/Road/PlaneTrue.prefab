@@ -182,9 +182,11 @@ GameObject:
   - component: {fileID: 8342037941451727844}
   - component: {fileID: 8342037941451727846}
   - component: {fileID: 8342037941451727847}
+  - component: {fileID: 4291211963837256660}
+  - component: {fileID: 4404708630534158101}
   m_Layer: 0
   m_Name: PlaneTrue
-  m_TagString: Untagged
+  m_TagString: PanelTrue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,7 +200,7 @@ RectTransform:
   m_GameObject: {fileID: 8342037941451727845}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.45, y: 1, z: 0.3}
+  m_LocalScale: {x: 0.5, y: 0.35, z: 0.3}
   m_Children:
   - {fileID: 8342037940256451886}
   m_Father: {fileID: 0}
@@ -206,7 +208,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.21, y: 0}
+  m_AnchoredPosition: {x: -0.21, y: 7}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!33 &8342037941451727846
@@ -258,3 +260,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4291211963837256660
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8342037941451727845}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 2.2204466e-16, z: 10.000002}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4404708630534158101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8342037941451727845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 884a8e199ad76734181c3b04723e4b8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: AnswersEffects/TrueEffects.csv
