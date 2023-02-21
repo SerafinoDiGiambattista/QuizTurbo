@@ -86,6 +86,8 @@ using Unity.IO;
                 Feature f = new Feature(feature); AddFeature(f); return f.CurrentValue; 
             }
         }
+
+     
     public float FeatureValueBase(string feature)
     {
         feature = feature.ToUpper();
@@ -98,7 +100,7 @@ using Unity.IO;
             Feature f = new Feature(feature); AddFeature(f); return f.BaseValue;
         }
     }
-    public Feature GetFeature(string name)
+        public Feature GetFeature(string name)
         {
             return features[name];
         }

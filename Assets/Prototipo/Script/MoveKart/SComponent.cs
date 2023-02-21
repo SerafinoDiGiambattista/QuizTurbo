@@ -28,7 +28,7 @@ public class SComponent
 
         if (m_features[type].CurrentValue < 0) return;
         m_features[type].CurrentValue -= n;
-        Debug.Log("count : "+ m_features[type].Type);
+        //Debug.Log("count : "+ m_features[type].Type);
         if (m_features[type].CurrentValue < 0) isActive = false;
 
     }

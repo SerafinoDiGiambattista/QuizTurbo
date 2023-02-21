@@ -163,6 +163,7 @@ public class ComponentManager : MonoBehaviour
         return components.Where(x => x.Value.HasFeature(feature)).ToDictionary(x => x.Key, x=> x.Value);
     }
 
+
     public void RemoveComponent(string c)
     {
         components.Remove(c);
@@ -201,15 +202,15 @@ public class ComponentManager : MonoBehaviour
                 {
                     if (allTicks.ContainsKey(m.GetName)) allTicks.Remove(m.GetName);
                     allTicks.Add(m.GetName, m);
-
+                   // Debug.Log("CHIAVE ALLTICK : "+m.GetName);
                     foreach (Feature f in objFeatures.Values)
                     {
                         if (f.Type.Equals(m.Type))
                         {
                             float midVal = f.CurrentValue * featureMulMod[f.Type];
                             f.CurrentValue = midVal + featureAddMod[f.Type];
-                            //Debug.Log("Feature current : " + f.Type + " " + midVal);
-                        }
+                           // if(f.Type.Equals("SCORE_MULTIPLIER"))Debug.Log("Feature current : " + featureMulMod[f.Type] + " " + featureAddMod[f.Type]);
+                        }   
                     }
                 }
                
@@ -226,7 +227,7 @@ public class ComponentManager : MonoBehaviour
 
     public Dictionary<string, float> GetAllTicks(string type)
     {
-        Dictionary<string, float> filtered = allTicks.Where(x => x.Value.Type == type).ToDictionary(x => x.Key, x => x.Value.AddFactor);
+        Dictionary<string, float> filtered = allTicks.Where(x => x.Key.Equals(type)).ToDictionary(x => x.Key, x => x.Value.MultFactor);
         foreach (string k in filtered.Keys)
         {
             allTicks.Remove(k);
@@ -243,11 +244,7 @@ public class ComponentManager : MonoBehaviour
         }
         return filtered;
     }
-    public void SpeedUpPickup(string name, string path)
-    {
-        path = Path.Combine(Application.streamingAssetsPath, path);
-        AddComponent(new SpeedUp(name, path, this));
-    }
+ 
 
 }
 

@@ -19,8 +19,7 @@ public class RoadManager : MonoBehaviour
     [SerializeField] protected string HORIZONTAL_SPEED = "HORIZONTAL_SPEED";
     [SerializeField] protected string MAX_HORIZONTAL = "MAX_HORIZONTAL";
     [SerializeField] protected string HEALTH = "HEALTH";
-    //[SerializeField] protected string MAX_HEALTH = "MAX_HEALTH";
-    //in realtà le feature ce l'ho nella classe featuremanager
+    [SerializeField] protected string SCORE_MULTIPLIER = "SCORE_MULTIPLIER";
     [SerializeField] protected string BINARY_EASY;
     [SerializeField] protected string BINARY_MEDIUM;
     [SerializeField] protected string BINARY_HARD;
@@ -38,7 +37,8 @@ public class RoadManager : MonoBehaviour
     protected QuestionManager questionManager;
     protected float verticalSpeed;
     //private float maxhealth;
-    private int numOfSegments = 0;
+    protected float score_multiple = 0f;
+    private int numOfSegments = -1;
     protected float horizontalSpeed;
     protected float maxSpeed;
     protected float maxHSpeed;
@@ -168,18 +168,54 @@ public class RoadManager : MonoBehaviour
         easyObsDifficulty = featureManager.FeatureValue(EASY_OBS_DIFFICULTY);
         mediumObsDifficulty = featureManager.FeatureValue(MEDIUM_OBS_DIFFICULTY);
         hardObsDifficulty = featureManager.FeatureValue(HARD_OBS_DIFFICULTY);
-       // maxhealth = featureManager.FeatureValue(MAX_HEALTH);
+        score_multiple = featureManager.FeatureValue(SCORE_MULTIPLIER);
+     
     }
-    
+
     // Update is called once per frame
+    float score_multiple_powerup;
+     bool pass = false;
     void FixedUpdate()
-    {   verticalSpeed=featureManager.FeatureValue(VERTICAL_SPEED);
-        //Debug.Log("Vert_Speed: " + verticalSpeed);
+    {
+       
+        verticalSpeed =featureManager.FeatureValue(VERTICAL_SPEED);
+     
+        if (verticalSpeed > maxSpeed ) verticalSpeed= maxSpeed;
+       // Debug.Log("Vert_Speed: " + verticalSpeed);
+
+
         foreach (GameObject g in instantiatedTracks)
         {
             g.transform.position += new Vector3(0, 0, -verticalSpeed * Time.deltaTime);
         }
-        Space += verticalSpeed * Time.deltaTime;
+
+        if (componentManager.ComponentsByFeature(SCORE_MULTIPLIER).Count == 1)
+        {
+           
+           if(!pass) score_multiple = featureManager.FeatureValue(SCORE_MULTIPLIER);
+
+           if (pass) 
+           { 
+             score_multiple = featureManager.FeatureValueBase(SCORE_MULTIPLIER);
+             Feature f1 = featureManager.Features[SCORE_MULTIPLIER];
+             f1.CurrentValue = score_multiple;
+           }
+            
+           Feature f2 = featureManager.Features[SCORE_MULTIPLIER];
+           f2.BaseValue = score_multiple;
+           Space += score_multiple * verticalSpeed * Time.deltaTime;
+           score_multiple_powerup = 0;
+           pass = false;
+        }
+        else
+        {  
+            score_multiple_powerup= featureManager.FeatureValue(SCORE_MULTIPLIER);
+            Space += score_multiple_powerup * verticalSpeed * Time.deltaTime;
+            pass = true;
+        }
+        
+        Debug.Log("Moltiplicatore : "+score_multiple);
+        Debug.Log("Moltiplicatore score power : "+score_multiple_powerup);
         if (Space > mediumObsDifficulty && Space < hardObsDifficulty) { easy = false; medium = true; }
         if(Space >= hardObsDifficulty) { medium = false; hard = true; }
         
@@ -197,20 +233,20 @@ public class RoadManager : MonoBehaviour
         Transform cp = children.Where(x => x.gameObject.tag.Equals("checkPointQuestion")).SingleOrDefault();
         Collider c = cp.gameObject.GetComponent<Collider>();
         //c.enabled = false;
-        if (numOfSegments <= 1)
+        if (numOfSegments  <= 1)
         {
             //numOfSegments = 0;
             CheckObjActivation = false;
             c.enabled = true;
 
         }
-        if(numOfSegments == numQuestionTrack - 1)
+        if(numOfSegments == numQuestionTrack - 2)
         {
             SetActivatePanels(temp);
            
         }
-        if (numOfSegments == numQuestionTrack + 1) CheckObjActivation = true;
-        if(numOfSegments > instantiatedTracks.Count)
+        if (numOfSegments == numQuestionTrack) CheckObjActivation = true;
+        if(numOfSegments == numObstacleTrack + numQuestionTrack)
         {
             numOfSegments = 0;
         }
@@ -220,6 +256,8 @@ public class RoadManager : MonoBehaviour
             if (medium) ActivateObject(temp, binaryMediumDict);
             if (hard) ActivateObject(temp, binaryHardDict);
         }
+
+        
         //int goPosition = instantiatedTracks.IndexOf(temp);
     }
 
@@ -274,7 +312,8 @@ public class RoadManager : MonoBehaviour
 
 
     private void OnTriggerEnter(Collider other)
-    {   
+    {
+        //Debug.Log("Invicibilità " + componentManager.ComponentsByFeature(INVINCIBILITY).Count);
         //il nome ostacolo è hard code dobbiamo metterlo nell'ispettore 
         if (other.gameObject.CompareTag("Ostacolo") && !IsInvincible())
         {
@@ -373,7 +412,8 @@ public class RoadManager : MonoBehaviour
 
     public bool IsInvincible()
     {
-        if (featureManager.FeatureValue(INVINCIBILITY) == 0) return false;
+       
+        if (componentManager.ComponentsByFeature(INVINCIBILITY).Count == 0) return false;
         else return true;
     }
 }
