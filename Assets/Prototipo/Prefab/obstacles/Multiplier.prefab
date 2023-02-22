@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 82930440331251234}
   - component: {fileID: 135978377405755452}
   - component: {fileID: 4364822095932130225}
+  - component: {fileID: 8963360978801532410}
   m_Layer: 2
   m_Name: Multiplier
   m_TagString: PowerUp
@@ -206,3 +207,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: ObjectEffect/MultiplierEffect.csv
+--- !u!114 &8963360978801532410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932252988361774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1315172d7ad53634e952f7d8f3c02048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollectibleType: 0
+  rotate: 0
+  rotationSpeed: 0
+  collectSound: {fileID: 0}
+  collectEffect: {fileID: 1702657300312902, guid: a45c51da10cf1a84abc6a99c06951e3f,
+    type: 3}

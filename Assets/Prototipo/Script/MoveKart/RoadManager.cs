@@ -8,9 +8,10 @@ using Unity.IO;
 using UnityEngine.UIElements;
 using System.Reflection;
 using System.IO.Abstractions.TestingHelpers;
+using UnityEditor;
 
 public class RoadManager : MonoBehaviour
-{ 
+{
     [SerializeField] GameObject trackroad;
     [SerializeField] GameObject weightedObject;
     [SerializeField] GameObject questionObject;
@@ -32,9 +33,9 @@ public class RoadManager : MonoBehaviour
     protected RoadController roadController;
     protected QuestionManager questionManager;
     protected float verticalSpeed;
-    private float health = 0;
+    protected float health = 0;
     protected float score_multiple = 0f;
-    private int numOfSegments = 0;
+    protected int numOfSegments = 0;
     protected float horizontalSpeed;
     protected float maxSpeed;
     protected float maxHSpeed;
@@ -46,10 +47,13 @@ public class RoadManager : MonoBehaviour
     protected float localSpace = 0f;
     protected TickManager tickmanager;
     protected Dictionary<string, string> tickables = new Dictionary<string, string>();
-    protected Dictionary<int, List<int> > spawningPositions = new Dictionary<int, List<int> >();
+    protected Dictionary<int, List<int>> spawningPositions = new Dictionary<int, List<int>>();
     protected Dictionary<int, List<int>> tutorialPositions = new Dictionary<int, List<int>>();
     protected bool checkObjectActivation = true;
     protected bool invincible = false;
+    protected float score_multiple_powerup;
+    protected bool pass = false;
+    protected bool is_moving;
 
     private void Awake()
     {
@@ -62,25 +66,28 @@ public class RoadManager : MonoBehaviour
         ReadSpawningFile(SPAWNING_POSITIONS, spawningPositions);
         ReadSpawningFile(TUTORIAL_SPAWNING, tutorialPositions);
     }
-    
+
     void Start()
     {
         LoadFeatures();
         numObstacleTrack = Mathf.CeilToInt(numObstacleTrack);
         numQuestionTrack = Mathf.CeilToInt(numQuestionTrack);
         IstatiateRoad();
-        
+        is_moving = true;
+
+
     }
 
-    protected void ReadSpawningFile(string path, Dictionary<int, List<int> > valuesDict)
+    protected void ReadSpawningFile(string path, Dictionary<int, List<int>> valuesDict)
     {
         string[] lines = File.ReadAllLines(path);
         int i = 0;
-       
+
         foreach (string l in lines)
-        {   List<int> array = new List<int>();
+        {
+            List<int> array = new List<int>();
             string[] items = l.Split(',');
-            foreach(string item in items)
+            foreach (string item in items)
             {
                 int param = int.Parse(item.Trim());
                 array.Add(param);
@@ -90,10 +97,10 @@ public class RoadManager : MonoBehaviour
         }
     }
 
-    private  void IstatiateRoad()
+    private void IstatiateRoad()
     {
         Transform[] position;
-        Renderer renderer= roadController.getTrackRoad.GetComponent<Renderer>();
+        Renderer renderer = roadController.getTrackRoad.GetComponent<Renderer>();
         if (renderer != null)
         {   //lunghezza z dell'oggetto
             float lenghtz = renderer.bounds.size.z;
@@ -107,19 +114,19 @@ public class RoadManager : MonoBehaviour
                 Transform cp = position.Where(x => x.gameObject.tag.Equals("checkPointQuestion")).SingleOrDefault();
                 Collider c = cp.gameObject.GetComponent<Collider>();
                 c.enabled = false;
-                InstatiateObject(positionsObs);              
-                
+                InstatiateObject(positionsObs);
+
                 Transform positionTrue = position.Where(x => x.gameObject.tag.Equals("spawnTrue")).SingleOrDefault();
                 Transform positionFalse = position.Where(x => x.gameObject.tag.Equals("spawnFalse")).SingleOrDefault();
-                InstantiateTF( positionTrue, positionFalse);
+                InstantiateTF(positionTrue, positionFalse);
 
                 count += lenghtz;
             }
-           
+
             for (int i = 2; i < instantiatedTracks.Count; i++)
             {
                 ActivateObject(instantiatedTracks[i]);
-            }            
+            }
         }
     }
 
@@ -139,8 +146,8 @@ public class RoadManager : MonoBehaviour
             {
                 g.SetActive(false);
                 Vector3 vect = new Vector3(0, g.transform.position.y, 0);
-                Instantiate(g, index.position+vect, g.transform.rotation, index);
-               
+                Instantiate(g, index.position + vect, g.transform.rotation, index);
+
             }
         }
     }
@@ -157,10 +164,12 @@ public class RoadManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    float score_multiple_powerup;
-    bool pass = false;
+
     void FixedUpdate()
-    {
+    { //valore booleano ismoving per far capire che si sta muovendo si deve non solo fermare ma deve anche resettare il moltiplicatore
+
+        if (!is_moving) return;
+
         if (!isTutorial)
         {
             verticalSpeed = featureManager.FeatureValue(VERTICAL_SPEED);
@@ -189,6 +198,8 @@ public class RoadManager : MonoBehaviour
 
     public void ScoreMult()
     {
+
+
         if (componentManager.ComponentsByFeature(SCORE_MULTIPLIER).Count == 1)
         {
 
@@ -219,20 +230,20 @@ public class RoadManager : MonoBehaviour
     public void SpawnSegment(GameObject temp)
     {
         numOfSegments++;
-        temp.transform.position += new Vector3(0,0,count);
+        temp.transform.position += new Vector3(0, 0, count);
         temp.GetComponent<RoadController>().gameObject.SetActive(true);
         //Debug.Log("numSeg: "+numOfSegments);
         Transform[] children = temp.GetComponentsInChildren<Transform>();
         Transform cp = children.Where(x => x.gameObject.tag.Equals("checkPointQuestion")).SingleOrDefault();
         Collider c = cp.gameObject.GetComponent<Collider>();
-        
-        if (numOfSegments  <= 1)
+
+        if (numOfSegments <= 1)
         {
             CheckObjActivation = false;
             c.enabled = true;
 
         }
-        if(numOfSegments == numQuestionTrack - 1)
+        if (numOfSegments == numQuestionTrack - 1)
         {
             SetActivatePanels(temp);
         }
@@ -296,7 +307,7 @@ public class RoadManager : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    private IEnumerator OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Ostacolo") && !IsInvincible())
         {
@@ -304,17 +315,20 @@ public class RoadManager : MonoBehaviour
             string[] n = path.Split('.');
             string name = Path.GetFileName(n[0]);
             componentManager.ComponentPickup(name, path);
-            //float vs = verticalSpeed;
-            
+            StopMove();
+            yield return new WaitForSeconds(0.5f);
+            GoMove();
+
+
         }
-        if(other.gameObject.CompareTag("PowerUp"))
+        if (other.gameObject.CompareTag("PowerUp"))
         {
             string path = other.gameObject.GetComponent<PathManager>().Path;
             string[] n = path.Split('.');
             string name = Path.GetFileName(n[0]);
             componentManager.ComponentPickup(name, path);
         }
-        if(other.gameObject.CompareTag("PanelTrue") || other.gameObject.CompareTag("PanelFalse"))
+        if (other.gameObject.CompareTag("PanelTrue") || other.gameObject.CompareTag("PanelFalse"))
         {
             questionManager.DeactivateCanvasQuestion();
             if (other.gameObject.tag.Equals(questionManager.GetCorrectAnswer().tag))
@@ -328,12 +342,28 @@ public class RoadManager : MonoBehaviour
         }
         if (other.gameObject.CompareTag("checkPointQuestion"))
         {
-  
+
             questionManager.ActivateCanvasQuestion();
             other.gameObject.GetComponent<Collider>().enabled = false;
         }
     }
-    
+
+    public void StopMove()
+    {
+        is_moving = false;
+    }
+
+    public void GoMove()
+    {
+        is_moving = true;
+    }
+
+
+    public bool GetMove
+    {
+        get { return is_moving; }
+
+    }
     public float Space
     {
         set { localSpace = value; }
@@ -347,15 +377,16 @@ public class RoadManager : MonoBehaviour
     }
 
 
-    public float VerticalSpeed{
-        get{ return verticalSpeed;}
-        set{verticalSpeed = value;}
+    public float VerticalSpeed
+    {
+        get { return verticalSpeed; }
+        set { verticalSpeed = value; }
     }
- 
+
     public float MaxSpeed
     {
-        get{ return maxSpeed;}
-        set{ maxSpeed = value; }
+        get { return maxSpeed; }
+        set { maxSpeed = value; }
     }
     public float GetInitialHealth
     {

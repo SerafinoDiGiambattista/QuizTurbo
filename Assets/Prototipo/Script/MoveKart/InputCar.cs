@@ -25,6 +25,8 @@ public class InputCar : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!roadManager.GetMove) return;
+
         horizontalSpeed = roadManager.HorizontalSpeed;
         Vector3 moveVelocity = horizontalSpeed * (
         currentMove.x * Vector3.right +
@@ -37,6 +39,7 @@ public class InputCar : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (!roadManager.GetMove) return;
         currentMove = context.ReadValue<Vector2>();
         //steeringSmoother = Mathf.Lerp(steeringSmoother, currentMove.x, Time.deltaTime * 5f);
         PlayerAnimator.SetFloat(m_SteerHash, currentMove.x);

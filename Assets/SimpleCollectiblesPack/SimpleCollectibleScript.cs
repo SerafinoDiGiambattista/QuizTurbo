@@ -32,7 +32,7 @@ public class SimpleCollectibleScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "Player") {
+		if (other.tag == "PlayerBody") {
 			Collect ();
 		}
 	}
@@ -83,6 +83,6 @@ public class SimpleCollectibleScript : MonoBehaviour {
 			Debug.Log ("Do NoType Command");
 		}
 
-		Destroy (gameObject);
+		gameObject.SetActive(false);
 	}
 }

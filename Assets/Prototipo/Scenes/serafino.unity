@@ -129,6 +129,54 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3747240169075629991}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &472506422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 472506424}
+  - component: {fileID: 472506423}
+  m_Layer: 0
+  m_Name: CarsHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &472506423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472506422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98dc4eb065ecda641a6669a2c63c9bac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCarIndex: 0
+  carModels:
+  - {fileID: 8215925049073086554, guid: 6f6c4f0cfebd3c648939022be5b9907d, type: 3}
+  - {fileID: 7969115433370814467, guid: db7cbab97a20d754a93d3dbde743ded6, type: 3}
+  - {fileID: 5369666359082521270, guid: dca8b75e965b5c54795a3cb0478de3ba, type: 3}
+--- !u!4 &472506424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472506422}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.978118, y: 15.5423565, z: 28.503525}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,6 +559,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PermanentCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 995982574085116545, guid: 0e56131849601ed489f01bf4a47eb166,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 995982574085116549, guid: 0e56131849601ed489f01bf4a47eb166,
         type: 3}
       propertyPath: m_Pivot.x
@@ -726,6 +779,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Macchina
       objectReference: {fileID: 0}
+    - target: {fileID: 4667513073497708589, guid: 6f201cf429ba12e4685680dc72bd49d2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4667513074076519705, guid: 6f201cf429ba12e4685680dc72bd49d2,
         type: 3}
       propertyPath: kartCapsule
@@ -810,6 +868,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ManagerInput
       objectReference: {fileID: 0}
+    - target: {fileID: 1801631659064480943, guid: 0ec428cf0d31bfe4db2e40b1d7d56834,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ec428cf0d31bfe4db2e40b1d7d56834, type: 3}
 --- !u!1001 &2049976644877449552
@@ -823,6 +886,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SpawnObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049976644268101326, guid: 8f5d55538a9c8f74bb1dccdd4b7c304b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2049976644268101363, guid: 8f5d55538a9c8f74bb1dccdd4b7c304b,
         type: 3}
@@ -953,6 +1021,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuestionObject
       objectReference: {fileID: 0}
+    - target: {fileID: 3747240168709625400, guid: 11f7ba5b5a38a4b47916ce52de287e82,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11f7ba5b5a38a4b47916ce52de287e82, type: 3}
 --- !u!114 &5879061969526338860 stripped
@@ -988,6 +1061,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 8422952447697035159, guid: d57cb95fadabcc44a81f9875121bb0a3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8422952447697035163, guid: d57cb95fadabcc44a81f9875121bb0a3,
         type: 3}
