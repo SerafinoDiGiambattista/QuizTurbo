@@ -32,8 +32,6 @@ public class WeightRandomManager : MonoBehaviour
         UpdateFeatures();
     }
 
-
-
     protected void LoadFeatures()
     {
         featuresRead = featureManager.Features;

@@ -386,10 +386,9 @@ MonoBehaviour:
   panels:
   - {fileID: 3938818845394351749, guid: 89caa3ecdfb5bd448b355733b403a8f0, type: 3}
   - {fileID: 8342037941451727845, guid: f6ed9bf14b157a748b6e0357565e1339, type: 3}
-  EASY_QUESTIONS: Assets/StreamingAssets/QuestionFeature/Quiz_Facili.csv
-  MEDIUM_QUESTIONS: Assets/StreamingAssets/QuestionFeature/Quiz_medi.csv
-  HARD_QUESTIONS: Assets/StreamingAssets/QuestionFeature/Quiz_Difficili.csv
+  QUESTIONS_DIR: Assets/StreamingAssets/QuestionFeature
   roadObject: {fileID: 1103827400610424112}
+  changeToCorrectAnsw: 10
 --- !u!114 &366004642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,11 +654,11 @@ MonoBehaviour:
   TICKSPATH: Assets/StreamingAssets/TrickWrapper/TickWeight.csv
   objectsToSpawn:
   - {fileID: 5930564529466514170, guid: 5e747a0629894a44384bb2d6708ae105, type: 3}
-  - {fileID: 3761431495673512404, guid: 32aa982e63882e1459537e999bee6258, type: 3}
+  - {fileID: 6892831804620960558, guid: 0fe03e88c3a9dba48813d519fcb90b16, type: 3}
   - {fileID: 5269431948803081710, guid: dfe5ea095b3b1ed489a1e88fee9990b8, type: 3}
   - {fileID: 2384421502722410978, guid: 6ac211ffe55828c4bbfe185ae9307e1e, type: 3}
   - {fileID: 3794058997008588565, guid: 0b721f56055e2a347adcdea0ad734390, type: 3}
-  - {fileID: 5693799559213343091, guid: 6559e3bed8a860940a3331d99e4b0eb5, type: 3}
+  - {fileID: 1932252988361774, guid: 544c2afe39afe2f4482faa3863493612, type: 3}
 --- !u!4 &1018623907
 Transform:
   m_ObjectHideFlags: 0
@@ -977,6 +976,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1247719058289002580, guid: 6f201cf429ba12e4685680dc72bd49d2,
         type: 3}
+      propertyPath: isTutorial
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1247719058289002580, guid: 6f201cf429ba12e4685680dc72bd49d2,
+        type: 3}
       propertyPath: questionObject
       value: 
       objectReference: {fileID: 366004639}
@@ -985,6 +989,21 @@ PrefabInstance:
       propertyPath: weightedObject
       value: 
       objectReference: {fileID: 1018623902}
+    - target: {fileID: 1247719058289002580, guid: 6f201cf429ba12e4685680dc72bd49d2,
+        type: 3}
+      propertyPath: TUTORIA_SPAWNING
+      value: Assets/StreamingAssets/Spawning/Tutorial.csv
+      objectReference: {fileID: 0}
+    - target: {fileID: 1247719058289002580, guid: 6f201cf429ba12e4685680dc72bd49d2,
+        type: 3}
+      propertyPath: TUTORIAL_SPAWNING
+      value: Assets/StreamingAssets/Spawning/Tutorial.csv
+      objectReference: {fileID: 0}
+    - target: {fileID: 1247719058289002580, guid: 6f201cf429ba12e4685680dc72bd49d2,
+        type: 3}
+      propertyPath: SPAWNING_POSITIONS
+      value: Assets/StreamingAssets/Spawning/PositionSpwan.csv
+      objectReference: {fileID: 0}
     - target: {fileID: 3547405802112020039, guid: 6f201cf429ba12e4685680dc72bd49d2,
         type: 3}
       propertyPath: m_RootOrder
@@ -993,7 +1012,7 @@ PrefabInstance:
     - target: {fileID: 3547405802112020039, guid: 6f201cf429ba12e4685680dc72bd49d2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.47
       objectReference: {fileID: 0}
     - target: {fileID: 3547405802112020039, guid: 6f201cf429ba12e4685680dc72bd49d2,
         type: 3}
@@ -1003,7 +1022,7 @@ PrefabInstance:
     - target: {fileID: 3547405802112020039, guid: 6f201cf429ba12e4685680dc72bd49d2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.83
+      value: -3.14
       objectReference: {fileID: 0}
     - target: {fileID: 3547405802112020039, guid: 6f201cf429ba12e4685680dc72bd49d2,
         type: 3}
@@ -1044,6 +1063,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Macchina
+      objectReference: {fileID: 0}
+    - target: {fileID: 4667513074076519705, guid: 6f201cf429ba12e4685680dc72bd49d2,
+        type: 3}
+      propertyPath: kartCapsule
+      value: 
+      objectReference: {fileID: 1103827400610424112}
+    - target: {fileID: 6420802346643174205, guid: 6f201cf429ba12e4685680dc72bd49d2,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f201cf429ba12e4685680dc72bd49d2, type: 3}

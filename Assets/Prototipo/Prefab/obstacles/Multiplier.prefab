@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3794058997008588565
+--- !u!1 &1932252988361774
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3795384840163839579}
-  - component: {fileID: 3806627146073918193}
-  - component: {fileID: 3816603884282002969}
-  - component: {fileID: 3833025875471155021}
-  - component: {fileID: 3855598585980470029}
-  - component: {fileID: 3838841081810915977}
-  - component: {fileID: 380893535462364689}
+  - component: {fileID: 4715476648483898}
+  - component: {fileID: 33711213884863120}
+  - component: {fileID: 23336789154553644}
+  - component: {fileID: 82930440331251234}
+  - component: {fileID: 135978377405755452}
+  - component: {fileID: 4364822095932130225}
   m_Layer: 2
-  m_Name: HealthGreen
+  m_Name: Multiplier
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &3795384840163839579
+--- !u!4 &4715476648483898
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3794058997008588565}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_GameObject: {fileID: 1932252988361774}
+  m_LocalRotation: {x: 0.24184473, y: 0.66446304, z: -0.24184473, w: 0.66446304}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 2.0974, z: 2.2869}
+  m_LocalScale: {x: 1, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!33 &3806627146073918193
+  m_LocalEulerAnglesHint: {x: 40, y: 90, z: 0}
+--- !u!33 &33711213884863120
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3794058997008588565}
-  m_Mesh: {fileID: 4300008, guid: aa71617ef84e00e469c8384599d6395a, type: 3}
---- !u!23 &3816603884282002969
+  m_GameObject: {fileID: 1932252988361774}
+  m_Mesh: {fileID: 4300006, guid: aa71617ef84e00e469c8384599d6395a, type: 3}
+--- !u!23 &23336789154553644
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3794058997008588565}
+  m_GameObject: {fileID: 1932252988361774}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -85,32 +84,14 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3833025875471155021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3794058997008588565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1315172d7ad53634e952f7d8f3c02048, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollectibleType: 0
-  rotate: 1
-  rotationSpeed: 15
-  collectSound: {fileID: 0}
-  collectEffect: {fileID: 1702657300312902, guid: a45c51da10cf1a84abc6a99c06951e3f,
-    type: 3}
---- !u!82 &3855598585980470029
+--- !u!82 &82930440331251234
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3794058997008588565}
-  m_Enabled: 0
+  m_GameObject: {fileID: 1932252988361774}
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -199,29 +180,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!135 &3838841081810915977
+--- !u!135 &135978377405755452
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3794058997008588565}
+  m_GameObject: {fileID: 1932252988361774}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.3367196
-  m_Center: {x: 0.000000048428774, y: 3.2260044e-23, z: 0.00000011920929}
---- !u!114 &380893535462364689
+  m_Center: {x: 0.000000048428774, y: 0, z: 0}
+--- !u!114 &4364822095932130225
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3794058997008588565}
+  m_GameObject: {fileID: 1932252988361774}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 884a8e199ad76734181c3b04723e4b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: ObjectEffect/HealthGreen.csv
+  path: ObjectEffect/MultiplierEffect.csv
