@@ -304,6 +304,8 @@ public class RoadManager : MonoBehaviour
             string[] n = path.Split('.');
             string name = Path.GetFileName(n[0]);
             componentManager.ComponentPickup(name, path);
+            //float vs = verticalSpeed;
+            
         }
         if(other.gameObject.CompareTag("PowerUp"))
         {
