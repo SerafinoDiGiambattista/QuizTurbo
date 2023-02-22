@@ -10,7 +10,6 @@ public class InputCar : MonoBehaviour
     [SerializeField] protected GameObject kartCapsule;
     public Animator PlayerAnimator;
     public string SteeringParam = "Steering";
-    protected float verticalSpeed = 0f;
     protected float horizontalSpeed = 0f;
     private Vector2 currentMove;
     int m_SteerHash;
@@ -24,21 +23,15 @@ public class InputCar : MonoBehaviour
         roadManager = kartCapsule.GetComponent<RoadManager>();
     }
 
-    private void Start()
-    {
-        horizontalSpeed = roadManager.HorizontalSpeed;
-        verticalSpeed = roadManager.VerticalSpeed;
-    }
-
     private void FixedUpdate()
     {
+        horizontalSpeed = roadManager.HorizontalSpeed;
         Vector3 moveVelocity = horizontalSpeed * (
         currentMove.x * Vector3.right +
         currentMove.y * Vector3.left
         );
         Vector3 moveThisFrame = Time.deltaTime * moveVelocity;
         transform.position += moveThisFrame;
-       
     }
 
 

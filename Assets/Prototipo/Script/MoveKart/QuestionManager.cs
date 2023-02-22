@@ -25,21 +25,11 @@ public class QuestionManager : MonoBehaviour
         ReadQuestions(QUESTIONS_DIR);
     }
 
-    private void Start()
-    {
-      
-        //foreach(string q in easyQuestions.Keys)
-        //Debug.Log("  " + q);
-
-    }
-
     public void ReadQuestions(string directory)
     {
         DirectoryInfo dir = new DirectoryInfo(directory);
         FileInfo[] files = dir.GetFiles("*.csv");
         
-        /*foreach(FileInfo f in files)
-            Debug.Log("nome file: "+f.Name);*/
         foreach (FileInfo f in files)
         {
             Dictionary<string, int> questions = new Dictionary<string, int>();
@@ -56,11 +46,7 @@ public class QuestionManager : MonoBehaviour
                 questions.Add(param0, param1);
             }
             dictionaryList.Add(questions);
-        }
-
-        /*Dictionary<string, int> li = dictionaryList[0];
-            foreach (string s in li.Keys)
-                Debug.Log("list: " + s);  */     
+        }    
     }
 
     public void QuestionCountPick()
@@ -68,17 +54,14 @@ public class QuestionManager : MonoBehaviour
         if (index >= dictionaryList.Count) index = 0;
         if (roadManager.IsTutorial)
         {
-            Debug.Log("question for tutorial");
             CheckResetTutorial();
         }
         else if (numCorrectAnsw < changeToCorrectAnsw && !roadManager.IsTutorial)
         {
-            Debug.Log("question for road");
             PickQuestion(index);
         }
         else
         {
-            Debug.Log("question from reset");
             index++;
             numCorrectAnsw = 0;
             PickQuestion(index);
@@ -90,7 +73,6 @@ public class QuestionManager : MonoBehaviour
         if (numCorrectAnsw == 2)
         {
             roadManager.IsTutorial = false;
-            Debug.Log("TUTORIAL FINITO!");
             numCorrectAnsw = 0;
             index = 0;
             roadManager.Space = 0;

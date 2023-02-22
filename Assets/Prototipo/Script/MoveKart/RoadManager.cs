@@ -178,7 +178,7 @@ public class RoadManager : MonoBehaviour
             horizontalSpeed = maxHSpeed;
         }
         //Debug.Log("Vert_Speed: " + verticalSpeed);
-        
+        //Debug.Log("Horz_Speed: " + horizontalSpeed);
         foreach (GameObject g in instantiatedTracks)
         {
             g.transform.position += new Vector3(0, 0, -verticalSpeed * Time.deltaTime);
@@ -382,7 +382,6 @@ public class RoadManager : MonoBehaviour
 
     public bool IsInvincible()
     {
-       
         if (componentManager.ComponentsByFeature(INVINCIBILITY).Count == 0) return false;
         else return true;
     }
