@@ -8,11 +8,11 @@ using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCou
 
 public class ShopManager : MonoBehaviour
 {
-    List<GameObject> lista= new List<GameObject>();    
+    List<GameObject> lista = new List<GameObject>();
 
-    public int currentCarIndex ;
-    public GameObject[] carModels ;
-  
+    public int currentCarIndex;
+    public GameObject[] carModels;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,14 +24,18 @@ public class ShopManager : MonoBehaviour
             lista.Add(car);
             position = lista[i].GetComponentsInChildren<Transform>();
             Transform player = position.Where(x => x.gameObject.name.Equals("KartBouncingCapsule")).SingleOrDefault();
-            Transform permanentCanvas = position.Where(x => x.gameObject.name.Equals("PermanentCanvas")).SingleOrDefault();
-            //Debug.Log("D: " + player.gameObject.name);
-            player.gameObject.SetActive(false);
-            permanentCanvas.gameObject.SetActive(false);
+            Debug.Log("D: " + player.gameObject.name);
+            Transform canvas = position.Where(x => x.gameObject.name.Equals("PermanentCanvas")).SingleOrDefault();
+            Transform cam = position.Where(x => x.gameObject.name.Equals("Camera")).SingleOrDefault();
 
-            car.SetActive(false); 
+            player.gameObject.SetActive(false);
+            canvas.gameObject.SetActive(false);
+            cam.gameObject.SetActive(false);
+
+
+            car.SetActive(false);
             currentCarIndex = PlayerPrefs.GetInt("SelectedCar", 0);
-            
+
 
             /*foreach (GameObject car in carModels)
             {
@@ -47,10 +51,8 @@ public class ShopManager : MonoBehaviour
 
     }
 
-
-   
-
-    public void ChangeNext() {
+    public void ChangeNext()
+    {
         Debug.Log("next");
         lista[currentCarIndex].SetActive(false);
         currentCarIndex++;
@@ -66,7 +68,7 @@ public class ShopManager : MonoBehaviour
 
         lista[currentCarIndex].SetActive(false);
         currentCarIndex--;
-        if (currentCarIndex == -1) currentCarIndex = lista.Count-1;
+        if (currentCarIndex == -1) currentCarIndex = lista.Count - 1;
 
         lista[currentCarIndex].SetActive(true);
         PlayerPrefs.SetInt("SelectedCar", currentCarIndex);
@@ -78,7 +80,7 @@ public class ShopManager : MonoBehaviour
     }
     public void BottoneStart()
     {
-        
+
         SceneManager.LoadScene(2);
     }
 }

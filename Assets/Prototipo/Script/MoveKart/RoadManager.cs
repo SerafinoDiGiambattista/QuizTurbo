@@ -199,8 +199,6 @@ public class RoadManager : MonoBehaviour
 
     public void ScoreMult()
     {
-
-
         if (componentManager.ComponentsByFeature(SCORE_MULTIPLIER).Count == 1)
         {
 
@@ -314,6 +312,7 @@ public class RoadManager : MonoBehaviour
         if (other.gameObject.CompareTag("Ostacolo") && !IsInvincible())
         {
             CreateComponent(other);
+            StartCoroutine(Blink());
             StopMove();
             yield return new WaitForSeconds(0.5f);
             GoMove();
@@ -346,6 +345,31 @@ public class RoadManager : MonoBehaviour
         string name = Path.GetFileName(n[0]);
         componentManager.ComponentPickup(name, path);
 
+    }
+
+    public IEnumerator Blink()
+    {
+        GameObject parent = gameObject.transform.parent.gameObject;
+        MeshRenderer[] meshes = parent.GetComponentsInChildren<MeshRenderer>();
+        //Renderer[] renderers = parent.GetComponentsInChildren<Renderer>();
+        SkinnedMeshRenderer skinnedMeshes = parent.GetComponentInChildren<SkinnedMeshRenderer>();
+        int i = 0;
+        while(i < 3)
+        {
+            foreach (MeshRenderer mr in meshes)
+            {
+                mr.enabled = false;
+            }
+            skinnedMeshes.gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.10f);
+            foreach (MeshRenderer mr in meshes)
+            {
+                mr.enabled = true;
+            }
+            skinnedMeshes.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.10f);
+            i++;
+        }
     }
 
 

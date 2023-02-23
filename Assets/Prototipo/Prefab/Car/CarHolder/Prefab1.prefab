@@ -358,6 +358,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2044109048883194659, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2283085708750732355, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
         type: 3}
       propertyPath: m_IsTrigger
@@ -465,6 +470,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5879061969035669202, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5879061969035669202, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 824efe300edef1c498a120ee93d6fc8e, type: 2}
@@ -488,6 +498,11 @@ PrefabInstance:
       propertyPath: kartCapsule
       value: 
       objectReference: {fileID: 3225666774689527154}
+    - target: {fileID: 6970124313147368741, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b5ec48f82cbba64e91fdd4d055f11f3, type: 3}
 --- !u!4 &286093941246608944 stripped
