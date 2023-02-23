@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CurvedWorld : MonoBehaviour 
+public class CurvedWorld : MonoBehaviour
 {
 
     public Vector3 Curvature = new Vector3(0, 0.5f, 0);
@@ -21,6 +21,8 @@ public class CurvedWorld : MonoBehaviour
     int DistanceID;
     protected float currentCurvature = 0;
     protected Modifier mod;
+    protected bool change;
+    protected float negative, positive;
 
     private void Awake()
     {
@@ -31,8 +33,13 @@ public class CurvedWorld : MonoBehaviour
 
     private void Start()
     {
-  
-        //Debug.Log("Add mod: " + mod.AddFactor+ " Mult mod: "+mod.MultFactor);
+        curvatureComponents = componentManager.ComponentsByFeature(CURVATURE);
+        SComponent comp = curvatureComponents[CurvatureFileName];
+        mod = comp.GetModifier(CURVATURE);
+        negative = mod.AddFactor * -1;
+        positive = mod.AddFactor;
+        change = true;
+
     }
 
     private void OnEnable()
@@ -43,33 +50,34 @@ public class CurvedWorld : MonoBehaviour
 
     private void FixedUpdate()
     {
-        curvatureComponents = componentManager.ComponentsByFeature(CURVATURE);
-        //SComponent comp = curvatureComponents[CurvatureFileName];
-        //mod = comp.GetModifier(CURVATURE);
+
         ApplyCurvature();
     }
 
     public void ApplyCurvature()
     {
         currentCurvature = featureManager.FeatureValue(CURVATURE);
-       // Debug.Log("current: " + Mathf.Abs(currentCurvature));
-       // Debug.Log(" max: " + GetMaxCurvature());
-        if (Mathf.Abs(currentCurvature) >= GetMaxCurvature())
+
+        if ((currentCurvature >= GetMaxCurvature()) & change)
         {
-            componentManager.SetAddModifierByFeature(CURVATURE, -1);
-            //mod.AddFactor *= -1;
+            mod.AddFactor = negative;
+            change = false;
         }
-        //Debug.Log("add: " + mod.AddFactor);
+        else if ((currentCurvature <= (GetMaxCurvature() * -1)) & !change)
+        {
+            mod.AddFactor = positive;
+            change = true;
+        }
+
         Curvature.z = currentCurvature;
         Vector3 curvature = CurvatureScaleUnit == 0 ? Curvature : Curvature / CurvatureScaleUnit;
         Shader.SetGlobalVector(CurvatureID, curvature);
         Shader.SetGlobalFloat(DistanceID, Distance);
-        //Debug.Log("curvatura: " + Curvature.z);
+
     }
 
     public float GetMaxCurvature()
     {
-        float curv = Mathf.Abs(featureManager.FeatureValue(MAX_CURVATURE));
-        return curv;
+        return featureManager.FeatureValue(MAX_CURVATURE);
     }
 }
