@@ -24,8 +24,10 @@ public class ShopManager : MonoBehaviour
             lista.Add(car);
             position = lista[i].GetComponentsInChildren<Transform>();
             Transform player = position.Where(x => x.gameObject.name.Equals("KartBouncingCapsule")).SingleOrDefault();
-            Debug.Log("D: " + player.gameObject.name);
+            Transform permanentCanvas = position.Where(x => x.gameObject.name.Equals("PermanentCanvas")).SingleOrDefault();
+            //Debug.Log("D: " + player.gameObject.name);
             player.gameObject.SetActive(false);
+            permanentCanvas.gameObject.SetActive(false);
 
             car.SetActive(false); 
             currentCarIndex = PlayerPrefs.GetInt("SelectedCar", 0);

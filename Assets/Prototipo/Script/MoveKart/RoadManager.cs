@@ -26,6 +26,7 @@ public class RoadManager : MonoBehaviour
     [SerializeField] protected string NUM_OBSTACLE_TRACK = "NUM_OBSTACLE_TRACK";
     [SerializeField] protected string NUM_QUESTION_TRACK = "NUM_QUESTION_TRACK";
     [SerializeField] protected string INVINCIBILITY = "INVINCIBILITY";
+    [SerializeField] protected string MAX_CURVATURE = "MAX_CURVATURE";
     [SerializeField] protected bool isTutorial = false;
     protected FeatureManager featureManager;
     protected ComponentManager componentManager;
@@ -231,7 +232,8 @@ public class RoadManager : MonoBehaviour
     {
         numOfSegments++;
         temp.transform.position += new Vector3(0, 0, count);
-        temp.GetComponent<RoadController>().gameObject.SetActive(true);
+        temp.gameObject.SetActive(true);
+
         //Debug.Log("numSeg: "+numOfSegments);
         Transform[] children = temp.GetComponentsInChildren<Transform>();
         Transform cp = children.Where(x => x.gameObject.tag.Equals("checkPointQuestion")).SingleOrDefault();
@@ -311,22 +313,14 @@ public class RoadManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ostacolo") && !IsInvincible())
         {
-            string path = other.gameObject.GetComponent<PathManager>().Path;
-            string[] n = path.Split('.');
-            string name = Path.GetFileName(n[0]);
-            componentManager.ComponentPickup(name, path);
+            CreateComponent(other);
             StopMove();
             yield return new WaitForSeconds(0.5f);
             GoMove();
-
-
         }
         if (other.gameObject.CompareTag("PowerUp"))
         {
-            string path = other.gameObject.GetComponent<PathManager>().Path;
-            string[] n = path.Split('.');
-            string name = Path.GetFileName(n[0]);
-            componentManager.ComponentPickup(name, path);
+            CreateComponent(other);
         }
         if (other.gameObject.CompareTag("PanelTrue") || other.gameObject.CompareTag("PanelFalse"))
         {
@@ -334,10 +328,7 @@ public class RoadManager : MonoBehaviour
             if (other.gameObject.tag.Equals(questionManager.GetCorrectAnswer().tag))
             {
                 Debug.Log("Risposta corretta");
-                string path = other.gameObject.GetComponent<PathManager>().Path;
-                string[] n = path.Split('.');
-                string name = Path.GetFileName(n[0]);
-                componentManager.ComponentPickup(name, path);
+                CreateComponent(other);
             }
         }
         if (other.gameObject.CompareTag("checkPointQuestion"))
@@ -347,6 +338,16 @@ public class RoadManager : MonoBehaviour
             other.gameObject.GetComponent<Collider>().enabled = false;
         }
     }
+
+    public void CreateComponent(Collider other)
+    {
+        string path = other.gameObject.GetComponent<PathManager>().Path;
+        string[] n = path.Split('.');
+        string name = Path.GetFileName(n[0]);
+        componentManager.ComponentPickup(name, path);
+
+    }
+
 
     public void StopMove()
     {
@@ -423,5 +424,15 @@ public class RoadManager : MonoBehaviour
     {
         get { return isTutorial; }
         set { isTutorial = value; }
+    }
+
+    public FeatureManager fm()
+    {
+        return featureManager;
+    }
+
+    public ComponentManager cm()
+    {
+        return componentManager;
     }
 }

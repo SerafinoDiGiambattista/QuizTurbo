@@ -442,6 +442,12 @@ PrefabInstance:
       propertyPath: roadObject
       value: 
       objectReference: {fileID: 1460267443004938142}
+    - target: {fileID: 3747240168709625350, guid: 11f7ba5b5a38a4b47916ce52de287e82,
+        type: 3}
+      propertyPath: panels.Array.data[0]
+      value: 
+      objectReference: {fileID: 3187758636723626262, guid: 8c302d2e3d361674e8ab460917d5da33,
+        type: 3}
     - target: {fileID: 3747240168709625351, guid: 11f7ba5b5a38a4b47916ce52de287e82,
         type: 3}
       propertyPath: m_RootOrder
@@ -923,6 +929,7 @@ MonoBehaviour:
   NUM_OBSTACLE_TRACK: NUM_OBSTACLE_TRACK
   NUM_QUESTION_TRACK: NUM_QUESTION_TRACK
   INVINCIBILITY: INVINCIBILITY
+  MAX_CURVATURE: MAX_CURVATURE
   isTutorial: 0
 --- !u!1001 &2485632819592124653
 PrefabInstance:

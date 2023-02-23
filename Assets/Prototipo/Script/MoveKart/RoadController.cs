@@ -5,8 +5,7 @@ using UnityEngine;
 public class RoadController : MonoBehaviour
 {
     RoadManager roadManager;
-    private int scoreCount = 0; // incrementa lo score in base alla distanza percorsa, incrementato ogni volta che entra in TriggerExit
-    //chiediamo al professore Di Penta se gli va bene 
+
     private void Awake()
     {
         roadManager= FindObjectOfType<RoadManager>();
@@ -30,7 +29,6 @@ public class RoadController : MonoBehaviour
         {
             if (index.CompareTag("Ostacolo") || index.CompareTag("PowerUp") || index.CompareTag("PanelTrue") || index.CompareTag("PanelFalse"))
             {
-                 
                 index.gameObject.SetActive(false);
             }
         }

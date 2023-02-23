@@ -112,7 +112,7 @@ public class SComponent
         return null;
     }
 
-    public Modifier GetModifiers(string m)
+    public Modifier GetModifier(string m)
     {
         foreach(KeyValuePair<string, Modifier> string_m in m_mods)
         {

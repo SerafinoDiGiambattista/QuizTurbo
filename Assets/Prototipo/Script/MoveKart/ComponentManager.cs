@@ -47,8 +47,6 @@ public class ComponentManager : MonoBehaviour
     }
 
 
-
-
     public TickManager GetTickManager
     {
         get { return tickManager; }
@@ -138,12 +136,18 @@ public class ComponentManager : MonoBehaviour
             {
                 try
                 {
+                    //if(m.Type.Equals("CURVATURE")) Debug.Log("add: " + m.AddFactor);
                     featureMulMod[m.Type] *= m.MultFactor;
                     featureAddMod[m.Type] += m.AddFactor;
                 }
                 catch (Exception) { }
             }
         }
+    }
+
+    public void SetAddModifierByFeature(string type, float num)
+    {
+        featureAddMod[type] *= num;
     }
 
     //calcolo valore totale della feature con i modificatori 
@@ -162,7 +166,6 @@ public class ComponentManager : MonoBehaviour
     {
         return components.Where(x => x.Value.HasFeature(feature)).ToDictionary(x => x.Key, x=> x.Value);
     }
-
 
     public void RemoveComponent(string c)
     {
@@ -209,7 +212,8 @@ public class ComponentManager : MonoBehaviour
                         {
                             float midVal = f.CurrentValue * featureMulMod[f.Type];
                             f.CurrentValue = midVal + featureAddMod[f.Type];
-                           // if(f.Type.Equals("SCORE_MULTIPLIER"))Debug.Log("Feature current : " + featureMulMod[f.Type] + " " + featureAddMod[f.Type]);
+                            
+                            //if(f.Type.Equals("CURVATURE"))Debug.Log("Feature current : " + featureMulMod[f.Type] + " " + featureAddMod[f.Type]);
                         }   
                     }
                 }

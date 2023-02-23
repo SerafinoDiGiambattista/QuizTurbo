@@ -10,6 +10,8 @@ public class InputCar : MonoBehaviour
     [SerializeField] protected GameObject kartCapsule;
     public Animator PlayerAnimator;
     public string SteeringParam = "Steering";
+    public float rightboundary = 4.0f;
+    public float leftboundary = -4.0f;
     protected float horizontalSpeed = 0f;
     private Vector2 currentMove;
     int m_SteerHash;
@@ -28,12 +30,19 @@ public class InputCar : MonoBehaviour
         if (!roadManager.GetMove) return;
 
         horizontalSpeed = roadManager.HorizontalSpeed;
+
+
         Vector3 moveVelocity = horizontalSpeed * (
         currentMove.x * Vector3.right +
         currentMove.y * Vector3.left
         );
         Vector3 moveThisFrame = Time.deltaTime * moveVelocity;
+
         transform.position += moveThisFrame;
+
+        //Debug.Log(transform.position);
+        if (transform.position.x > rightboundary) transform.position = new Vector3(rightboundary, 0, 0);
+        if (transform.position.x < leftboundary) transform.position = new Vector3(leftboundary, 0, 0);
     }
 
 

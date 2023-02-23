@@ -23,11 +23,13 @@ using UnityEngine;
         public float MultFactor
         {
             get { return mult_factor; }
+            set { mult_factor = value; }
         }
 
         public float AddFactor
         {
             get { return add_factor; }
+            set { add_factor = value; }
         }
 
         public Modifier(string t_value, float m_factor, float a_factor)

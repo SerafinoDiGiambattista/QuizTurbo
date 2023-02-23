@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 879769188639576265}
   m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5, y: 1.5, z: 14}
+  m_LocalPosition: {x: -2.7, y: 1.5, z: 14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5354256753826094959}
@@ -84,7 +84,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307065983622863886}
   m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 1.5, z: 14}
+  m_LocalPosition: {x: 2.7, y: 1.5, z: 14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5354256753826094959}
@@ -217,6 +217,7 @@ GameObject:
   - component: {fileID: 3065112795247290138}
   - component: {fileID: 3173560009690246849}
   - component: {fileID: 8890671249111085790}
+  - component: {fileID: 5680877743479229548}
   m_Layer: 0
   m_Name: TrackRoad
   m_TagString: Untagged
@@ -231,7 +232,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4685419864426939861}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.0024168792, w: 0.9999971}
   m_LocalPosition: {x: 0, y: 0, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -243,7 +244,7 @@ Transform:
   - {fileID: 2000321708254651769}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.277}
 --- !u!33 &9070812269000347850
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -332,3 +333,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d0dfc3ca8a62b4b9774908ab94cfc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5680877743479229548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4685419864426939861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d26402206d3fdcd46a3150dd8b12095a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Curvature: {x: 0, y: 0, z: 0}
+  Distance: 50
+  CURVATURE: CURVATURE
+  MAX_CURVATURE: MAX_CURVATURE
+  CHANGING_CURVATURE: CHANGING_CURVATURE
+  CurvatureScaleUnit: 1000
+  CurvatureFileName: CurvatureRoad

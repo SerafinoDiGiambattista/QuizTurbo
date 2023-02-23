@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Pin_Red
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: c31c18e816907ac47acc5deadf1356ae, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -75,3 +75,4 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 0, b: 0.14817429, a: 1}
     - _EmissionColor: {r: 0.11320752, g: 0, b: 0.0046719415, a: 1}
+  m_BuildTextureStacks: []
