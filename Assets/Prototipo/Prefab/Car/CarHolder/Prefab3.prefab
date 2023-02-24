@@ -762,6 +762,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -5.77
       objectReference: {fileID: 0}
+    - target: {fileID: 5524884386942935587, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+        type: 3}
+      propertyPath: m_text
+      value: GABRY
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524884386942935587, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 64.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5879061967642866210, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
         type: 3}
       propertyPath: m_Name

@@ -9,7 +9,7 @@ using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCou
 public class ShopManager : MonoBehaviour
 {
     List<GameObject> lista = new List<GameObject>();
-
+    public string NameScene = "CarSelect";
     public int currentCarIndex;
     public GameObject[] carModels;
 
@@ -24,7 +24,7 @@ public class ShopManager : MonoBehaviour
             lista.Add(car);
             position = lista[i].GetComponentsInChildren<Transform>();
             Transform player = position.Where(x => x.gameObject.name.Equals("KartBouncingCapsule")).SingleOrDefault();
-            Debug.Log("D: " + player.gameObject.name);
+           // Debug.Log("D: " + player.gameObject.name);
             Transform canvas = position.Where(x => x.gameObject.name.Equals("PermanentCanvas")).SingleOrDefault();
             Transform cam = position.Where(x => x.gameObject.name.Equals("Camera")).SingleOrDefault();
 
@@ -34,18 +34,8 @@ public class ShopManager : MonoBehaviour
 
 
             car.SetActive(false);
-            currentCarIndex = PlayerPrefs.GetInt("SelectedCar", 0);
+            currentCarIndex = PlayerPrefs.GetInt(NameScene, 0);
 
-
-            /*foreach (GameObject car in carModels)
-            {
-                list.Add(Instantiate(car));
-                 
-                Debug.Log("instanzio : "+list[currentCarIndex]);
-                list[currentCarIndex].SetActive(true);
-                 
-            }
-    */
         }
         lista[currentCarIndex].SetActive(true);
 
@@ -59,7 +49,7 @@ public class ShopManager : MonoBehaviour
         if (currentCarIndex == lista.Count) currentCarIndex = 0;
 
         lista[currentCarIndex].SetActive(true);
-        PlayerPrefs.SetInt("SelectedCar", currentCarIndex);
+        PlayerPrefs.SetInt(NameScene, currentCarIndex);
     }
 
     public void ChangePrevious()
@@ -71,7 +61,7 @@ public class ShopManager : MonoBehaviour
         if (currentCarIndex == -1) currentCarIndex = lista.Count - 1;
 
         lista[currentCarIndex].SetActive(true);
-        PlayerPrefs.SetInt("SelectedCar", currentCarIndex);
+        PlayerPrefs.SetInt(NameScene, currentCarIndex);
     }
 
     public void BottoneMenu()

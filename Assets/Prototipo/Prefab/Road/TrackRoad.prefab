@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d26402206d3fdcd46a3150dd8b12095a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Curvature: {x: 0, y: 0, z: 0}
+  Curvature: {x: 0, y: 0.5, z: 0}
   Distance: 50
   CURVATURE: CURVATURE
   MAX_CURVATURE: MAX_CURVATURE
