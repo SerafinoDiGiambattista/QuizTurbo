@@ -1804,8 +1804,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eca66da0e0208c14e841042d697b6ef6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NameScene: CarSelect
   currentCarIndex: 0
   carModels:
   - {fileID: 8215925049073086554, guid: 6f6c4f0cfebd3c648939022be5b9907d, type: 3}
   - {fileID: 7969115433370814467, guid: db7cbab97a20d754a93d3dbde743ded6, type: 3}
   - {fileID: 5369666359082521270, guid: dca8b75e965b5c54795a3cb0478de3ba, type: 3}
+  - {fileID: 6107341316674567823, guid: 47214bd48219f384fb744c387ab9a2f6, type: 3}

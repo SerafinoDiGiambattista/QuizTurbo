@@ -8,20 +8,15 @@ using static Unity.Barracuda.Model;
 public class InputCar : MonoBehaviour
 {
     [SerializeField] protected GameObject kartCapsule;
-    public Animator PlayerAnimator;
-    public string SteeringParam = "Steering";
     public float rightboundary = 4.0f;
     public float leftboundary = -4.0f;
     protected float horizontalSpeed = 0f;
     private Vector2 currentMove;
-    int m_SteerHash;
+
     protected RoadManager roadManager;
 
     void Awake()
-    {
-        //Assert.IsNotNull(Kart, "No ArcadeKart found!");
-        Assert.IsNotNull(PlayerAnimator, "No PlayerAnimator found!");
-        m_SteerHash = Animator.StringToHash(SteeringParam);
+    {        
         roadManager = kartCapsule.GetComponent<RoadManager>();
     }
 
@@ -30,7 +25,6 @@ public class InputCar : MonoBehaviour
         if (!roadManager.GetMove) return;
 
         horizontalSpeed = roadManager.HorizontalSpeed;
-
 
         Vector3 moveVelocity = horizontalSpeed * (
         currentMove.x * Vector3.right +
@@ -50,9 +44,11 @@ public class InputCar : MonoBehaviour
     {
         if (!roadManager.GetMove) return;
         currentMove = context.ReadValue<Vector2>();
-        //steeringSmoother = Mathf.Lerp(steeringSmoother, currentMove.x, Time.deltaTime * 5f);
-        PlayerAnimator.SetFloat(m_SteerHash, currentMove.x);
     }
 
+    public float CurrentMove()
+    {
+        return currentMove.x;
+    }
 
 }
