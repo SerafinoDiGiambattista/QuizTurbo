@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class HealthGUI : MonoBehaviour
 {
     private int numOfHearts = 0;
@@ -79,7 +79,7 @@ public class HealthGUI : MonoBehaviour
         {
             foreach(GameObject h in instantiatedHearts)
                 h.SetActive(false);
-            Debug.Log("DEATH! :)");
+            SceneManager.LoadScene(3);
         }
     }
 }
