@@ -13,6 +13,8 @@ public class ScoreGUI : MonoBehaviour
     void Start()
     {
         roadManager = objectRoad.GetComponent<RoadManager>();
+
+        
     }
 
     // Update is called once per frame

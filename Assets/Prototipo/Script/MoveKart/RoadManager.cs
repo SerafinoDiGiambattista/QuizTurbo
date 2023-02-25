@@ -353,7 +353,6 @@ public class RoadManager : MonoBehaviour
     {
         GameObject parent = gameObject.transform.parent.gameObject;
         MeshRenderer[] meshes = parent.GetComponentsInChildren<MeshRenderer>();
-        //Renderer[] renderers = parent.GetComponentsInChildren<Renderer>();
         SkinnedMeshRenderer skinnedMeshes = parent.GetComponentInChildren<SkinnedMeshRenderer>();
         int i = 0;
         while(i < 3)

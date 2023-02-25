@@ -31,7 +31,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 995982574085116549}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -123,8 +123,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 995982574336745110}
   - {fileID: 995982572880708964}
+  - {fileID: 995982574336745110}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -226,7 +226,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 995982574085116549}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -307,5 +307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ffe290a84347184bb748f3e408850fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heart: {fileID: 1316846103813279077, guid: d6c952b1f52033d4286b7a2ca8f8ec5a, type: 3}
+  redHeart: {fileID: 0}
+  grayHeart: {fileID: 0}
   playerObject: {fileID: 0}

@@ -7,10 +7,11 @@ public class HealthGUI : MonoBehaviour
 {
     private int numOfHearts = 0;
     private int initialNumOfHearts;
-    public GameObject heart;
+    public GameObject redHeart;
+    public GameObject grayHeart;
     public GameObject playerObject;
-    private List<GameObject> instantiatedHearts = new List<GameObject>();
-    private float count = 0;
+    private List<GameObject> instantiatedRedHearts = new List<GameObject>();
+    private List<GameObject> instantiatedGrayHearts = new List<GameObject>();
     private FeatureManager featuremanager;
     private RoadManager roadManager;
 
@@ -41,17 +42,22 @@ public class HealthGUI : MonoBehaviour
 
     public List<GameObject> GetInstantiatedHearts()
     {
-        return instantiatedHearts;
+        return instantiatedRedHearts;
     }
     
     private void InstantiateHearts()
     {
-        count = heart.transform.position.x;
         for(int i=0; i<initialNumOfHearts; i++)
         {
-            GameObject temp = Instantiate(heart);
+            GameObject tempGray = Instantiate(grayHeart);
+            tempGray.transform.SetParent(gameObject.transform);
+            instantiatedGrayHearts.Add(tempGray);
+            tempGray.SetActive(false);
+
+            GameObject temp = Instantiate(redHeart);
             temp.transform.SetParent(gameObject.transform);
-            instantiatedHearts.Add(temp);
+            instantiatedRedHearts.Add(temp);
+
         }
     }
 
@@ -64,20 +70,28 @@ public class HealthGUI : MonoBehaviour
         {
             for (int i = initialNumOfHearts - 1; i >= numOfHearts; i--)
             {
-                if (instantiatedHearts[i].activeSelf == true)
-                    instantiatedHearts[i].SetActive(false);
+                if (instantiatedRedHearts[i].activeSelf == true)
+                {
+                    Vector3 pos = instantiatedRedHearts[i].transform.position;
+                    instantiatedRedHearts[i].SetActive(false);
+                    instantiatedGrayHearts[i].transform.position = pos;
+                    instantiatedGrayHearts[i].SetActive(true);
+                }
             }
 
             for (int i=0; i < numOfHearts; i++)
             {
-                if (instantiatedHearts[i].activeSelf == false)
-                    instantiatedHearts[i].SetActive(true);
+                if (instantiatedRedHearts[i].activeSelf == false)
+                {
+                    instantiatedRedHearts[i].SetActive(true);
+                    instantiatedGrayHearts[i].SetActive(false);
+                }
             }
 
         }
         else if (numOfHearts == 0)
         {
-            foreach(GameObject h in instantiatedHearts)
+            foreach(GameObject h in instantiatedRedHearts)
                 h.SetActive(false);
             SceneManager.LoadScene(3);
         }
