@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Linq;
+
 public class HealthGUI : MonoBehaviour
 {
     private int numOfHearts = 0;
@@ -14,7 +17,8 @@ public class HealthGUI : MonoBehaviour
     private List<GameObject> instantiatedGrayHearts = new List<GameObject>();
     private FeatureManager featuremanager;
     private RoadManager roadManager;
-
+    private float score;
+    public string SCORE_PATH;
 
     private void Awake()
     {
@@ -23,13 +27,7 @@ public class HealthGUI : MonoBehaviour
     }
 
     void Start()
-    {
-        /*
-       initialNumOfHearts = Mathf.CeilToInt(playerManager.GetInitialHealth());   
-       Debug.Log("InitialNumOFHearts: "+ initialNumOfHearts);
-       InstantiateHearts();
-        */
-        
+    { 
         initialNumOfHearts = Mathf.CeilToInt(roadManager.GetInitialHealth);
         //Debug.Log("InitialNumOFHearts: " + initialNumOfHearts) ;
         InstantiateHearts();
@@ -93,7 +91,15 @@ public class HealthGUI : MonoBehaviour
         {
             foreach(GameObject h in instantiatedRedHearts)
                 h.SetActive(false);
+            score = Mathf.CeilToInt(roadManager.Space);
+            SaveScoreOnFile();
             SceneManager.LoadScene(3);
         }
     }
+
+    public void SaveScoreOnFile()
+    {
+        File.WriteAllText(SCORE_PATH, score.ToString());
+    }
+
 }

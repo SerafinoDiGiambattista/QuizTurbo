@@ -16,6 +16,7 @@ public class RoadManager : MonoBehaviour
     [SerializeField] GameObject weightedObject;
     [SerializeField] GameObject questionObject;
     [SerializeField] GameObject shield;
+
     [SerializeField] protected string VERTICAL_SPEED = "VERTICAL_SPEED";
     [SerializeField] protected string MAX_SPEED = "MAX_SPEED";
     [SerializeField] protected string HORIZONTAL_SPEED = "HORIZONTAL_SPEED";
@@ -56,7 +57,11 @@ public class RoadManager : MonoBehaviour
     protected float score_multiple_powerup;
     protected bool pass = false;
     protected bool is_moving;
-    
+    protected float initialscore;
+    protected float initialintervall;
+    protected Tick tickMulti;
+
+
     private void Awake()
     {
         featureManager = GetComponent<FeatureManager>();
@@ -65,13 +70,20 @@ public class RoadManager : MonoBehaviour
         roadController = trackroad.GetComponent<RoadController>();
         weightRandomManager = weightedObject.GetComponent<WeightRandomManager>();
         questionManager = questionObject.GetComponent<QuestionManager>();
+
         ReadSpawningFile(SPAWNING_POSITIONS, spawningPositions);
         ReadSpawningFile(TUTORIAL_SPAWNING, tutorialPositions);
+
     }
 
     void Start()
     {
         LoadFeatures();
+        //Bug di unity credo ?????
+        SpeedUp s = (SpeedUp)componentManager.ComponentsByFeature(SCORE_MULTIPLIER)["Multiplier"];
+        tickMulti = s.TickSpeddUp();
+        initialintervall = tickMulti.Timer;
+        //Debug.Log(initialintervall);
         numObstacleTrack = Mathf.CeilToInt(numObstacleTrack);
         numQuestionTrack = Mathf.CeilToInt(numQuestionTrack);
         IstatiateRoad();
@@ -163,14 +175,21 @@ public class RoadManager : MonoBehaviour
         numObstacleTrack = featureManager.FeatureValue(NUM_OBSTACLE_TRACK);
         numQuestionTrack = featureManager.FeatureValue(NUM_QUESTION_TRACK);
         score_multiple = featureManager.FeatureValue(SCORE_MULTIPLIER);
+        initialscore = featureManager.FeatureValueBase(SCORE_MULTIPLIER);
     }
 
     // Update is called once per frame
 
     void FixedUpdate()
     { //valore booleano ismoving per far capire che si sta muovendo si deve non solo fermare ma deve anche resettare il moltiplicatore
-
-        if (!is_moving) return;
+        if (!is_moving)
+        {
+            Feature f0 = featureManager.Features[SCORE_MULTIPLIER];
+            f0.CurrentValue = initialscore;
+            tickMulti.Timer = initialintervall;
+            //Debug.Log(tickMulti.Timer);
+            return;
+        }
 
         if (!isTutorial)
         {
@@ -188,7 +207,7 @@ public class RoadManager : MonoBehaviour
             verticalSpeed = maxSpeed;
             horizontalSpeed = maxHSpeed;
         }
-        //Debug.Log("Vert_Speed: " + verticalSpeed);
+        // Debug.Log("Vert_Speed: " + verticalSpeed);
         //Debug.Log("Horz_Speed: " + horizontalSpeed);
         foreach (GameObject g in instantiatedTracks)
         {
@@ -201,6 +220,7 @@ public class RoadManager : MonoBehaviour
 
     public void ScoreMult()
     {
+        //variabile locale 
         if (componentManager.ComponentsByFeature(SCORE_MULTIPLIER).Count == 1)
         {
 
@@ -227,6 +247,13 @@ public class RoadManager : MonoBehaviour
         }
     }
 
+
+    public float GetScoreMult()
+    {
+        if (!pass) return score_multiple;
+
+        return score_multiple_powerup;
+    }
 
     public void SpawnSegment(GameObject temp)
     {
@@ -353,9 +380,10 @@ public class RoadManager : MonoBehaviour
     {
         GameObject parent = gameObject.transform.parent.gameObject;
         MeshRenderer[] meshes = parent.GetComponentsInChildren<MeshRenderer>();
+        //Renderer[] renderers = parent.GetComponentsInChildren<Renderer>();
         SkinnedMeshRenderer skinnedMeshes = parent.GetComponentInChildren<SkinnedMeshRenderer>();
         int i = 0;
-        while(i < 3)
+        while (i < 3)
         {
             foreach (MeshRenderer mr in meshes)
             {
