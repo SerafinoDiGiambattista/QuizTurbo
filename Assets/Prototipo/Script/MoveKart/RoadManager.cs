@@ -15,6 +15,7 @@ public class RoadManager : MonoBehaviour
     [SerializeField] GameObject trackroad;
     [SerializeField] GameObject weightedObject;
     [SerializeField] GameObject questionObject;
+    [SerializeField] GameObject shield;
     [SerializeField] protected string VERTICAL_SPEED = "VERTICAL_SPEED";
     [SerializeField] protected string MAX_SPEED = "MAX_SPEED";
     [SerializeField] protected string HORIZONTAL_SPEED = "HORIZONTAL_SPEED";
@@ -55,7 +56,7 @@ public class RoadManager : MonoBehaviour
     protected float score_multiple_powerup;
     protected bool pass = false;
     protected bool is_moving;
-
+    
     private void Awake()
     {
         featureManager = GetComponent<FeatureManager>();
@@ -195,6 +196,7 @@ public class RoadManager : MonoBehaviour
         }
 
         ScoreMult();
+        InvincibleShield();
     }
 
     public void ScoreMult()
@@ -372,6 +374,15 @@ public class RoadManager : MonoBehaviour
         }
     }
 
+    public void InvincibleShield()
+    {
+        if (IsInvincible())
+        {
+            shield.SetActive(true);
+        }
+        else
+            shield.SetActive(false);
+    }
 
     public void StopMove()
     {
