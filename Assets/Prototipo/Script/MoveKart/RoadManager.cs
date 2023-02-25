@@ -16,7 +16,7 @@ public class RoadManager : MonoBehaviour
     [SerializeField] GameObject weightedObject;
     [SerializeField] GameObject questionObject;
     [SerializeField] GameObject shield;
-
+    [SerializeField] protected string SCORE_PATH;
     [SerializeField] protected string VERTICAL_SPEED = "VERTICAL_SPEED";
     [SerializeField] protected string MAX_SPEED = "MAX_SPEED";
     [SerializeField] protected string HORIZONTAL_SPEED = "HORIZONTAL_SPEED";
@@ -218,6 +218,11 @@ public class RoadManager : MonoBehaviour
         InvincibleShield();
     }
 
+    public void OnDisable()
+    {
+        ScoreSaver();
+    }
+
     public void ScoreMult()
     {
         //variabile locale 
@@ -409,6 +414,24 @@ public class RoadManager : MonoBehaviour
         }
         else
             shield.SetActive(false);
+    }
+
+    private int score = 0;
+    private int bestScore = 0;
+    public void ScoreSaver()
+    {
+        score = Mathf.CeilToInt(Space);
+        string[] lines = File.ReadAllLines(SCORE_PATH);
+        foreach (string l in lines)
+        {
+            bestScore = int.Parse(l);
+        }
+        score += bestScore;
+        WriteScoreOnFile();
+    }
+    public void WriteScoreOnFile()
+    {
+        File.WriteAllText(SCORE_PATH, score.ToString());
     }
 
     public void StopMove()

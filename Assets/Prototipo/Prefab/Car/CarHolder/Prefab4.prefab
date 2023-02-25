@@ -514,6 +514,7 @@ MonoBehaviour:
   weightedObject: {fileID: 2551240571713368514}
   questionObject: {fileID: 2843503492246897849}
   shield: {fileID: 9065968340579282255}
+  SCORE_PATH: Assets/StreamingAssets/Score/Score.csv
   VERTICAL_SPEED: VERTICAL_SPEED
   MAX_SPEED: MAX_SPEED
   HORIZONTAL_SPEED: HORIZONTAL_SPEED

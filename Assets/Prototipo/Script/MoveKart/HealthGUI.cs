@@ -18,7 +18,7 @@ public class HealthGUI : MonoBehaviour
     private FeatureManager featuremanager;
     private RoadManager roadManager;
     private float score;
-    public string SCORE_PATH;
+    private int bestScore = 0;
 
     private void Awake()
     {
@@ -91,15 +91,7 @@ public class HealthGUI : MonoBehaviour
         {
             foreach(GameObject h in instantiatedRedHearts)
                 h.SetActive(false);
-            score = Mathf.CeilToInt(roadManager.Space);
-            SaveScoreOnFile();
             SceneManager.LoadScene(3);
         }
     }
-
-    public void SaveScoreOnFile()
-    {
-        File.WriteAllText(SCORE_PATH, score.ToString());
-    }
-
 }

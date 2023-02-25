@@ -155,5 +155,6 @@ public class ShopManager : MonoBehaviour
     {
         File.WriteAllText(SCORE_PATH, bestScore.ToString());
     }
+
 }
 
