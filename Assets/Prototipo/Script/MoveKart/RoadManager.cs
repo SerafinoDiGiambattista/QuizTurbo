@@ -15,7 +15,6 @@ public class RoadManager : MonoBehaviour
     [SerializeField] GameObject trackroad;
     [SerializeField] GameObject weightedObject;
     [SerializeField] GameObject questionObject;
-    [SerializeField] GameObject shield;
     [SerializeField] protected string SCORE_PATH;
     [SerializeField] protected string VERTICAL_SPEED = "VERTICAL_SPEED";
     [SerializeField] protected string MAX_SPEED = "MAX_SPEED";
@@ -35,6 +34,7 @@ public class RoadManager : MonoBehaviour
     protected WeightRandomManager weightRandomManager;
     protected RoadController roadController;
     protected QuestionManager questionManager;
+    protected EffectsManager effectsManager;
     protected float verticalSpeed;
     protected float health = 0;
     protected float score_multiple = 0f;
@@ -70,7 +70,7 @@ public class RoadManager : MonoBehaviour
         roadController = trackroad.GetComponent<RoadController>();
         weightRandomManager = weightedObject.GetComponent<WeightRandomManager>();
         questionManager = questionObject.GetComponent<QuestionManager>();
-
+        effectsManager = GetComponent<EffectsManager>();
         ReadSpawningFile(SPAWNING_POSITIONS, spawningPositions);
         ReadSpawningFile(TUTORIAL_SPAWNING, tutorialPositions);
 
@@ -79,11 +79,10 @@ public class RoadManager : MonoBehaviour
     void Start()
     {
         LoadFeatures();
-        //Bug di unity credo ?????
+
         SpeedUp s = (SpeedUp)componentManager.ComponentsByFeature(SCORE_MULTIPLIER)["Multiplier"];
         tickMulti = s.TickSpeddUp();
         initialintervall = tickMulti.Timer;
-        //Debug.Log(initialintervall);
         numObstacleTrack = Mathf.CeilToInt(numObstacleTrack);
         numQuestionTrack = Mathf.CeilToInt(numQuestionTrack);
         IstatiateRoad();
@@ -116,7 +115,7 @@ public class RoadManager : MonoBehaviour
         Transform[] position;
         Renderer renderer = roadController.getTrackRoad.GetComponent<Renderer>();
         if (renderer != null)
-        {   //lunghezza z dell'oggetto
+        {
             float lenghtz = renderer.bounds.size.z;
             count = 0;
             for (int i = 0; i < numObstacleTrack; i++)
@@ -178,8 +177,6 @@ public class RoadManager : MonoBehaviour
         initialscore = featureManager.FeatureValueBase(SCORE_MULTIPLIER);
     }
 
-    // Update is called once per frame
-
     void FixedUpdate()
     { //valore booleano ismoving per far capire che si sta muovendo si deve non solo fermare ma deve anche resettare il moltiplicatore
         if (!is_moving)
@@ -215,7 +212,7 @@ public class RoadManager : MonoBehaviour
         }
 
         ScoreMult();
-        InvincibleShield();
+        effectsManager.InvincibleShield(IsInvincible());
     }
 
     public void OnDisable()
@@ -251,7 +248,6 @@ public class RoadManager : MonoBehaviour
             pass = true;
         }
     }
-
 
     public float GetScoreMult()
     {
@@ -346,7 +342,7 @@ public class RoadManager : MonoBehaviour
         if (other.gameObject.CompareTag("Ostacolo") && !IsInvincible())
         {
             CreateComponent(other);
-            StartCoroutine(Blink());
+            effectsManager.CollisionObstacleEffect(gameObject);
             StopMove();
             yield return new WaitForSeconds(0.5f);
             GoMove();
@@ -361,7 +357,10 @@ public class RoadManager : MonoBehaviour
             if (other.gameObject.tag.Equals(questionManager.GetCorrectAnswer().tag))
             {
                 Debug.Log("Risposta corretta");
+                effectsManager.ActivateCorrectAnswCanvas();
                 CreateComponent(other);
+                yield return new WaitForSeconds(1.5f);
+                effectsManager.DisableCorrectAnswCanvas();
             }
         }
         if (other.gameObject.CompareTag("checkPointQuestion"))
@@ -379,41 +378,6 @@ public class RoadManager : MonoBehaviour
         string name = Path.GetFileName(n[0]);
         componentManager.ComponentPickup(name, path);
 
-    }
-
-    public IEnumerator Blink()
-    {
-        GameObject parent = gameObject.transform.parent.gameObject;
-        MeshRenderer[] meshes = parent.GetComponentsInChildren<MeshRenderer>();
-        //Renderer[] renderers = parent.GetComponentsInChildren<Renderer>();
-        SkinnedMeshRenderer skinnedMeshes = parent.GetComponentInChildren<SkinnedMeshRenderer>();
-        int i = 0;
-        while (i < 3)
-        {
-            foreach (MeshRenderer mr in meshes)
-            {
-                mr.enabled = false;
-            }
-            skinnedMeshes.gameObject.SetActive(false);
-            yield return new WaitForSeconds(0.10f);
-            foreach (MeshRenderer mr in meshes)
-            {
-                mr.enabled = true;
-            }
-            skinnedMeshes.gameObject.SetActive(true);
-            yield return new WaitForSeconds(0.10f);
-            i++;
-        }
-    }
-
-    public void InvincibleShield()
-    {
-        if (IsInvincible())
-        {
-            shield.SetActive(true);
-        }
-        else
-            shield.SetActive(false);
     }
 
     private int score = 0;
