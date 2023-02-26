@@ -12,9 +12,12 @@ using UnityEditor;
 
 public class RoadManager : MonoBehaviour
 {
+    protected EffectsManager effectsManager;
+
     [SerializeField] GameObject trackroad;
     [SerializeField] GameObject weightedObject;
     [SerializeField] GameObject questionObject;
+    [SerializeField] GameObject shield;
     [SerializeField] protected string SCORE_PATH;
     [SerializeField] protected string VERTICAL_SPEED = "VERTICAL_SPEED";
     [SerializeField] protected string MAX_SPEED = "MAX_SPEED";
@@ -34,7 +37,6 @@ public class RoadManager : MonoBehaviour
     protected WeightRandomManager weightRandomManager;
     protected RoadController roadController;
     protected QuestionManager questionManager;
-    protected EffectsManager effectsManager;
     protected float verticalSpeed;
     protected float health = 0;
     protected float score_multiple = 0f;
@@ -54,14 +56,8 @@ public class RoadManager : MonoBehaviour
     protected Dictionary<int, List<int>> tutorialPositions = new Dictionary<int, List<int>>();
     protected bool checkObjectActivation = true;
     protected bool invincible = false;
-    protected float score_multiple_powerup;
-    protected bool pass = false;
     protected bool is_moving;
-    protected float initialscore;
-    protected float initialintervall;
-    protected Tick tickMulti;
-
-
+   
     private void Awake()
     {
         featureManager = GetComponent<FeatureManager>();
@@ -71,6 +67,7 @@ public class RoadManager : MonoBehaviour
         weightRandomManager = weightedObject.GetComponent<WeightRandomManager>();
         questionManager = questionObject.GetComponent<QuestionManager>();
         effectsManager = GetComponent<EffectsManager>();
+
         ReadSpawningFile(SPAWNING_POSITIONS, spawningPositions);
         ReadSpawningFile(TUTORIAL_SPAWNING, tutorialPositions);
 
@@ -79,10 +76,6 @@ public class RoadManager : MonoBehaviour
     void Start()
     {
         LoadFeatures();
-
-        SpeedUp s = (SpeedUp)componentManager.ComponentsByFeature(SCORE_MULTIPLIER)["Multiplier"];
-        tickMulti = s.TickSpeddUp();
-        initialintervall = tickMulti.Timer;
         numObstacleTrack = Mathf.CeilToInt(numObstacleTrack);
         numQuestionTrack = Mathf.CeilToInt(numQuestionTrack);
         IstatiateRoad();
@@ -174,29 +167,28 @@ public class RoadManager : MonoBehaviour
         numObstacleTrack = featureManager.FeatureValue(NUM_OBSTACLE_TRACK);
         numQuestionTrack = featureManager.FeatureValue(NUM_QUESTION_TRACK);
         score_multiple = featureManager.FeatureValue(SCORE_MULTIPLIER);
-        initialscore = featureManager.FeatureValueBase(SCORE_MULTIPLIER);
     }
 
     void FixedUpdate()
     { //valore booleano ismoving per far capire che si sta muovendo si deve non solo fermare ma deve anche resettare il moltiplicatore
-        if (!is_moving)
-        {
-            Feature f0 = featureManager.Features[SCORE_MULTIPLIER];
-            f0.CurrentValue = initialscore;
-            tickMulti.Timer = initialintervall;
-            //Debug.Log(tickMulti.Timer);
-            return;
-        }
+        if (!GetMove) return;
 
         if (!isTutorial)
         {
             verticalSpeed = featureManager.FeatureValue(VERTICAL_SPEED);
             horizontalSpeed = featureManager.FeatureValue(HORIZONTAL_SPEED);
+            score_multiple = featureManager.FeatureValue(SCORE_MULTIPLIER);
+            Space += verticalSpeed * Time.deltaTime * score_multiple;
+            //Debug.Log("speed " + verticalSpeed);
+            //Debug.Log("SCORE_MULTPLER " + score_multiple);
         }
         else
         {
             verticalSpeed = featureManager.FeatureValueBase(VERTICAL_SPEED);
             horizontalSpeed = featureManager.FeatureValueBase(HORIZONTAL_SPEED);
+            score_multiple = featureManager.FeatureValue(SCORE_MULTIPLIER);
+            Space += verticalSpeed * Time.deltaTime * score_multiple;
+           
         }
 
         if (verticalSpeed > maxSpeed || horizontalSpeed > maxHSpeed)
@@ -204,56 +196,20 @@ public class RoadManager : MonoBehaviour
             verticalSpeed = maxSpeed;
             horizontalSpeed = maxHSpeed;
         }
+
         // Debug.Log("Vert_Speed: " + verticalSpeed);
         //Debug.Log("Horz_Speed: " + horizontalSpeed);
         foreach (GameObject g in instantiatedTracks)
         {
             g.transform.position += new Vector3(0, 0, -verticalSpeed * Time.deltaTime);
         }
-
-        ScoreMult();
         effectsManager.InvincibleShield(IsInvincible());
     }
+
 
     public void OnDisable()
     {
         ScoreSaver();
-    }
-
-    public void ScoreMult()
-    {
-        //variabile locale 
-        if (componentManager.ComponentsByFeature(SCORE_MULTIPLIER).Count == 1)
-        {
-
-            if (!pass) score_multiple = featureManager.FeatureValue(SCORE_MULTIPLIER);
-
-            if (pass)
-            {
-                score_multiple = featureManager.FeatureValueBase(SCORE_MULTIPLIER);
-                Feature f1 = featureManager.Features[SCORE_MULTIPLIER];
-                f1.CurrentValue = score_multiple;
-            }
-
-            Feature f2 = featureManager.Features[SCORE_MULTIPLIER];
-            f2.BaseValue = score_multiple;
-            Space += score_multiple * verticalSpeed * Time.deltaTime;
-            score_multiple_powerup = 0;
-            pass = false;
-        }
-        else
-        {
-            score_multiple_powerup = featureManager.FeatureValue(SCORE_MULTIPLIER);
-            Space += score_multiple_powerup * verticalSpeed * Time.deltaTime;
-            pass = true;
-        }
-    }
-
-    public float GetScoreMult()
-    {
-        if (!pass) return score_multiple;
-
-        return score_multiple_powerup;
     }
 
     public void SpawnSegment(GameObject temp)

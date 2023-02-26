@@ -45,9 +45,10 @@ public class SpeedUp : SComponent
 
     }
 
-    public Tick TickSpeddUp()
+    public void resetTick()
     {
-        return tick;
+        tick.Timer = (int)m_mods[TICKER].MultFactor;
+
     }
 
 
