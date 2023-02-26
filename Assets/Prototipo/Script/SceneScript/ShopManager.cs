@@ -146,7 +146,6 @@ public class ShopManager : MonoBehaviour
         PlayerPrefs.SetInt(NameScene, currentCarIndex);
         c.isUnlocked = true;
         startButton.gameObject.SetActive(true);
-        bestScore -= c.price;
         UpdateScoreOnFile();
         ReadScoreFromFile();
     }

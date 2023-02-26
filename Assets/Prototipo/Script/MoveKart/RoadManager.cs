@@ -426,12 +426,15 @@ public class RoadManager : MonoBehaviour
         {
             bestScore = int.Parse(l);
         }
-        score += bestScore;
-        WriteScoreOnFile();
+        if (bestScore > score)
+            WriteScoreOnFile(bestScore);
+        else
+            WriteScoreOnFile(score);
+
     }
-    public void WriteScoreOnFile()
+    public void WriteScoreOnFile(int s)
     {
-        File.WriteAllText(SCORE_PATH, score.ToString());
+        File.WriteAllText(SCORE_PATH, s.ToString());
     }
 
     public void StopMove()
