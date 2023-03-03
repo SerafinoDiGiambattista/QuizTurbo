@@ -87,7 +87,7 @@ public class HealthGUI : MonoBehaviour
             }
 
         }
-        else if (numOfHearts == 0)
+        else if (numOfHearts <= 0)
         {
             foreach(GameObject h in instantiatedRedHearts)
                 h.SetActive(false);

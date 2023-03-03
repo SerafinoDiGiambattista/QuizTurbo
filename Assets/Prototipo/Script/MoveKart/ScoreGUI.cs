@@ -9,6 +9,7 @@ public class ScoreGUI : MonoBehaviour
     public GameObject objectRoad;
     private RoadManager roadManager;
     private float score = 0f;
+    private float score_multiple = 0f;
     void Start()
     {
         roadManager = objectRoad.GetComponent<RoadManager>();
@@ -17,8 +18,9 @@ public class ScoreGUI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        score = roadManager.Space;
-        gameObject.GetComponent<Text>().text = Mathf.Abs((Mathf.CeilToInt(score))).ToString();
+        score = roadManager.Point;
+        score_multiple = roadManager.GetScoreMultiple;
+        gameObject.GetComponent<Text>().text = Mathf.Abs((Mathf.CeilToInt(score_multiple))).ToString()+"X  "+Mathf.Abs((Mathf.CeilToInt(score))).ToString();
 
     }
 }

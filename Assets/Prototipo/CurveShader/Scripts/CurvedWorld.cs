@@ -32,7 +32,7 @@ public class CurvedWorld : MonoBehaviour
     }
 
     private void Start()
-    {
+    {   //aggiustare qui per pulire il codice 
         curvatureComponents = componentManager.ComponentsByFeature(CURVATURE);
         SComponent comp = curvatureComponents[CurvatureFileName];
         mod = comp.GetModifier(CURVATURE);

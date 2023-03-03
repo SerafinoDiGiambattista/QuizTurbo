@@ -4,11 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Linq;
-using Unity.IO;
-using UnityEngine.UIElements;
-using System.Reflection;
-using System.IO.Abstractions.TestingHelpers;
-using UnityEditor;
 
 public class RoadManager : MonoBehaviour
 {
@@ -18,7 +13,6 @@ public class RoadManager : MonoBehaviour
     [SerializeField] GameObject weightedObject;
     [SerializeField] GameObject questionObject;
     [SerializeField] GameObject shield;
-    [SerializeField] protected string SCORE_PATH;
     [SerializeField] protected string VERTICAL_SPEED = "VERTICAL_SPEED";
     [SerializeField] protected string MAX_SPEED = "MAX_SPEED";
     [SerializeField] protected string HORIZONTAL_SPEED = "HORIZONTAL_SPEED";
@@ -49,7 +43,7 @@ public class RoadManager : MonoBehaviour
     protected float numQuestionTrack = 0;
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
     protected List<GameObject> instantiatedTracks = new List<GameObject>();
-    protected float localSpace = 0f;
+    protected float localPoint = 0f;
     protected TickManager tickmanager;
     protected Dictionary<string, string> tickables = new Dictionary<string, string>();
     protected Dictionary<int, List<int>> spawningPositions = new Dictionary<int, List<int>>();
@@ -67,7 +61,6 @@ public class RoadManager : MonoBehaviour
         weightRandomManager = weightedObject.GetComponent<WeightRandomManager>();
         questionManager = questionObject.GetComponent<QuestionManager>();
         effectsManager = GetComponent<EffectsManager>();
-
         ReadSpawningFile(SPAWNING_POSITIONS, spawningPositions);
         ReadSpawningFile(TUTORIAL_SPAWNING, tutorialPositions);
 
@@ -160,13 +153,15 @@ public class RoadManager : MonoBehaviour
 
     protected void LoadFeatures()
     {
-        verticalSpeed = featureManager.FeatureValue(VERTICAL_SPEED);
+        
         maxSpeed = featureManager.FeatureValue(MAX_SPEED);
-        horizontalSpeed = featureManager.FeatureValue(HORIZONTAL_SPEED);
         maxHSpeed = featureManager.FeatureValue(MAX_HORIZONTAL);
         numObstacleTrack = featureManager.FeatureValue(NUM_OBSTACLE_TRACK);
         numQuestionTrack = featureManager.FeatureValue(NUM_QUESTION_TRACK);
+        verticalSpeed = featureManager.FeatureValue(VERTICAL_SPEED);
+        horizontalSpeed = featureManager.FeatureValue(HORIZONTAL_SPEED);
         score_multiple = featureManager.FeatureValue(SCORE_MULTIPLIER);
+
     }
 
     void FixedUpdate()
@@ -178,16 +173,13 @@ public class RoadManager : MonoBehaviour
             verticalSpeed = featureManager.FeatureValue(VERTICAL_SPEED);
             horizontalSpeed = featureManager.FeatureValue(HORIZONTAL_SPEED);
             score_multiple = featureManager.FeatureValue(SCORE_MULTIPLIER);
-            Space += verticalSpeed * Time.deltaTime * score_multiple;
-            //Debug.Log("speed " + verticalSpeed);
-            //Debug.Log("SCORE_MULTPLER " + score_multiple);
+            Point += verticalSpeed * Time.deltaTime * score_multiple;
+           Debug.Log("speed " + verticalSpeed);
+           
         }
         else
-        {
-            verticalSpeed = featureManager.FeatureValueBase(VERTICAL_SPEED);
-            horizontalSpeed = featureManager.FeatureValueBase(HORIZONTAL_SPEED);
-            score_multiple = featureManager.FeatureValue(SCORE_MULTIPLIER);
-            Space += verticalSpeed * Time.deltaTime * score_multiple;
+        {   //picollo problema nel tutorial 
+            
            
         }
 
@@ -197,8 +189,7 @@ public class RoadManager : MonoBehaviour
             horizontalSpeed = maxHSpeed;
         }
 
-        // Debug.Log("Vert_Speed: " + verticalSpeed);
-        //Debug.Log("Horz_Speed: " + horizontalSpeed);
+        
         foreach (GameObject g in instantiatedTracks)
         {
             g.transform.position += new Vector3(0, 0, -verticalSpeed * Time.deltaTime);
@@ -207,10 +198,15 @@ public class RoadManager : MonoBehaviour
     }
 
 
-    public void OnDisable()
+    public void UnchangedValue()
     {
-        ScoreSaver();
+        verticalSpeed = featureManager.FeatureValueBase(VERTICAL_SPEED);
+        horizontalSpeed = featureManager.FeatureValueBase(HORIZONTAL_SPEED);
+        score_multiple = featureManager.FeatureValueBase(SCORE_MULTIPLIER);
+        Point = 0;
+
     }
+
 
     public void SpawnSegment(GameObject temp)
     {
@@ -265,6 +261,7 @@ public class RoadManager : MonoBehaviour
         Dictionary<int, List<int>> binaryFile = new Dictionary<int, List<int>>();
         if (!isTutorial) binaryFile = spawningPositions;
         else { binaryFile = tutorialPositions; }
+        //la probabilita degli oggetti non deve aumentare con il tutorial attivo !!!
         if (CheckObjActivation)
         {
             int randomRow = UnityEngine.Random.Range(0, binaryFile.Count);
@@ -313,11 +310,15 @@ public class RoadManager : MonoBehaviour
             if (other.gameObject.tag.Equals(questionManager.GetCorrectAnswer().tag))
             {
                 Debug.Log("Risposta corretta");
+                questionManager.IncrementCorrectAnsw();
+
                 effectsManager.ActivateCorrectAnswCanvas();
                 CreateComponent(other);
                 yield return new WaitForSeconds(1.5f);
                 effectsManager.DisableCorrectAnswCanvas();
             }
+            
+         
         }
         if (other.gameObject.CompareTag("checkPointQuestion"))
         {
@@ -336,27 +337,8 @@ public class RoadManager : MonoBehaviour
 
     }
 
-    private int score = 0;
-    private int bestScore = 0;
-    public void ScoreSaver()
-    {
-        score = Mathf.CeilToInt(Space);
-        string[] lines = File.ReadAllLines(SCORE_PATH);
-        foreach (string l in lines)
-        {
-            bestScore = int.Parse(l);
-        }
-        if (bestScore > score)
-            WriteScoreOnFile(bestScore);
-        else
-            WriteScoreOnFile(score);
-
-    }
-    public void WriteScoreOnFile(int s)
-    {
-        File.WriteAllText(SCORE_PATH, s.ToString());
-    }
-
+    
+ 
     public void StopMove()
     {
         is_moving = false;
@@ -373,10 +355,10 @@ public class RoadManager : MonoBehaviour
         get { return is_moving; }
 
     }
-    public float Space
+    public float Point
     {
-        set { localSpace = value; }
-        get { return localSpace; }
+        set { localPoint = value; }
+        get { return localPoint; }
     }
 
     public float HorizontalSpeed
@@ -386,17 +368,7 @@ public class RoadManager : MonoBehaviour
     }
 
 
-    public float VerticalSpeed
-    {
-        get { return verticalSpeed; }
-        set { verticalSpeed = value; }
-    }
 
-    public float MaxSpeed
-    {
-        get { return maxSpeed; }
-        set { maxSpeed = value; }
-    }
     public float GetInitialHealth
     {
         get { return featureManager.FeatureValue(HEALTH); }
@@ -414,6 +386,10 @@ public class RoadManager : MonoBehaviour
     public void ResetHealth()
     {
         featureManager.GetFeature(HEALTH).CurrentValue = featureManager.FeatureValueBase(HEALTH);
+    }
+    public void ResetScoreMultiplier()
+    {
+        featureManager.GetFeature(SCORE_MULTIPLIER).CurrentValue = featureManager.FeatureValueBase(SCORE_MULTIPLIER);
     }
 
     public bool CheckObjActivation
@@ -442,5 +418,10 @@ public class RoadManager : MonoBehaviour
     public ComponentManager cm()
     {
         return componentManager;
+    }
+
+    public float GetScoreMultiple
+    {
+        get{ return score_multiple; }
     }
 }

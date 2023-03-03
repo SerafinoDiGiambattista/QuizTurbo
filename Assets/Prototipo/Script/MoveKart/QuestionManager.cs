@@ -11,6 +11,7 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] protected string QUESTIONS_DIR;
     [SerializeField] protected GameObject roadObject;
     [SerializeField] protected int changeToCorrectAnsw = 10;
+    [SerializeField] protected int changeTutorial = 1;
     protected RoadManager roadManager;
     protected QuestionGUI questionGUI;
     private int numCorrectAnsw = 0;
@@ -25,6 +26,10 @@ public class QuestionManager : MonoBehaviour
         ReadQuestions(QUESTIONS_DIR);
     }
 
+    private void Start()
+    {
+        PickQuestion(0);
+    }
     public void ReadQuestions(string directory)
     {
         DirectoryInfo dir = new DirectoryInfo(directory);
@@ -52,47 +57,51 @@ public class QuestionManager : MonoBehaviour
     public void QuestionCountPick()
     {
         if (index >= dictionaryList.Count) index = 0;
-        if (roadManager.IsTutorial)
+        
+        if (!roadManager.IsTutorial)
         {
-            CheckResetTutorial();
-        }
-        else if (numCorrectAnsw < changeToCorrectAnsw && !roadManager.IsTutorial)
-        {
-            PickQuestion(index);
-        }
-        else
-        {
-            index++;
-            numCorrectAnsw = 0;
-            PickQuestion(index);
+            if (numCorrectAnsw < changeToCorrectAnsw)
+            {
+                PickQuestion(index);
+            }
+            else
+            {
+                index++;
+                numCorrectAnsw = 0;
+                PickQuestion(index);
+            }
         }
     }
 
     public void CheckResetTutorial()
     {
-        if (numCorrectAnsw == 2)
+        Debug.Log("NUMERO RISPOSTE ESATTE : "+numCorrectAnsw);
+        if (numCorrectAnsw == changeTutorial)
         {
+            Debug.Log("FINE TUTORIAL ");
             roadManager.IsTutorial = false;
             numCorrectAnsw = 0;
             index = 0;
-            roadManager.Space = 0;
+            roadManager.Point = 0;
             roadManager.ResetHealth();
+            roadManager.ResetScoreMultiplier();
         }
         else PickQuestion(0);
     }
 
     public void PickQuestion( int ind)
     {
+        //Debug.Log(ind);
         if (dictionaryList[ind].Count == 0)
         {
             ReadQuestions(QUESTIONS_DIR);
         }
         int rand = UnityEngine.Random.Range(0, dictionaryList[ind].Count);
-        Debug.Log("Rand: " + rand);
+        //Debug.Log("Rand: " + rand);
         var question = dictionaryList[ind].ElementAt(rand);
         correctAnswer = question.Value;
         questionGUI.SetTextQuestion(question.Key);
-        Debug.Log(" " + question.Key + " " + question.Value);
+        //Debug.Log(" " + question.Key + " " + question.Value);
         dictionaryList[ind].Remove(question.Key);
     }
 
@@ -105,14 +114,15 @@ public class QuestionManager : MonoBehaviour
 
     public GameObject GetCorrectAnswer()
     {
-        numCorrectAnsw++;
-        Debug.Log("numCorrect: " + numCorrectAnsw);
+        
         return panels[correctAnswer];
     }
 
-    public int NumCorrectAnsw
+    public void IncrementCorrectAnsw()
     {
-        get { return numCorrectAnsw; }
+       
+        numCorrectAnsw++;
+        CheckResetTutorial();
     }
 
     public void ActivateCanvasQuestion()
