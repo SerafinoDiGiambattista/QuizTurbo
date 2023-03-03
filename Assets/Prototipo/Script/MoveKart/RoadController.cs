@@ -8,19 +8,21 @@ public class RoadController : MonoBehaviour
 
     private void Awake()
     {
-        roadManager= FindObjectOfType<RoadManager>();
+        roadManager = FindObjectOfType<RoadManager>();
     }
 
-    public void OnTriggerExit(Collider other)
+    public IEnumerator OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("PlayerBody"))
         {
             //executeWait(3);
+            yield return new WaitForSeconds(3.0f);
+
             SetRoadComplete();
             roadManager.SpawnSegment(getTrackRoad);
         }
     }
-  
+
     public void SetRoadComplete()
     {
         Transform[] arr = gameObject.GetComponentsInChildren<Transform>();
