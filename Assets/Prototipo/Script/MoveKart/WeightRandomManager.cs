@@ -56,7 +56,7 @@ public class WeightRandomManager : MonoBehaviour
         }
 
         float randomWeight = UnityEngine.Random.Range(0, total);
-        //Debug.Log("Valore proba tot : "+total);
+        Debug.Log("Valore proba tot : "+total);
         foreach(string s in weightFeatures.Keys)
         {
             float i = weightFeatures[s];
@@ -71,6 +71,11 @@ public class WeightRandomManager : MonoBehaviour
     public List<GameObject> GetObjectSpwan
     {
         get { return objectsToSpawn; }
+    }
+
+    public Dictionary<string, Feature> GetFeaturesWeight
+    {
+        get { return featuresRead; }
     }
 }
 

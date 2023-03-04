@@ -21,7 +21,7 @@ public class MultiplierManager : MonoBehaviour
 
 
     public void Awake()
-    {   //creare una classe come ha fatto Matteo??
+    {   
         featureManager = GetComponent<FeatureManager>();
         componentManager = GetComponent<ComponentManager>();
         tickmanager = GetComponent<TickManager>();
@@ -59,18 +59,7 @@ public class MultiplierManager : MonoBehaviour
 
 
     private void FixedUpdate()
-    {   //discutere con i ragazzi su sto fatto 
-        if (!roadManager.GetMove)
-        { 
-            foreach (string key in featureprev.Keys)
-            {
-                Feature f0 = featureManager.Features[key];
-                f0.CurrentValue = f0.BaseValue;
-                featureprev[key].resetTick();
-
-            }
-        }
-        
+    {   
         ScoreMult();
     }
 
@@ -110,4 +99,17 @@ public class MultiplierManager : MonoBehaviour
         
      
     }
+
+    public void ResetFeature()
+    {
+        foreach (string key in featureprev.Keys)
+        {
+            Feature f0 = featureManager.Features[key];
+            f0.CurrentValue = f0.BaseValue;
+            featureprev[key].resetTick();
+
+        }
+    }
 }
+
+

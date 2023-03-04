@@ -12,7 +12,6 @@ public class RoadManager : MonoBehaviour
     [SerializeField] GameObject trackroad;
     [SerializeField] GameObject weightedObject;
     [SerializeField] GameObject questionObject;
-    [SerializeField] GameObject shield;
     [SerializeField] protected string VERTICAL_SPEED = "VERTICAL_SPEED";
     [SerializeField] protected string MAX_SPEED = "MAX_SPEED";
     [SerializeField] protected string HORIZONTAL_SPEED = "HORIZONTAL_SPEED";
@@ -25,12 +24,13 @@ public class RoadManager : MonoBehaviour
     [SerializeField] protected string NUM_QUESTION_TRACK = "NUM_QUESTION_TRACK";
     [SerializeField] protected string INVINCIBILITY = "INVINCIBILITY";
     [SerializeField] protected string MAX_CURVATURE = "MAX_CURVATURE";
-    [SerializeField] protected bool isTutorial = false;
+    protected TutorialManager tutorialManager;
     protected FeatureManager featureManager;
     protected ComponentManager componentManager;
     protected WeightRandomManager weightRandomManager;
     protected RoadController roadController;
     protected QuestionManager questionManager;
+    protected MultiplierManager multiplierManager;
     protected float verticalSpeed;
     protected float health = 0;
     protected float score_multiple = 0f;
@@ -44,7 +44,6 @@ public class RoadManager : MonoBehaviour
     protected Dictionary<string, float> roadFeatures = new Dictionary<string, float>();
     protected List<GameObject> instantiatedTracks = new List<GameObject>();
     protected float localPoint = 0f;
-    protected TickManager tickmanager;
     protected Dictionary<string, string> tickables = new Dictionary<string, string>();
     protected Dictionary<int, List<int>> spawningPositions = new Dictionary<int, List<int>>();
     protected Dictionary<int, List<int>> tutorialPositions = new Dictionary<int, List<int>>();
@@ -56,11 +55,12 @@ public class RoadManager : MonoBehaviour
     {
         featureManager = GetComponent<FeatureManager>();
         componentManager = GetComponent<ComponentManager>();
-        tickmanager = GetComponent<TickManager>();
         roadController = trackroad.GetComponent<RoadController>();
         weightRandomManager = weightedObject.GetComponent<WeightRandomManager>();
         questionManager = questionObject.GetComponent<QuestionManager>();
         effectsManager = GetComponent<EffectsManager>();
+        tutorialManager = GetComponent<TutorialManager>();
+        multiplierManager = GetComponent<MultiplierManager>();
         ReadSpawningFile(SPAWNING_POSITIONS, spawningPositions);
         ReadSpawningFile(TUTORIAL_SPAWNING, tutorialPositions);
 
@@ -166,22 +166,18 @@ public class RoadManager : MonoBehaviour
 
     void FixedUpdate()
     { //valore booleano ismoving per far capire che si sta muovendo si deve non solo fermare ma deve anche resettare il moltiplicatore
-        if (!GetMove) return;
+        if (!GetMove) { 
+            multiplierManager.ResetFeature();
+            return; }
 
-        if (!isTutorial)
-        {
-            verticalSpeed = featureManager.FeatureValue(VERTICAL_SPEED);
-            horizontalSpeed = featureManager.FeatureValue(HORIZONTAL_SPEED);
-            score_multiple = featureManager.FeatureValue(SCORE_MULTIPLIER);
-            Point += verticalSpeed * Time.deltaTime * score_multiple;
-           Debug.Log("speed " + verticalSpeed);
-           
-        }
-        else
-        {   //picollo problema nel tutorial 
-            
-           
-        }
+       
+        verticalSpeed = featureManager.FeatureValue(VERTICAL_SPEED);
+        horizontalSpeed = featureManager.FeatureValue(HORIZONTAL_SPEED);
+        score_multiple = featureManager.FeatureValue(SCORE_MULTIPLIER);
+        if(!tutorialManager.GetTutorial)Point += verticalSpeed * Time.deltaTime * score_multiple;
+       // Debug.Log("multiplier : "+score_multiple);
+       
+    
 
         if (verticalSpeed > maxSpeed || horizontalSpeed > maxHSpeed)
         {
@@ -198,14 +194,7 @@ public class RoadManager : MonoBehaviour
     }
 
 
-    public void UnchangedValue()
-    {
-        verticalSpeed = featureManager.FeatureValueBase(VERTICAL_SPEED);
-        horizontalSpeed = featureManager.FeatureValueBase(HORIZONTAL_SPEED);
-        score_multiple = featureManager.FeatureValueBase(SCORE_MULTIPLIER);
-        Point = 0;
 
-    }
 
 
     public void SpawnSegment(GameObject temp)
@@ -259,7 +248,7 @@ public class RoadManager : MonoBehaviour
     public void ActivateObject(GameObject grandfather)
     {
         Dictionary<int, List<int>> binaryFile = new Dictionary<int, List<int>>();
-        if (!isTutorial) binaryFile = spawningPositions;
+        if (!tutorialManager.GetTutorial) binaryFile = spawningPositions;
         else { binaryFile = tutorialPositions; }
         //la probabilita degli oggetti non deve aumentare con il tutorial attivo !!!
         if (CheckObjActivation)
@@ -309,7 +298,7 @@ public class RoadManager : MonoBehaviour
             questionManager.DeactivateCanvasQuestion();
             if (other.gameObject.tag.Equals(questionManager.GetCorrectAnswer().tag))
             {
-                Debug.Log("Risposta corretta");
+                //Debug.Log("Risposta corretta");
                 questionManager.IncrementCorrectAnsw();
 
                 effectsManager.ActivateCorrectAnswCanvas();
@@ -317,7 +306,12 @@ public class RoadManager : MonoBehaviour
                 yield return new WaitForSeconds(1.5f);
                 effectsManager.DisableCorrectAnswCanvas();
             }
-            
+            else
+            {
+                effectsManager.ActivateWrongAnswCanvas();
+                yield return new WaitForSeconds(1.5f);
+                effectsManager.DisableCorrectAnswCanvas();
+            }
          
         }
         if (other.gameObject.CompareTag("checkPointQuestion"))
@@ -404,12 +398,10 @@ public class RoadManager : MonoBehaviour
         else return true;
     }
 
-    public bool IsTutorial
+    public WeightRandomManager GetWeightRandomManager
     {
-        get { return isTutorial; }
-        set { isTutorial = value; }
+        get { return weightRandomManager; } 
     }
-
     public FeatureManager fm()
     {
         return featureManager;

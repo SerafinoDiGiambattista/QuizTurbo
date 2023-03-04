@@ -145,10 +145,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 0e141b3397d234c8685509c5d77ebcf1,
         type: 2}
+    - target: {fileID: 6819311951943575195, guid: 53a93d7f2ed9e354c9e9aad002aea2ff,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 21962088495682642, guid: 0e141b3397d234c8685509c5d77ebcf1,
+        type: 2}
     - target: {fileID: 6819311953676177872, guid: 53a93d7f2ed9e354c9e9aad002aea2ff,
         type: 3}
       propertyPath: m_Name
       value: WrongAnswerCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819311953676177872, guid: 53a93d7f2ed9e354c9e9aad002aea2ff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6819311953676177884, guid: 53a93d7f2ed9e354c9e9aad002aea2ff,
         type: 3}
@@ -257,6 +268,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53a93d7f2ed9e354c9e9aad002aea2ff, type: 3}
+--- !u!1 &6801324021346655457 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6819311953676177872, guid: 53a93d7f2ed9e354c9e9aad002aea2ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 54105038322355505}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &384843534226197677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -611,6 +628,20 @@ MonoBehaviour:
     wheelCollider: {fileID: 4265512848082935262}
   PlayerAnimator: {fileID: 5556510996493735327}
   SteeringParam: Steering
+--- !u!114 &455419683880062488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722449559605623719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c64d09d0f79320d4091c06a6ab20db8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namefeatures: []
+  PathTutorial: Tutorial/EnableTutorial.txt
 --- !u!114 &4018910593971870304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -676,6 +707,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shield: {fileID: 9065968340579282255}
   correctAnswerCanvas: {fileID: 2023563261177916616}
+  wrongAnswerCanvas: {fileID: 6801324021346655457}
 --- !u!114 &4520069095825670831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -705,7 +737,6 @@ MonoBehaviour:
   NUM_QUESTION_TRACK: NUM_QUESTION_TRACK
   INVINCIBILITY: INVINCIBILITY
   MAX_CURVATURE: MAX_CURVATURE
-  isTutorial: 0
 --- !u!114 &8009515643157268226
 MonoBehaviour:
   m_ObjectHideFlags: 0

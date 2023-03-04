@@ -213,7 +213,7 @@ public class ComponentManager : MonoBehaviour
                             float midVal = f.CurrentValue * featureMulMod[f.Type];
                             f.CurrentValue = midVal + featureAddMod[f.Type];
                             
-                            //if(f.Type.Equals("CURVATURE"))Debug.Log("Feature current : " + featureMulMod[f.Type] + " " + featureAddMod[f.Type]);
+          
                         }   
                     }
                 }

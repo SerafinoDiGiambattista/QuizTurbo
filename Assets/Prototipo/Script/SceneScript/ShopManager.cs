@@ -139,7 +139,7 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    public void UnlockCar()
+   public void UnlockCar()
     {
         CarBlueprint c = cars[currentCarIndex];
         PlayerPrefs.SetInt(c.name, 1);

@@ -48,7 +48,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a12b45c15391330408b45746093b85f4, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.169
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -268,6 +268,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53a93d7f2ed9e354c9e9aad002aea2ff, type: 3}
+--- !u!1 &6174866650657332724 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6819311953676177872, guid: 53a93d7f2ed9e354c9e9aad002aea2ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 797867861739015204}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1860092135998534105
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -950,6 +956,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ce537f559e78940aae33ec1000c14e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &4946520538973136551 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7437652743537976543, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 2563194680994988664}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3225666774689527154 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1103827400963569418, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
@@ -968,15 +980,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2563194680994988664}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8215925048647532083 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5879061968337124427, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 2563194680994988664}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &7771462068020419402 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5209411772542818610, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 2563194680994988664}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8215925048647532083 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5879061968337124427, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
     type: 3}
   m_PrefabInstance: {fileID: 2563194680994988664}
   m_PrefabAsset: {fileID: 0}
@@ -1022,12 +1034,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2563194680994988664}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &4946520538973136551 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7437652743537976543, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 2563194680994988664}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4695318554492434372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1070,6 +1076,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shield: {fileID: 3128253052682902977}
   correctAnswerCanvas: {fileID: 8236298753051713545}
+  wrongAnswerCanvas: {fileID: 6174866650657332724}
 --- !u!114 &4330932480421742881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1095,6 +1102,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SCORE_PATH: Assets/StreamingAssets/Score/Score.csv
+--- !u!114 &8106776076238518374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3225666774689527154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c64d09d0f79320d4091c06a6ab20db8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namefeatures:
+  - VERTICAL_SPEED
+  - HORIZONTAL_SPEED
+  - SCORE_MULTIPLIER
+  PathTutorial: Tutorial/EnableTutorial.txt
 --- !u!114 &8558563435598190608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1175,7 +1199,6 @@ MonoBehaviour:
   NUM_QUESTION_TRACK: NUM_QUESTION_TRACK
   INVINCIBILITY: INVINCIBILITY
   MAX_CURVATURE: MAX_CURVATURE
-  isTutorial: 1
 --- !u!1001 &3129131442955143651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1271,7 +1294,12 @@ PrefabInstance:
     - target: {fileID: 3747240168709625350, guid: 11f7ba5b5a38a4b47916ce52de287e82,
         type: 3}
       propertyPath: changeTutorial
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3747240168709625350, guid: 11f7ba5b5a38a4b47916ce52de287e82,
+        type: 3}
+      propertyPath: changeToCorrectAnsw
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3747240168709625350, guid: 11f7ba5b5a38a4b47916ce52de287e82,
         type: 3}
@@ -1491,7 +1519,7 @@ PrefabInstance:
     - target: {fileID: 7866834380974147236, guid: 9a5ff103281288c48aa191d89632b2f0,
         type: 3}
       propertyPath: m_Name
-      value: CanvasTutorial (2)
+      value: CanvasTutorial
       objectReference: {fileID: 0}
     - target: {fileID: 9098968219882497175, guid: 9a5ff103281288c48aa191d89632b2f0,
         type: 3}

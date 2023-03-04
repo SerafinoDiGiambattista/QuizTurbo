@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EffectsManager : MonoBehaviour
 {
-    [SerializeField] GameObject shield;
-    [SerializeField] GameObject correctAnswerCanvas;
-
+    [SerializeField] protected GameObject shield;
+    [SerializeField] protected GameObject correctAnswerCanvas;
+    [SerializeField] protected GameObject wrongAnswerCanvas;
     public void CollisionObstacleEffect(GameObject go)
     {
         StartCoroutine(Blink(go));
@@ -54,5 +54,15 @@ public class EffectsManager : MonoBehaviour
     public void DisableCorrectAnswCanvas()
     {
         correctAnswerCanvas.SetActive(false);
+    }
+
+    public void ActivateWrongAnswCanvas()
+    {
+        wrongAnswerCanvas.SetActive(true);
+    }
+
+    public void DisableWrongAnswCanvas()
+    {
+        wrongAnswerCanvas.SetActive(false);
     }
 }

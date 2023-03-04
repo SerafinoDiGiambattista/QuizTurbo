@@ -10,8 +10,9 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] protected GameObject[] panels; //0=False 1=True
     [SerializeField] protected string QUESTIONS_DIR;
     [SerializeField] protected GameObject roadObject;
-    [SerializeField] protected int changeToCorrectAnsw = 10;
+    [SerializeField] protected int changeToCorrectAnsw = 1;
     [SerializeField] protected int changeTutorial = 1;
+    protected TutorialManager tutorialManager;
     protected RoadManager roadManager;
     protected QuestionGUI questionGUI;
     private int numCorrectAnsw = 0;
@@ -21,6 +22,7 @@ public class QuestionManager : MonoBehaviour
 
     private void Awake()
     {
+        tutorialManager = roadObject.GetComponent<TutorialManager>();
         roadManager = roadObject.GetComponent<RoadManager>();
         questionGUI = gameObject.GetComponent<QuestionGUI>();
         ReadQuestions(QUESTIONS_DIR);
@@ -58,7 +60,7 @@ public class QuestionManager : MonoBehaviour
     {
         if (index >= dictionaryList.Count) index = 0;
         
-        if (!roadManager.IsTutorial)
+        if (!tutorialManager.GetTutorial)
         {
             if (numCorrectAnsw < changeToCorrectAnsw)
             {
@@ -66,6 +68,7 @@ public class QuestionManager : MonoBehaviour
             }
             else
             {
+                Debug.Log("index : "+ index);
                 index++;
                 numCorrectAnsw = 0;
                 PickQuestion(index);
@@ -75,11 +78,10 @@ public class QuestionManager : MonoBehaviour
 
     public void CheckResetTutorial()
     {
-        Debug.Log("NUMERO RISPOSTE ESATTE : "+numCorrectAnsw);
+       
         if (numCorrectAnsw == changeTutorial)
-        {
-            Debug.Log("FINE TUTORIAL ");
-            roadManager.IsTutorial = false;
+        { 
+            tutorialManager.FalseTutorial();
             numCorrectAnsw = 0;
             index = 0;
             roadManager.Point = 0;
@@ -120,9 +122,10 @@ public class QuestionManager : MonoBehaviour
 
     public void IncrementCorrectAnsw()
     {
-       
+      
         numCorrectAnsw++;
-        CheckResetTutorial();
+        if(tutorialManager.GetTutorial) CheckResetTutorial();
+
     }
 
     public void ActivateCanvasQuestion()

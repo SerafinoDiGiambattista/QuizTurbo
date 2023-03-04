@@ -1,3 +1,4 @@
+using Google.Protobuf.Collections;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,28 +7,16 @@ using UnityEngine.UI;
 
 public class TutorialStart : MonoBehaviour
 {
-    private RoadManager roadManager;
+    protected TutorialManager tutorialManager;
     public GameObject tutorialStartUI;
     public GameObject tutorialEndUI;
-     public Button bott;
+    public Button bott;
     public static bool GameIsPaused = false;
     private static bool check =false;
     // Start is called before the first frame update
 
 
-    private void Update()
-    {
-
-        if (roadManager.IsTutorial == false && check == true)
-        {
-            Debug.Log("FINE TUTORIAL");
-            StartCoroutine(
-                        Endtut());
-
-
-        }
-    }
-
+  
 
     void Start()
     {
@@ -37,11 +26,11 @@ public class TutorialStart : MonoBehaviour
 
         tutorialEndUI.SetActive(false);
 
-        roadManager = GetComponentInParent<RoadManager>();
+        tutorialManager = GetComponentInParent<TutorialManager>();
       
 
 
-        if (roadManager.IsTutorial == true)
+        if (tutorialManager.GetTutorial == true)
         {
             Debug.Log("ok");
             Pause();
@@ -58,7 +47,19 @@ public class TutorialStart : MonoBehaviour
 
     }
 
-   
+     private void Update()
+    {
+
+        if (tutorialManager.GetTutorial == false && check == true)
+        {
+            Debug.Log("FINE TUTORIAL");
+            StartCoroutine(
+                        Endtut());
+
+
+        }
+    }
+
     public void Pause()
     {
 
@@ -88,7 +89,7 @@ public class TutorialStart : MonoBehaviour
         tutorialEndUI.SetActive(true);
 
         yield return new WaitForSeconds(2.0f);
-        Debug.Log("SEI ARRIVATO");
+        //Debug.Log("SEI ARRIVATO");
         check = false;
 
         StopCoroutine(Endtut());

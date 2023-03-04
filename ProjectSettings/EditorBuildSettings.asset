@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Prototipo/Scenes/CarSelect.unity
     guid: 03223e092034f8b46994d279f162bbb7
   - enabled: 1
-    path: Assets/Prototipo/Scenes/serafino.unity
+    path: Assets/Prototipo/Scenes/Game.unity
     guid: 938ae0c8470ca1243af893c340473771
   - enabled: 1
     path: Assets/Prototipo/Scenes/DeathScene.unity

@@ -13,12 +13,12 @@ public class HealthGUI : MonoBehaviour
     public GameObject redHeart;
     public GameObject grayHeart;
     public GameObject playerObject;
-    private List<GameObject> instantiatedRedHearts = new List<GameObject>();
-    private List<GameObject> instantiatedGrayHearts = new List<GameObject>();
-    private FeatureManager featuremanager;
+    protected List<GameObject> instantiatedRedHearts = new List<GameObject>();
+    protected List<GameObject> instantiatedGrayHearts = new List<GameObject>();
+    protected FeatureManager featuremanager;
     private RoadManager roadManager;
-    private float score;
-    private int bestScore = 0;
+
+
 
     private void Awake()
     {
