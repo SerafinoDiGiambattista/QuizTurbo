@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-public class SpeedUp : SComponent
+public class TCComponent : SComponent
 {
     protected CountDownManager cdmanager;
     protected TickManager tm;
@@ -13,7 +13,7 @@ public class SpeedUp : SComponent
     protected int valuePerSecond = 1;
     protected Tick tick;
 
-    public SpeedUp(string name, string path, ComponentManager comm) : base(name, path, comm)
+    public TCComponent(string name, string path, ComponentManager comm) : base(name, path, comm)
     {
         cdmanager = cm.GetCountDownManager;
         tm = cm.GetTickManager;

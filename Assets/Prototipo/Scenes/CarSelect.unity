@@ -2352,21 +2352,21 @@ MonoBehaviour:
   - {fileID: 6107341316674567823, guid: 47214bd48219f384fb744c387ab9a2f6, type: 3}
   SCORE_PATH: Assets/StreamingAssets/Score/Score.csv
   cars:
-  - name: 1
+  - name: Prefab
     index: 0
     price: 0
-    isUnlocked: 1
-  - name: 2
+    isUnlocked: 0
+  - name: Prefab1
     index: 1
-    price: 200
-    isUnlocked: 0
-  - name: 3
-    index: 2
-    price: 1000
-    isUnlocked: 0
-  - name: 4
-    index: 3
     price: 2000
+    isUnlocked: 0
+  - name: Prefab2
+    index: 2
+    price: 3000
+    isUnlocked: 0
+  - name: Prefab3
+    index: 3
+    price: 4000
     isUnlocked: 0
   buyButton: {fileID: 235490293}
   startButton: {fileID: 614727302}

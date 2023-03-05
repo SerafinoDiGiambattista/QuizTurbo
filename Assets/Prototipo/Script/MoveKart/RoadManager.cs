@@ -8,10 +8,9 @@ using System.Linq;
 public class RoadManager : MonoBehaviour
 {
     protected EffectsManager effectsManager;
-
+    [SerializeField] GameObject questionObject;
     [SerializeField] GameObject trackroad;
     [SerializeField] GameObject weightedObject;
-    [SerializeField] GameObject questionObject;
     [SerializeField] protected string VERTICAL_SPEED = "VERTICAL_SPEED";
     [SerializeField] protected string MAX_SPEED = "MAX_SPEED";
     [SerializeField] protected string HORIZONTAL_SPEED = "HORIZONTAL_SPEED";
@@ -23,14 +22,13 @@ public class RoadManager : MonoBehaviour
     [SerializeField] protected string NUM_OBSTACLE_TRACK = "NUM_OBSTACLE_TRACK";
     [SerializeField] protected string NUM_QUESTION_TRACK = "NUM_QUESTION_TRACK";
     [SerializeField] protected string INVINCIBILITY = "INVINCIBILITY";
-    [SerializeField] protected string MAX_CURVATURE = "MAX_CURVATURE";
     protected TutorialManager tutorialManager;
     protected FeatureManager featureManager;
     protected ComponentManager componentManager;
     protected WeightRandomManager weightRandomManager;
     protected RoadController roadController;
     protected QuestionManager questionManager;
-    protected MultiplierManager multiplierManager;
+    protected EffectTempManager multiplierManager;
     protected float verticalSpeed;
     protected float health = 0;
     protected float score_multiple = 0f;
@@ -57,10 +55,10 @@ public class RoadManager : MonoBehaviour
         componentManager = GetComponent<ComponentManager>();
         roadController = trackroad.GetComponent<RoadController>();
         weightRandomManager = weightedObject.GetComponent<WeightRandomManager>();
-        questionManager = questionObject.GetComponent<QuestionManager>();
         effectsManager = GetComponent<EffectsManager>();
         tutorialManager = GetComponent<TutorialManager>();
-        multiplierManager = GetComponent<MultiplierManager>();
+        multiplierManager = GetComponent<EffectTempManager>();
+        questionManager = questionObject.GetComponent<QuestionManager>();
         ReadSpawningFile(SPAWNING_POSITIONS, spawningPositions);
         ReadSpawningFile(TUTORIAL_SPAWNING, tutorialPositions);
 
@@ -79,6 +77,7 @@ public class RoadManager : MonoBehaviour
 
     protected void ReadSpawningFile(string path, Dictionary<int, List<int>> valuesDict)
     {
+        path = System.IO.Path.Combine(Application.streamingAssetsPath, path);
         string[] lines = File.ReadAllLines(path);
         int i = 0;
 
@@ -279,60 +278,6 @@ public class RoadManager : MonoBehaviour
     }
 
 
-    private IEnumerator OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Ostacolo") && !IsInvincible())
-        {
-            CreateComponent(other);
-            effectsManager.CollisionObstacleEffect(gameObject);
-            StopMove();
-            yield return new WaitForSeconds(0.5f);
-            GoMove();
-        }
-        if (other.gameObject.CompareTag("PowerUp"))
-        {
-            CreateComponent(other);
-        }
-        if (other.gameObject.CompareTag("PanelTrue") || other.gameObject.CompareTag("PanelFalse"))
-        {
-            questionManager.DeactivateCanvasQuestion();
-            if (other.gameObject.tag.Equals(questionManager.GetCorrectAnswer().tag))
-            {
-                //Debug.Log("Risposta corretta");
-                questionManager.IncrementCorrectAnsw();
-
-                effectsManager.ActivateCorrectAnswCanvas();
-                CreateComponent(other);
-                yield return new WaitForSeconds(1.5f);
-                effectsManager.DisableCorrectAnswCanvas();
-            }
-            else
-            {
-                effectsManager.ActivateWrongAnswCanvas();
-                yield return new WaitForSeconds(1.5f);
-                effectsManager.DisableCorrectAnswCanvas();
-            }
-         
-        }
-        if (other.gameObject.CompareTag("checkPointQuestion"))
-        {
-
-            questionManager.ActivateCanvasQuestion();
-            other.gameObject.GetComponent<Collider>().enabled = false;
-        }
-    }
-
-    public void CreateComponent(Collider other)
-    {
-        string path = other.gameObject.GetComponent<PathManager>().Path;
-        string[] n = path.Split('.');
-        string name = Path.GetFileName(n[0]);
-        componentManager.ComponentPickup(name, path);
-
-    }
-
-    
- 
     public void StopMove()
     {
         is_moving = false;

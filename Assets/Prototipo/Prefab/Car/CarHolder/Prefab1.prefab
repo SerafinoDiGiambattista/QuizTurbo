@@ -956,9 +956,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ce537f559e78940aae33ec1000c14e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &4946520538973136551 stripped
+--- !u!4 &1584949421608641213 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7437652743537976543, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+  m_CorrespondingSourceObject: {fileID: 3921673076585078981, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
     type: 3}
   m_PrefabInstance: {fileID: 2563194680994988664}
   m_PrefabAsset: {fileID: 0}
@@ -971,6 +971,12 @@ GameObject:
 --- !u!4 &5972361366058875488 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8174135576595019800, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 2563194680994988664}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4946520538973136551 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7437652743537976543, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
     type: 3}
   m_PrefabInstance: {fileID: 2563194680994988664}
   m_PrefabAsset: {fileID: 0}
@@ -1025,12 +1031,6 @@ Transform:
 --- !u!4 &3283757483260366942 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1008819455047979558, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 2563194680994988664}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1584949421608641213 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3921673076585078981, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
     type: 3}
   m_PrefabInstance: {fileID: 2563194680994988664}
   m_PrefabAsset: {fileID: 0}
@@ -1186,19 +1186,31 @@ MonoBehaviour:
     type: 3}
   weightedObject: {fileID: 406068425102868247}
   questionObject: {fileID: 122531229122529900}
-  shield: {fileID: 3128253052682902977}
   VERTICAL_SPEED: VERTICAL_SPEED
   MAX_SPEED: MAX_SPEED
   HORIZONTAL_SPEED: HORIZONTAL_SPEED
   MAX_HORIZONTAL: MAX_HORIZONTAL
   HEALTH: HEALTH
   SCORE_MULTIPLIER: SCORE_MULTIPLIER
-  SPAWNING_POSITIONS: Assets/StreamingAssets/Spawning/PositionSpwan.csv
-  TUTORIAL_SPAWNING: Assets/StreamingAssets/Spawning/Tutorial.csv
+  SPAWNING_POSITIONS: Spawning/PositionSpwan.csv
+  TUTORIAL_SPAWNING: Spawning/Tutorial.csv
   NUM_OBSTACLE_TRACK: NUM_OBSTACLE_TRACK
   NUM_QUESTION_TRACK: NUM_QUESTION_TRACK
   INVINCIBILITY: INVINCIBILITY
   MAX_CURVATURE: MAX_CURVATURE
+--- !u!114 &3253507611647326529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3225666774689527154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46cf9cb707de7bf4bb2cc34d888ce822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionObject: {fileID: 122531229122529900}
 --- !u!1001 &3129131442955143651
 PrefabInstance:
   m_ObjectHideFlags: 0

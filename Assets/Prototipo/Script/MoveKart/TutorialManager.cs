@@ -56,7 +56,7 @@ public class TutorialManager : MonoBehaviour
                 Dictionary<string, SComponent> components = componentManager.ComponentsByFeature(f.Type);
                 foreach(string key in components.Keys)
                 {
-                    SpeedUp s = (SpeedUp)components[key];
+                    TCComponent s = (TCComponent)components[key];
                     s.resetTick();
                 }
             }

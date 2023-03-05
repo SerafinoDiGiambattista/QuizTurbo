@@ -41,9 +41,9 @@ public class ComponentManager : MonoBehaviour
     {
             path = Path.Combine(Application.streamingAssetsPath, path);
              /*
-            Type t = Type.GetType("SpeedUp");
-            AddComponent((SpeedUp)Activator.CreateInstance(t, name, path, this));*/
-            AddComponent(new SpeedUp(name, path, this));
+            Type t = Type.GetType("TCComponent");
+            AddComponent((TCComponent)Activator.CreateInstance(t, name, path, this));*/
+            AddComponent(new TCComponent(name, path, this));
     }
 
 
@@ -83,7 +83,7 @@ public class ComponentManager : MonoBehaviour
         string[] n = path.Split('.');
 
         // SComponent c = new SComponent();
-        SComponent c = new SpeedUp(Path.GetFileName(n[0].Trim()), path, this);
+        SComponent c = new TCComponent(Path.GetFileName(n[0].Trim()), path, this);
         AddComponent(c);
     }
 

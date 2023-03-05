@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using static UnityEditor.ShaderData;
 
-public class MultiplierManager : MonoBehaviour
+public class EffectTempManager : MonoBehaviour
 {
     protected List<string> namefeature;
     protected string STORE = "STORE";
@@ -13,7 +13,7 @@ public class MultiplierManager : MonoBehaviour
     protected FeatureManager featureManager;
     protected TickManager tickmanager;
     protected ComponentManager componentManager;
-    protected Dictionary<string, SpeedUp> featureprev = new Dictionary<string, SpeedUp>();
+    protected Dictionary<string, TCComponent> featureprev = new Dictionary<string, TCComponent>();
     protected RoadManager roadManager;
     protected List<float> prev = new List<float> ();
     protected List<bool> pass = new List<bool>();
@@ -39,7 +39,7 @@ public class MultiplierManager : MonoBehaviour
             {
                 foreach(string key in list.Keys)
                 {
-                    SpeedUp s = (SpeedUp)list[key];
+                    TCComponent s = (TCComponent)list[key];
                     if (s.CheckFeature(STORE))
                     {
                         Debug.Log(key);

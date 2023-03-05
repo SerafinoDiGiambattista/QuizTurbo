@@ -768,12 +768,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2547163371750545737}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8887308968797780616 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6345369551274140609, guid: 035a061c32552fb44b82bd7b35d830a2,
-    type: 3}
-  m_PrefabInstance: {fileID: 2547163371750545737}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6763207229284840154 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9116106650505423763, guid: 035a061c32552fb44b82bd7b35d830a2,
@@ -789,6 +783,12 @@ MonoBehaviour:
 --- !u!1 &5996452362048534005 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8101687865066892476, guid: 035a061c32552fb44b82bd7b35d830a2,
+    type: 3}
+  m_PrefabInstance: {fileID: 2547163371750545737}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8887308968797780616 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6345369551274140609, guid: 035a061c32552fb44b82bd7b35d830a2,
     type: 3}
   m_PrefabInstance: {fileID: 2547163371750545737}
   m_PrefabAsset: {fileID: 0}
@@ -1248,9 +1248,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b5ec48f82cbba64e91fdd4d055f11f3, type: 3}
---- !u!146 &100340914086194002 stripped
+--- !u!146 &2579705360124959754 stripped
 WheelCollider:
-  m_CorrespondingSourceObject: {fileID: 4496026681599955315, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+  m_CorrespondingSourceObject: {fileID: 2075481780534732331, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 4540019806337382945}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1069828409280873240 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3592087654158891321, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
     type: 3}
   m_PrefabInstance: {fileID: 4540019806337382945}
   m_PrefabAsset: {fileID: 0}
@@ -1278,21 +1284,21 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4540019806337382945}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &8595946299513971475 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5209411772542818610, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 4540019806337382945}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1069828409280873240 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3592087654158891321, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+--- !u!146 &100340914086194002 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 4496026681599955315, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
     type: 3}
   m_PrefabInstance: {fileID: 4540019806337382945}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &7969115433012037226 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5879061968337124427, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 4540019806337382945}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8595946299513971475 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5209411772542818610, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
     type: 3}
   m_PrefabInstance: {fileID: 4540019806337382945}
   m_PrefabAsset: {fileID: 0}
@@ -1341,12 +1347,6 @@ WheelCollider:
 --- !u!146 &4243580915235645960 stripped
 WheelCollider:
   m_CorrespondingSourceObject: {fileID: 424844345087447081, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 4540019806337382945}
-  m_PrefabAsset: {fileID: 0}
---- !u!146 &2579705360124959754 stripped
-WheelCollider:
-  m_CorrespondingSourceObject: {fileID: 2075481780534732331, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
     type: 3}
   m_PrefabInstance: {fileID: 4540019806337382945}
   m_PrefabAsset: {fileID: 0}
@@ -1499,19 +1499,31 @@ MonoBehaviour:
     type: 3}
   weightedObject: {fileID: 5676181673510375870}
   questionObject: {fileID: 2098811077795459637}
-  shield: {fileID: 0}
   VERTICAL_SPEED: VERTICAL_SPEED
   MAX_SPEED: MAX_SPEED
   HORIZONTAL_SPEED: HORIZONTAL_SPEED
   MAX_HORIZONTAL: MAX_HORIZONTAL
   HEALTH: HEALTH
   SCORE_MULTIPLIER: SCORE_MULTIPLIER
-  SPAWNING_POSITIONS: Assets/StreamingAssets/Spawning/PositionSpwan.csv
-  TUTORIAL_SPAWNING: Assets/StreamingAssets/Spawning/Tutorial.csv
+  SPAWNING_POSITIONS: Spawning/PositionSpwan.csv
+  TUTORIAL_SPAWNING: Spawning/Tutorial.csv
   NUM_OBSTACLE_TRACK: NUM_OBSTACLE_TRACK
   NUM_QUESTION_TRACK: NUM_QUESTION_TRACK
   INVINCIBILITY: INVINCIBILITY
   MAX_CURVATURE: MAX_CURVATURE
+--- !u!114 &6882861044485877530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3481553926144953643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46cf9cb707de7bf4bb2cc34d888ce822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionObject: {fileID: 2098811077795459637}
 --- !u!1001 &5960271995313168240
 PrefabInstance:
   m_ObjectHideFlags: 0

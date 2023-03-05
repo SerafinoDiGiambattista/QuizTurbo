@@ -534,9 +534,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 384843534226197677}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6107341317314359526 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5879061968337124427, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+--- !u!95 &5556510996493735327 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5209411772542818610, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 384843534226197677}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7088917482641221746 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7437652743537976543, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
     type: 3}
   m_PrefabInstance: {fileID: 384843534226197677}
   m_PrefabAsset: {fileID: 0}
@@ -546,9 +552,9 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 384843534226197677}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &5556510996493735327 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5209411772542818610, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
+--- !u!1 &6107341317314359526 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5879061968337124427, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
     type: 3}
   m_PrefabInstance: {fileID: 384843534226197677}
   m_PrefabAsset: {fileID: 0}
@@ -591,12 +597,6 @@ Transform:
 --- !u!4 &3691730984622468200 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3921673076585078981, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 384843534226197677}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &7088917482641221746 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7437652743537976543, guid: 9b5ec48f82cbba64e91fdd4d055f11f3,
     type: 3}
   m_PrefabInstance: {fileID: 384843534226197677}
   m_PrefabAsset: {fileID: 0}
@@ -724,15 +724,14 @@ MonoBehaviour:
     type: 3}
   weightedObject: {fileID: 2551240571713368514}
   questionObject: {fileID: 2843503492246897849}
-  shield: {fileID: 0}
   VERTICAL_SPEED: VERTICAL_SPEED
   MAX_SPEED: MAX_SPEED
   HORIZONTAL_SPEED: HORIZONTAL_SPEED
   MAX_HORIZONTAL: MAX_HORIZONTAL
   HEALTH: HEALTH
   SCORE_MULTIPLIER: SCORE_MULTIPLIER
-  SPAWNING_POSITIONS: Assets/StreamingAssets/Spawning/PositionSpwan.csv
-  TUTORIAL_SPAWNING: Assets/StreamingAssets/Spawning/Tutorial.csv
+  SPAWNING_POSITIONS: Spawning/PositionSpwan.csv
+  TUTORIAL_SPAWNING: Spawning/Tutorial.csv
   NUM_OBSTACLE_TRACK: NUM_OBSTACLE_TRACK
   NUM_QUESTION_TRACK: NUM_QUESTION_TRACK
   INVINCIBILITY: INVINCIBILITY
@@ -762,6 +761,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SCORE_PATH: Assets/StreamingAssets/Score/Score.csv
+--- !u!114 &8729103934180815985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722449559605623719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46cf9cb707de7bf4bb2cc34d888ce822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionObject: {fileID: 2843503492246897849}
 --- !u!1001 &1217384497157404131
 PrefabInstance:
   m_ObjectHideFlags: 0
