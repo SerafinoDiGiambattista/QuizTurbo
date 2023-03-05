@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class CurvedWorld : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class CurvedWorld : MonoBehaviour
     protected ComponentManager componentManager;
     [SerializeField] protected string CURVATURE = "CURVATURE";
     [SerializeField] protected string MAX_CURVATURE = "MAX_CURVATURE";
-    [SerializeField] protected string CHANGING_CURVATURE = "CHANGING_CURVATURE";
     Dictionary<string, SComponent> curvatureComponents;
     [Space]
     public float CurvatureScaleUnit = 1000f;
@@ -34,10 +34,17 @@ public class CurvedWorld : MonoBehaviour
     private void Start()
     {   //aggiustare qui per pulire il codice 
         curvatureComponents = componentManager.ComponentsByFeature(CURVATURE);
-        SComponent comp = curvatureComponents[CurvatureFileName];
-        mod = comp.GetModifier(CURVATURE);
-        negative = mod.AddFactor * -1;
-        positive = mod.AddFactor;
+        foreach (string key in curvatureComponents.Keys)
+        {
+            SComponent s = curvatureComponents[key];
+            if(s.CheckFeature(CURVATURE))
+            {
+                mod = s.GetModifier(CURVATURE);
+                negative = mod.AddFactor * -1;
+                positive = mod.AddFactor;
+            }
+        }
+
         change = true;
 
     }
