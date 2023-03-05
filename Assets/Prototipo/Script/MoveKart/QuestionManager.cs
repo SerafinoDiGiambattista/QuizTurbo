@@ -68,7 +68,7 @@ public class QuestionManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("index : "+ index);
+                //Debug.Log("index : "+ index);
                 index++;
                 numCorrectAnsw = 0;
                 PickQuestion(index);

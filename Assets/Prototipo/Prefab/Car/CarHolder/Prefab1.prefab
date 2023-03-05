@@ -1077,6 +1077,19 @@ MonoBehaviour:
   shield: {fileID: 3128253052682902977}
   correctAnswerCanvas: {fileID: 8236298753051713545}
   wrongAnswerCanvas: {fileID: 6174866650657332724}
+--- !u!114 &3253507611647326529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3225666774689527154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46cf9cb707de7bf4bb2cc34d888ce822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionObject: {fileID: 122531229122529900}
 --- !u!114 &4330932480421742881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1182,10 +1195,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61751b8f3f0f464e8e0b8aaabda2984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questionObject: {fileID: 122531229122529900}
   trackroad: {fileID: 4170898016154197269, guid: 9054f1aabe8280a4b96a1f8f7b756a2e,
     type: 3}
   weightedObject: {fileID: 406068425102868247}
-  questionObject: {fileID: 122531229122529900}
   VERTICAL_SPEED: VERTICAL_SPEED
   MAX_SPEED: MAX_SPEED
   HORIZONTAL_SPEED: HORIZONTAL_SPEED
@@ -1197,20 +1210,6 @@ MonoBehaviour:
   NUM_OBSTACLE_TRACK: NUM_OBSTACLE_TRACK
   NUM_QUESTION_TRACK: NUM_QUESTION_TRACK
   INVINCIBILITY: INVINCIBILITY
-  MAX_CURVATURE: MAX_CURVATURE
---- !u!114 &3253507611647326529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3225666774689527154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46cf9cb707de7bf4bb2cc34d888ce822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questionObject: {fileID: 122531229122529900}
 --- !u!1001 &3129131442955143651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1306,12 +1305,12 @@ PrefabInstance:
     - target: {fileID: 3747240168709625350, guid: 11f7ba5b5a38a4b47916ce52de287e82,
         type: 3}
       propertyPath: changeTutorial
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3747240168709625350, guid: 11f7ba5b5a38a4b47916ce52de287e82,
         type: 3}
       propertyPath: changeToCorrectAnsw
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3747240168709625350, guid: 11f7ba5b5a38a4b47916ce52de287e82,
         type: 3}

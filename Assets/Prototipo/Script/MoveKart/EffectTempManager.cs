@@ -42,7 +42,7 @@ public class EffectTempManager : MonoBehaviour
                     TCComponent s = (TCComponent)list[key];
                     if (s.CheckFeature(STORE))
                     {
-                        Debug.Log(key);
+                        //Debug.Log(key);
                         featureprev.Add(namefeature[i], s);
                         prev.Add(0.0f);
                         pass.Add(false);
