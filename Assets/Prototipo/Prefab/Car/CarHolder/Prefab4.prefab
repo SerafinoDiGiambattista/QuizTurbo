@@ -48,7 +48,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a12b45c15391330408b45746093b85f4, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -720,10 +720,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61751b8f3f0f464e8e0b8aaabda2984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questionObject: {fileID: 2843503492246897849}
   trackroad: {fileID: 4170898016154197269, guid: 9054f1aabe8280a4b96a1f8f7b756a2e,
     type: 3}
   weightedObject: {fileID: 2551240571713368514}
-  questionObject: {fileID: 2843503492246897849}
   VERTICAL_SPEED: VERTICAL_SPEED
   MAX_SPEED: MAX_SPEED
   HORIZONTAL_SPEED: HORIZONTAL_SPEED
@@ -735,7 +735,6 @@ MonoBehaviour:
   NUM_OBSTACLE_TRACK: NUM_OBSTACLE_TRACK
   NUM_QUESTION_TRACK: NUM_QUESTION_TRACK
   INVINCIBILITY: INVINCIBILITY
-  MAX_CURVATURE: MAX_CURVATURE
 --- !u!114 &8009515643157268226
 MonoBehaviour:
   m_ObjectHideFlags: 0

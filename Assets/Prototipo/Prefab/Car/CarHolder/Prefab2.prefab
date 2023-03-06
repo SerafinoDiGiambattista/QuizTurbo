@@ -48,7 +48,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a12b45c15391330408b45746093b85f4, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1432,6 +1432,19 @@ MonoBehaviour:
   shield: {fileID: 2478823198098517605}
   correctAnswerCanvas: {fileID: 3432412801249763296}
   wrongAnswerCanvas: {fileID: 6637691611907871833}
+--- !u!114 &6882861044485877530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3481553926144953643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46cf9cb707de7bf4bb2cc34d888ce822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionObject: {fileID: 2098811077795459637}
 --- !u!114 &8558563434706060000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1495,10 +1508,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61751b8f3f0f464e8e0b8aaabda2984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questionObject: {fileID: 2098811077795459637}
   trackroad: {fileID: 4170898016154197269, guid: 9054f1aabe8280a4b96a1f8f7b756a2e,
     type: 3}
   weightedObject: {fileID: 5676181673510375870}
-  questionObject: {fileID: 2098811077795459637}
   VERTICAL_SPEED: VERTICAL_SPEED
   MAX_SPEED: MAX_SPEED
   HORIZONTAL_SPEED: HORIZONTAL_SPEED
@@ -1510,20 +1523,6 @@ MonoBehaviour:
   NUM_OBSTACLE_TRACK: NUM_OBSTACLE_TRACK
   NUM_QUESTION_TRACK: NUM_QUESTION_TRACK
   INVINCIBILITY: INVINCIBILITY
-  MAX_CURVATURE: MAX_CURVATURE
---- !u!114 &6882861044485877530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3481553926144953643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46cf9cb707de7bf4bb2cc34d888ce822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questionObject: {fileID: 2098811077795459637}
 --- !u!1001 &5960271995313168240
 PrefabInstance:
   m_ObjectHideFlags: 0

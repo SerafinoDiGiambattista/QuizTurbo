@@ -48,7 +48,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a12b45c15391330408b45746093b85f4, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1034,6 +1034,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   namefeatures: []
   PathTutorial: Tutorial/EnableTutorial.txt
+--- !u!114 &6337577357946369097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460267443004938142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46cf9cb707de7bf4bb2cc34d888ce822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionObject: {fileID: 4121751157678483584}
 --- !u!114 &7301108347816987914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1112,10 +1125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61751b8f3f0f464e8e0b8aaabda2984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questionObject: {fileID: 4121751157678483584}
   trackroad: {fileID: 4170898016154197269, guid: 9054f1aabe8280a4b96a1f8f7b756a2e,
     type: 3}
   weightedObject: {fileID: 8566234111968685314}
-  questionObject: {fileID: 4121751157678483584}
   VERTICAL_SPEED: VERTICAL_SPEED
   MAX_SPEED: MAX_SPEED
   HORIZONTAL_SPEED: HORIZONTAL_SPEED
@@ -1127,20 +1140,6 @@ MonoBehaviour:
   NUM_OBSTACLE_TRACK: NUM_OBSTACLE_TRACK
   NUM_QUESTION_TRACK: NUM_QUESTION_TRACK
   INVINCIBILITY: INVINCIBILITY
-  MAX_CURVATURE: MAX_CURVATURE
---- !u!114 &6337577357946369097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1460267443004938142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46cf9cb707de7bf4bb2cc34d888ce822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questionObject: {fileID: 4121751157678483584}
 --- !u!1001 &2148370543336387681
 PrefabInstance:
   m_ObjectHideFlags: 0
