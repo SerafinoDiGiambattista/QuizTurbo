@@ -10,7 +10,7 @@ using System.Reflection;
 
 public class WeightRandomManager : MonoBehaviour
 {
-    [SerializeField] protected string TICKSPATH;    // Per modificare la probabilità nel temp
+    // Per modificare la probabilità nel temp
     [SerializeField] protected List<GameObject> objectsToSpawn;
     protected FeatureManager featureManager;
     protected TickManager tickmanager;

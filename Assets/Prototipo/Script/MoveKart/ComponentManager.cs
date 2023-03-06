@@ -130,15 +130,18 @@ public class ComponentManager : MonoBehaviour
     public void ComputeModifiers()
     {
         foreach (KeyValuePair<string, SComponent> kv in components)
-        {
+        { 
             Dictionary<string, Modifier> mod = components[kv.Key].MyModifiers;
             foreach (Modifier m in mod.Values)
             {
                 try
                 {
                     //if(m.Type.Equals("CURVATURE")) Debug.Log("add: " + m.AddFactor);
-                    featureMulMod[m.Type] *= m.MultFactor;
-                    featureAddMod[m.Type] += m.AddFactor;
+                    if (kv.Value.CheckTick())
+                    {
+                        featureMulMod[m.Type] *= m.MultFactor;
+                        featureAddMod[m.Type] += m.AddFactor;
+                    }
                 }
                 catch (Exception) { }
             }
@@ -197,23 +200,25 @@ public class ComponentManager : MonoBehaviour
     {
         foreach (SComponent c in components.Values)
         {
-           // Debug.Log("Valore di check "+c.CheckTick());
+         
             if (c.CheckTick())
             {
-                
+                //Debug.Log("Valore di check " + c.NameC + "mod ");
                 foreach (Modifier m in c.MyModifiers.Values)
                 {
                     if (allTicks.ContainsKey(m.GetName)) allTicks.Remove(m.GetName);
                     allTicks.Add(m.GetName, m);
+
                    // Debug.Log("CHIAVE ALLTICK : "+m.GetName);
                     foreach (Feature f in objFeatures.Values)
                     {
                         if (f.Type.Equals(m.Type))
                         {
+                            
                             float midVal = f.CurrentValue * featureMulMod[f.Type];
                             f.CurrentValue = midVal + featureAddMod[f.Type];
-                            
-          
+                           if(f.Type.Equals("HEALTH")) Debug.Log(midVal + "  " + featureAddMod[f.Type]);
+
                         }   
                     }
                 }

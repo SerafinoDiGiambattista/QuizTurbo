@@ -83,7 +83,7 @@ public class EffectTempManager : MonoBehaviour
                 {
                     Feature f1 = featureManager.Features[features];
                     f1.CurrentValue = prev[i];
-
+                    pass[i] = false;
                 }
 
             }

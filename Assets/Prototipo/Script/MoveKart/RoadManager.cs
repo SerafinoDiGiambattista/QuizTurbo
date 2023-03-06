@@ -174,7 +174,7 @@ public class RoadManager : MonoBehaviour
         horizontalSpeed = featureManager.FeatureValue(HORIZONTAL_SPEED);
         score_multiple = featureManager.FeatureValue(SCORE_MULTIPLIER);
         if(!tutorialManager.GetTutorial)Point += verticalSpeed * Time.deltaTime * score_multiple;
-       // Debug.Log("multiplier : "+score_multiple);
+        Debug.Log("vertical speed : "+verticalSpeed);
        
     
 
